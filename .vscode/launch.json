@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "shell",
+            "name": "RUN",
+            "request": "launch",
+            "mainClass": "com.example.Application",
+            "preLaunchTask": "compile and run"
+        }
+    ]
+}
