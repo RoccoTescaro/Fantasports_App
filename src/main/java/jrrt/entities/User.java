@@ -1,4 +1,4 @@
-package jrrt.solution;
+package jrrt.entities;
 
 import java.util.List;
 

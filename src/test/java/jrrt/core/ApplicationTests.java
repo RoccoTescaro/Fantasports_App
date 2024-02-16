@@ -1,10 +1,10 @@
-package jrrt.solution;
+package jrrt.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SolutionApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

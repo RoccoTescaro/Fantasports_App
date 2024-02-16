@@ -1,4 +1,4 @@
-package jrrt.solution;
+package jrrt.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
