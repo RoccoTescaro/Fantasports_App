@@ -1,10 +1,15 @@
 package jrrt.solution;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
+import jrrt.solution.League;
+import jrrt.solution.Player;
 
 @Entity
 @Table
@@ -18,22 +23,22 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String nickname;
 
-    public User(){}
+    // leghe a cui l'utente è iscritto
+    @ManyToMany(mappedBy = "users")
+    private List<League> attended_leagues; 
+
+    // leghe create dall'utente
+    @OneToMany(mappedBy = "creator")
+    private List<League> created_leagues;
+
+    // giocatori acquistati dall'utente
+    @OneToMany(mappedBy = "owner")
+    private List<Player> players;
 
     public User(String name)
     {
         this.name = name;
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 }

@@ -4,7 +4,7 @@
         {
             "label": "compile and run",
             "type": "shell",
-            "command": "./mvnw spring-boot:run",
+            "command": "./mvnw -q spring-boot:run",
             "group": {
                 "kind": "build",
                 "isDefault": true
