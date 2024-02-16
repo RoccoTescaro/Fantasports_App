@@ -7,9 +7,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
-import jrrt.solution.League;
-import jrrt.solution.Player;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Table
@@ -26,19 +25,19 @@ public class User
     private String nickname;
 
     // leghe a cui l'utente è iscritto
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany
     private List<League> attended_leagues; 
 
     // leghe create dall'utente
-    @OneToMany(mappedBy = "creator")
+    @OneToMany
     private List<League> created_leagues;
 
     // giocatori acquistati dall'utente
-    @OneToMany(mappedBy = "owner")
+    @OneToMany
     private List<Player> players;
 
     public User(String name)
     {
-        this.name = name;
+        this.nickname = name;
     }
 }
