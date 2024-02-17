@@ -11,6 +11,7 @@ public class PageHandler
 
     public void setPage(PageState page) 
     {
-        currentPage = page;
+        currentPage.quit();
+        if (page != null) currentPage = page;
     }
 }
