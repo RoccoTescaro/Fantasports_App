@@ -14,6 +14,7 @@ public abstract class PageState
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        frame.setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
     }
 
     public PageState(PageHandler handler, int width, int height) 
