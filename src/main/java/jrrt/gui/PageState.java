@@ -13,7 +13,7 @@ public abstract class PageState
 
     protected static final int BORDER_PADDING = 16;
     protected static final int BUTTON_WIDTH = 128;
-    protected static final int BUTTON_HEIGHT = 36;
+    protected static final int BUTTON_HEIGHT = 32;
     protected static final int FONT_SIZE = 20;
     protected static final String FONT_NAME = "Calibri";
     protected static final int TEXT_FIELD_WIDTH = 128;

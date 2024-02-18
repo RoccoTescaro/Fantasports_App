@@ -22,7 +22,7 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nickname;
+    private String username;
 
     // leghe a cui l'utente è iscritto
     @ManyToMany
@@ -38,6 +38,6 @@ public class User
 
     public User(String name)
     {
-        this.nickname = name;
+        this.username = name;
     }
 }

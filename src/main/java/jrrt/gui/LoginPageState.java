@@ -8,91 +8,81 @@ import java.awt.event.ActionEvent;
 public class LoginPageState extends PageState 
 {
     private static final int WINDOW_WIDTH = 360;
-    private static final int WINDOW_HEIGHT = 208;
-
+    private static final int WINDOW_HEIGHT = 224;
     private static final int TOGGLE_BUTTON_SIZE = 12;
+    private static final int STATUS_HEIGHT = 24;
 
     public LoginPageState(PageHandler handler) 
     {
         super(handler, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        JPanel login_panel = createLoginPanel();
-        JPanel join_button_panel = createJoinButtonPanel();
+        JPanel context = new JPanel();
+        context.setLayout(new BoxLayout(context, BoxLayout.Y_AXIS));
 
-        window.add(login_panel, BorderLayout.CENTER);
-        window.add(join_button_panel, BorderLayout.SOUTH);
+        context.add(createLoginPanel());
+        context.add(createButtonPanel());
+        context.add(createStatusPanel());
 
+        window.add(context, BorderLayout.CENTER);
         refresh();
     }
 
     private JPanel createLoginPanel() 
     {
-        JPanel login_panel = new JPanel();
-        login_panel.setLayout(new BoxLayout(login_panel, BoxLayout.Y_AXIS));
+        JPanel login_panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
 
-        JPanel username_line = createUsernameLine();
-        JPanel password_line = createPasswordLine();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.NORTHWEST;
+        login_panel.add(createUsernameLine(), constraints);
 
-        login_panel.add(username_line);
-        login_panel.add(Box.createVerticalStrut(VERTICAL_LINE_SPACING));
-        login_panel.add(password_line);
-        
-        login_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.NORTHWEST;
+        login_panel.add(Box.createVerticalStrut(VERTICAL_LINE_SPACING), constraints);
 
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.anchor = GridBagConstraints.NORTHWEST;
+        login_panel.add(createPasswordLine(), constraints);
+
+        login_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, 0, BORDER_PADDING));
         return login_panel;
     }
 
     private JPanel createUsernameLine() 
     {
-        JPanel username_line = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-
-        JLabel username_label = createLabel("Username: ");
-        username_label.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.WEST;
-        username_line.add(username_label, constraints);
-
-        JTextField username_field = createTextField();
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.EAST;
-        username_line.add(username_field, constraints);
-
-        constraints.gridx = 2;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.EAST;
-        username_line.add(Box.createHorizontalStrut(TOGGLE_BUTTON_SIZE), constraints);
-
-        return username_line;
+        return createLinePanel("Username: ", createTextField());
     }
 
     private JPanel createPasswordLine() 
     {
-        JPanel password_line = new JPanel(new GridBagLayout());
+        JPasswordField password_field = createPasswordField();
+        return createLinePanel("Password: ", password_field, createToggleButton(password_field));
+    }
+
+    private JPanel createLinePanel(String labelText, Component... components) 
+    {
+        JPanel line_panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        JLabel password_label = createLabel("Password: ");
-        password_label.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
+        JLabel label = createLabel(labelText);
+        label.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.WEST;
-        password_line.add(password_label, constraints);
+        line_panel.add(label, constraints);
 
-        JPasswordField password_field = createPasswordField();
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.EAST;
-        password_line.add(password_field, constraints);
+        for (int i = 0; i < components.length; i++) 
+        {
+            constraints.gridx = i + 1;
+            constraints.gridy = 0;
+            constraints.anchor = GridBagConstraints.EAST;
+            line_panel.add(components[i], constraints);
+        }
 
-        JToggleButton toggle_button = createToggleButton(password_field);
-        constraints.gridx = 2;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.EAST;
-        password_line.add(toggle_button, constraints);
-
-        return password_line;
+        return line_panel;
     }
 
     private JPasswordField createPasswordField() 
@@ -117,21 +107,54 @@ public class LoginPageState extends PageState
         return toggle_button;
     }
 
-    private JPanel createJoinButtonPanel() 
+    private JPanel createButtonPanel() 
     {
-        JPanel join_button_panel = new JPanel();
+        JPanel button_panel = createPanelWithFixedSize(WINDOW_WIDTH, 64);
+        button_panel.add(createButton("Sign Up"));
+        button_panel.add(createButton("Join"));
+        button_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
+        return button_panel;
+    }
 
-        JButton join_button = new JButton("Join");
-        join_button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        join_button.addActionListener((ActionEvent e) -> 
+    private JButton createButton(String buttonText) 
+    {
+        JButton button = new JButton(buttonText);
+        button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
+        button.addActionListener((ActionEvent e) -> 
         {
-            System.out.println("Join button pressed");
-            handler.setPage(new MainMenuPageState(handler));
+            System.out.println(buttonText + " button pressed");
+            if (buttonText.equals("Join")) handler.setPage(new MainMenuPageState(handler));
         });
+        return button;
+    }
 
-        join_button_panel.add(join_button);
-        join_button_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
+    private JPanel createStatusPanel() 
+    {
+        JPanel status_panel = createPanelWithFixedSize(WINDOW_WIDTH, STATUS_HEIGHT);
+        JLabel status_label = new JLabel("Field parameters are okay.");
+        status_label.setHorizontalAlignment(SwingConstants.CENTER);
+        status_panel.add(status_label);
+        return status_panel;
+    }
 
-        return join_button_panel;
+    private JPanel createPanelWithFixedSize(int width, int height) 
+    {
+        return new JPanel() 
+        {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(width, height);
+            }
+
+            @Override
+            public Dimension getMinimumSize() {
+                return getPreferredSize();
+            }
+
+            @Override
+            public Dimension getMaximumSize() {
+                return getPreferredSize();
+            }
+        };
     }
 }
