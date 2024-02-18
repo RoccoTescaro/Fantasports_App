@@ -5,12 +5,20 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import jrrt.controllers.UserController;
+
 public class LoginPageState extends PageState 
 {
     private static final int WINDOW_WIDTH = 360;
     private static final int WINDOW_HEIGHT = 224;
     private static final int TOGGLE_BUTTON_SIZE = 12;
     private static final int STATUS_HEIGHT = 24;
+
+    private UserController user_controller = new UserController();
+
+    private JTextField username_field;
+    private JPasswordField password_field;
+    private JLabel status_label;
 
     public LoginPageState(PageHandler handler) 
     {
@@ -53,21 +61,22 @@ public class LoginPageState extends PageState
 
     private JPanel createUsernameLine() 
     {
-        return createLinePanel("Username: ", createTextField());
+        username_field = createTextField();
+        return createLinePanel("Username: ", username_field);
     }
 
     private JPanel createPasswordLine() 
     {
-        JPasswordField password_field = createPasswordField();
+        password_field = createPasswordField();
         return createLinePanel("Password: ", password_field, createToggleButton(password_field));
     }
 
-    private JPanel createLinePanel(String labelText, Component... components) 
+    private JPanel createLinePanel(String label_text, Component... components) 
     {
         JPanel line_panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        JLabel label = createLabel(labelText);
+        JLabel label = createLabel(label_text);
         label.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -87,7 +96,7 @@ public class LoginPageState extends PageState
 
     private JPasswordField createPasswordField() 
     {
-        JPasswordField password_field = new JPasswordField();
+        password_field = new JPasswordField();
         password_field.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
         password_field.setFont(new Font(FONT_NAME, Font.PLAIN, FONT_SIZE));
         return password_field;
@@ -110,20 +119,37 @@ public class LoginPageState extends PageState
     private JPanel createButtonPanel() 
     {
         JPanel button_panel = createPanelWithFixedSize(WINDOW_WIDTH, 64);
-        button_panel.add(createButton("Sign Up"));
-        button_panel.add(createButton("Join"));
+        button_panel.add(createButton("Sign up"));
+        button_panel.add(createButton("Log in"));
         button_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, BORDER_PADDING, BORDER_PADDING));
         return button_panel;
     }
 
-    private JButton createButton(String buttonText) 
+    private JButton createButton(String button_text) 
     {
-        JButton button = new JButton(buttonText);
+        JButton button = new JButton(button_text);
         button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
         button.addActionListener((ActionEvent e) -> 
         {
-            System.out.println(buttonText + " button pressed");
-            if (buttonText.equals("Join")) handler.setPage(new MainMenuPageState(handler));
+            System.out.println(button_text + " button pressed");
+            
+            if (button_text.equals("Sign up")) 
+            {
+                boolean user_exists = user_controller.get(username_field.getText(), password_field.getPassword()) == null;
+
+                if (user_exists) 
+                    status_label.setText("User already exists.");
+
+            } 
+            else if (button_text.equals("Log in")) 
+            {
+                boolean valid_credentials = user_controller.get(username_field.getText(), password_field.getPassword()) != null;
+
+                if (valid_credentials)
+                    handler.setPage(new MainMenuPageState(handler));
+                else
+                    status_label.setText("Invalid credentials.");
+            }
         });
         return button;
     }
@@ -131,7 +157,7 @@ public class LoginPageState extends PageState
     private JPanel createStatusPanel() 
     {
         JPanel status_panel = createPanelWithFixedSize(WINDOW_WIDTH, STATUS_HEIGHT);
-        JLabel status_label = new JLabel("Field parameters are okay.");
+        status_label = new JLabel("");
         status_label.setHorizontalAlignment(SwingConstants.CENTER);
         status_panel.add(status_label);
         return status_panel;

@@ -12,14 +12,15 @@ public class UserController
         dao = new DataAccessObject(); 
     }
 
-    UserController add(User user)
+    public UserController add(User user)
     {
         dao.addUser(user);
         return this;
     }
 
-    User get(String username, String password)
+    public User get(String username, char[] password)
     {
-        return dao.getUser(username, password);
+        return null;
+        //return dao.getUser(username, password);
     }
 }
