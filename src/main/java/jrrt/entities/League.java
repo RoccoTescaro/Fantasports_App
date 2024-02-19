@@ -39,7 +39,7 @@ public class League
     @NonNull
     private User league_creator;
 
-    public League(String name)
+    public void setName(String name)
     {
         this.name = name;
     }

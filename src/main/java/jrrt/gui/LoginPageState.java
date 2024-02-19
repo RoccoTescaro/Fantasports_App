@@ -44,7 +44,8 @@ public class LoginPageState extends PageState
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.NORTHWEST;
-        login_panel.add(createUsernameLine(), constraints);
+        username_field = createTextField();
+        login_panel.add(createLinePanel("Username: ", username_field), constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -58,12 +59,6 @@ public class LoginPageState extends PageState
 
         login_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, 0, BORDER_PADDING));
         return login_panel;
-    }
-
-    private JPanel createUsernameLine() 
-    {
-        username_field = createTextField();
-        return createLinePanel("Username: ", username_field);
     }
 
     private JPanel createPasswordLine() 

@@ -35,7 +35,7 @@ public class Player
     @ManyToMany
     private List<User> player_users;
 
-    public Player(String name)
+    public void setName(String name)
     {
         this.name = name;
     }
