@@ -1,5 +1,8 @@
 package jrrt.gui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -16,6 +19,7 @@ public class LoginPageState extends PageState
     private static final int STATUS_HEIGHT = 24;
 
     private Dao<User> user_dao = new UserDao();
+    private Map<String, Runnable> button_actions;
 
     private JTextField username_field;
     private JPasswordField password_field;
@@ -24,6 +28,10 @@ public class LoginPageState extends PageState
     public LoginPageState(PageHandler handler) 
     {
         super(handler, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        button_actions = new HashMap<>();
+        button_actions.put("Sign up", this::signUpAction);
+        button_actions.put("Log in", this::logInAction);
 
         JPanel context = new JPanel();
         context.setLayout(new BoxLayout(context, BoxLayout.Y_AXIS));
@@ -39,51 +47,49 @@ public class LoginPageState extends PageState
     private JPanel createLoginPanel() 
     {
         JPanel login_panel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
 
+<<<<<<< HEAD
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.NORTHWEST;
+=======
+        GridBagConstraints constraints = createGridBagConstraints(0, 0, GridBagConstraints.NORTHWEST);
+>>>>>>> 872d112753e88876e22bc226737e17379627fb43
         username_field = createTextField();
         login_panel.add(createLinePanel("Username: ", username_field), constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        constraints.anchor = GridBagConstraints.NORTHWEST;
+        constraints = createGridBagConstraints(0, 1, GridBagConstraints.NORTHWEST);
         login_panel.add(Box.createVerticalStrut(VERTICAL_LINE_SPACING), constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.anchor = GridBagConstraints.NORTHWEST;
-        login_panel.add(createPasswordLine(), constraints);
+        constraints = createGridBagConstraints(0, 2, GridBagConstraints.NORTHWEST);
+        password_field = createPasswordField();
+        login_panel.add(createLinePanel("Password: ", password_field, createToggleButton(password_field)), constraints);
 
         login_panel.setBorder(new EmptyBorder(BORDER_PADDING, BORDER_PADDING, 0, BORDER_PADDING));
         return login_panel;
     }
 
+<<<<<<< HEAD
     private JPanel createPasswordLine() 
     {
         password_field = createPasswordField();
         return createLinePanel("Password: ", password_field, createToggleButton(password_field));
     }
 
+=======
+>>>>>>> 872d112753e88876e22bc226737e17379627fb43
     private JPanel createLinePanel(String label_text, Component... components) 
     {
         JPanel line_panel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        GridBagConstraints constraints = createGridBagConstraints(0, 0, GridBagConstraints.WEST);
 
         JLabel label = createLabel(label_text);
         label.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.WEST;
         line_panel.add(label, constraints);
 
         for (int i = 0; i < components.length; i++) 
         {
-            constraints.gridx = i + 1;
-            constraints.gridy = 0;
-            constraints.anchor = GridBagConstraints.EAST;
+           constraints = createGridBagConstraints(i + 1, 0, GridBagConstraints.EAST);
             line_panel.add(components[i], constraints);
         }
 
@@ -125,28 +131,7 @@ public class LoginPageState extends PageState
     {
         JButton button = new JButton(button_text);
         button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
-        button.addActionListener((ActionEvent e) -> 
-        {
-            System.out.println(button_text + " button pressed");
-            
-            if (button_text.equals("Sign up")) 
-            {
-                boolean user_exists = true;
-
-                if (user_exists) 
-                    status_label.setText("User already exists.");
-
-            } 
-            else if (button_text.equals("Log in")) 
-            {
-                boolean valid_credentials = true;
-
-                if (valid_credentials)
-                    handler.setPage(new MainMenuPageState(handler));
-                else
-                    status_label.setText("Invalid credentials.");
-            }
-        });
+        button.addActionListener((ActionEvent e) -> button_actions.get(button_text).run());
         return button;
     }
 
@@ -178,5 +163,29 @@ public class LoginPageState extends PageState
                 return getPreferredSize();
             }
         };
+
+        
+    }
+
+    private GridBagConstraints createGridBagConstraints(int gridx, int gridy, int anchor)
+    {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = gridx;
+        constraints.gridy = gridy;
+        constraints.anchor = anchor;
+        return constraints;
+    }
+
+    private void signUpAction() 
+    {
+        boolean user_exists = true;
+        if (user_exists) status_label.setText("User already exists.");
+    }
+
+    private void logInAction() 
+    {
+        boolean valid_credentials = true;
+        if (valid_credentials) handler.setPage(new MainMenuPageState(handler));
+        else status_label.setText("Invalid credentials.");
     }
 }
