@@ -43,11 +43,11 @@ public class MainMenuPageState extends PageState
         createNewLeagueButton = new JButton("Create new League");
         userLabel.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 
-        leaguesTable = new JTable(new DefaultTableModel(new Object[]{"League Name", "Status"}, 0));
-        leaguesTable.setPreferredScrollableViewportSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
+        leaguesTable = new JTable(new DefaultTableModel(new Object[]{"League", "Status"}, 0));
+        //leaguesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         leaguesTable.setFillsViewportHeight(true);
-        alertsTable = new JTable(new DefaultTableModel(new Object[]{"Alert Message", "Time"}, 0));
-        alertsTable.setPreferredScrollableViewportSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
+        alertsTable = new JTable(new DefaultTableModel(new Object[]{"Time", "Alert Message"}, 0));
+        //alertsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         alertsTable.setFillsViewportHeight(true);
     }
 
@@ -56,9 +56,14 @@ public class MainMenuPageState extends PageState
         window.getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        JPanel innerPanel = new JPanel();
+        JPanel innerPanel = new JPanel()
+        {
+            @Override
+            public Dimension getPreferredSize() {
+                return getMinimumSize();
+            }
+        };
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
-    
         innerPanel.add(userLabel);
         innerPanel.add(emailLabel);
         innerPanel.add(yourLeaguesLabel);
@@ -70,40 +75,50 @@ public class MainMenuPageState extends PageState
         constraints.gridy = 0;    
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        constraints.weightx = 2.5;
-        constraints.weighty = 0.25;
+        constraints.weightx = 3.0;
+        constraints.weighty = 0.05;
         constraints.fill = GridBagConstraints.BOTH;
         window.getContentPane().add(outerPanel, constraints);
     
-        innerPanel = new JPanel();
+        innerPanel = new JPanel()
+        {
+            @Override
+            public Dimension getPreferredSize() {
+                return getMinimumSize();
+            }
+        };
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
         innerPanel.add(alertsLabel);
         outerPanel = new JPanel(new BorderLayout());
         outerPanel.add(innerPanel, BorderLayout.SOUTH);
         constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.SOUTH; // Align to bottom
+        constraints.weightx = 0.5;
         window.getContentPane().add(outerPanel, constraints);
 
         JScrollPane leaguesScrollPane = new JScrollPane(leaguesTable);
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridheight = 3;
+        constraints.weightx = 3.0;
         constraints.weighty = 3.0;
         window.getContentPane().add(leaguesScrollPane, constraints);
     
         JScrollPane alertsScrollPane = new JScrollPane(alertsTable);
         constraints.gridx = 1;
         constraints.gridy = 1;
+        constraints.weightx = 0.5;
         window.getContentPane().add(alertsScrollPane, constraints);
     
         constraints.gridx = 0;
         constraints.gridy = 4;
+        constraints.gridwidth = 2;
         constraints.gridheight = 1;
         constraints.weighty = 0.25;
         window.getContentPane().add(joinButton, constraints);
     
-        constraints.gridx = 1;
+        constraints.gridx = 0;
+        constraints.gridy = 5;
         window.getContentPane().add(createNewLeagueButton, constraints);
     }
 
