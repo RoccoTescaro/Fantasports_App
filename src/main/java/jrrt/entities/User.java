@@ -36,7 +36,7 @@ public class User
     @OneToMany
     private List<Player> players;
 
-    public User(String name)
+    public void setUsername(String name)
     {
         this.username = name;
     }

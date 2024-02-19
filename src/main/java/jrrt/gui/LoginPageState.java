@@ -8,7 +8,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import jrrt.controllers.UserController;
+import jrrt.daosystem.*;
+import jrrt.entities.User;
 
 public class LoginPageState extends PageState 
 {
@@ -17,7 +18,7 @@ public class LoginPageState extends PageState
     private static final int TOGGLE_BUTTON_SIZE = 12;
     private static final int STATUS_HEIGHT = 24;
 
-    private UserController user_controller = new UserController();
+    private Dao<User> user_dao = new UserDao();
     private Map<String, Runnable> button_actions;
 
     private JTextField username_field;
@@ -162,7 +163,7 @@ public class LoginPageState extends PageState
 
     private void signUpAction() 
     {
-        boolean user_exists = user_controller.get(username_field.getText(), password_field.getPassword()) == null;
+        boolean user_exists = true;
         if (user_exists) status_label.setText("User already exists.");
     }
 
