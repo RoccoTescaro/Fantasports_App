@@ -47,14 +47,7 @@ public class LoginPageState extends PageState
     private JPanel createLoginPanel() 
     {
         JPanel login_panel = new JPanel(new GridBagLayout());
-
-<<<<<<< HEAD
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.anchor = GridBagConstraints.NORTHWEST;
-=======
         GridBagConstraints constraints = createGridBagConstraints(0, 0, GridBagConstraints.NORTHWEST);
->>>>>>> 872d112753e88876e22bc226737e17379627fb43
         username_field = createTextField();
         login_panel.add(createLinePanel("Username: ", username_field), constraints);
 
@@ -69,15 +62,6 @@ public class LoginPageState extends PageState
         return login_panel;
     }
 
-<<<<<<< HEAD
-    private JPanel createPasswordLine() 
-    {
-        password_field = createPasswordField();
-        return createLinePanel("Password: ", password_field, createToggleButton(password_field));
-    }
-
-=======
->>>>>>> 872d112753e88876e22bc226737e17379627fb43
     private JPanel createLinePanel(String label_text, Component... components) 
     {
         JPanel line_panel = new JPanel(new GridBagLayout());
