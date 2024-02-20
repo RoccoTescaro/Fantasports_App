@@ -25,6 +25,7 @@ public class Player
     private Long id;
 
     private String name;
+    
 
     // lega a cui il giocatore appartiene
     @ManyToOne

@@ -25,6 +25,9 @@ public class League
     private Long id;
 
     private String name;
+    private int number_participants;
+    private int number_players;
+    private int number_formations;
 
     // utenti che partecipano alla lega
     @ManyToMany
