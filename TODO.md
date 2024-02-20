@@ -1,4 +1,3 @@
 - [ ] clear code for LoginPageState (remove useless functions, make it uniform)
-- [x] implement UserController functions (separate exist from get)
 - [ ] implement DataAccessObject functions
 - [ ] create repository for user data
