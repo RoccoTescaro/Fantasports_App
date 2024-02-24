@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 public class PageHandler 
 {
@@ -16,3 +16,4 @@ public class PageHandler
         if (page != null) currentPage = page;
     }
 }
+*/

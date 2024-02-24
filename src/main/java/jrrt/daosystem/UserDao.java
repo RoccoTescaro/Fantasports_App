@@ -1,4 +1,4 @@
-package jrrt.daosystem;
+package jrrt.core.daosystem;
 
 import java.util.Optional;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jrrt.core.repositories.UserRepo;
 import jrrt.entities.User;
-import jrrt.repositories.UserRepo;
 
 @Controller
 public class UserDao implements Dao<User> 

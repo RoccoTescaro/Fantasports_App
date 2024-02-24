@@ -1,4 +1,4 @@
-package jrrt.repositories;
+package jrrt.core.repositories;
 
 import java.util.Optional;
 

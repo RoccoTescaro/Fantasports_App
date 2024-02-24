@@ -1,4 +1,4 @@
-package jrrt.daosystem;
+package jrrt.core.daosystem;
 
 import java.util.Optional;
 import java.util.List;

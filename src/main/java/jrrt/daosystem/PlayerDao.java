@@ -1,4 +1,4 @@
-package jrrt.daosystem;
+package jrrt.core.daosystem;
 
 import jrrt.entities.Player;
 

@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class MainMenuPageState extends PageState 
+/*public class MainMenuPageState extends PageState 
 {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 700;
@@ -199,3 +199,4 @@ public class MainMenuPageState extends PageState
         }
     }
 }   
+*/

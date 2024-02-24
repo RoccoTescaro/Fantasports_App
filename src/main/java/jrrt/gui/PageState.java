@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
@@ -68,3 +68,4 @@ public abstract class PageState
         return textField;
     }
 }
+ */
