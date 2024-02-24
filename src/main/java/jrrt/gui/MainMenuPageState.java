@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
