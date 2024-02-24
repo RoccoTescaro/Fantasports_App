@@ -54,7 +54,6 @@ public class LoginPageState extends PageState
     private JPanel createLoginPanel() 
     {
         JPanel login_panel = new JPanel(new GridBagLayout());
-
         GridBagConstraints constraints = createGridBagConstraints(0, 0, GridBagConstraints.NORTHWEST);
         username_field = createTextField();
         login_panel.add(createLinePanel("Username: ", username_field), constraints);

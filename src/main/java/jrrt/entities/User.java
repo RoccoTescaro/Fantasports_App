@@ -19,6 +19,8 @@ public class User
     private Long id;
 
     private String username;
+    private String email;
+    private String password;
 
     // leghe a cui l'utente è iscritto
     @ManyToMany
