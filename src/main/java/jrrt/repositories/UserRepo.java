@@ -1,42 +1,16 @@
 package jrrt.repositories;
 
-import jakarta.persistence.EntityManager;
+import java.util.Optional;
 
-import jrrt.daosystem.UserDao;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import jrrt.entities.User;
 
 @Repository
-public interface UserRepo implements UserDao 
+public interface UserRepo extends CrudRepository<User, Long>
 {
-    @Query ("SELECT u FROM User u WHERE u.username = :username")
-    @Override
-    public Optional<User> findByUsername(String username);
-
-    @Query ("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
-    @Override
-    public Optional<User> findByUsernameAndPassword(String username, String password);
-
-    @Query ("SELECT u FROM User u WHERE u.email = :email")
-    @Override
-    public Optional<User> findByEmail(String email);
-
-    @Query ("SELECT u FROM User u WHERE u.email = :email AND u.password = :password")
-    @Override
-    public Optional<User> findByEmailAndPassword(String email, String password);
-
-    @Query ("SELECT u FROM User u WHERE u.id = :id")
-    @Override
-    public Optional<User> findById(Long id);
-
-    @Query ("SELECT u FROM User u")
-    @Override
-    public List<User> findAll();
-
-    @Override
-    public void save(User user);
-
-    @Override
-    public void update(User user);
-
-    @Override
-    public void delete(User user);
+    //@Query("SELECT u FROM User u WHERE u.username = ?1")
+    //public Optional<User> getByName(String name);
 }

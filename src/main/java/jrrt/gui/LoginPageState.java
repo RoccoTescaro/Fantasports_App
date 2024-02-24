@@ -7,9 +7,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jrrt.daosystem.*;
 import jrrt.entities.User;
+import jrrt.repositories.UserRepo;
 
 public class LoginPageState extends PageState 
 {
@@ -18,7 +20,9 @@ public class LoginPageState extends PageState
     private static final int TOGGLE_BUTTON_SIZE = 12;
     private static final int STATUS_HEIGHT = 24;
 
-    private UserDao user_dao = new UserRepo();
+    //@Autowired
+    //private UserDao user_dao;
+    
     private Map<String, Runnable> button_actions;
 
     private JTextField username_field;
@@ -28,6 +32,8 @@ public class LoginPageState extends PageState
     public LoginPageState(PageHandler handler) 
     {
         super(handler, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        System.out.println("LoginPageState created");
 
         button_actions = new HashMap<>();
         button_actions.put("Sign up", this::signUpAction);
@@ -42,6 +48,7 @@ public class LoginPageState extends PageState
 
         window.add(context, BorderLayout.CENTER);
         refresh();
+        System.out.println("here");
     }
 
     private JPanel createLoginPanel() 
@@ -163,7 +170,7 @@ public class LoginPageState extends PageState
 
     private void signUpAction() 
     {
-        boolean user_exists = true;
+        boolean user_exists = true;//user_dao.getByName(username_field.getText()).isPresent();
         if (user_exists) status_label.setText("User already exists.");
     }
 

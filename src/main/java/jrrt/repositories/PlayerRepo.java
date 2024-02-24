@@ -1,4 +1,4 @@
-package jrrt.repositories;
+/*package jrrt.repositories;
 
 import jakarta.persistence.EntityManager;
 
@@ -39,4 +39,4 @@ public class PlayerRepo implements UserDao
     {
         return entity_manager.createQuery("SELECT t FROM users t", User.class).getResultList();
     }
-}
+}*/

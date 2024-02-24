@@ -9,7 +9,7 @@ import java.awt.Dimension;
 
 public abstract class PageState 
 {
-    protected final JFrame window;
+    protected JFrame window;
 
     protected static final int BORDER_PADDING = 16;
     protected static final int BUTTON_WIDTH = 128;
@@ -25,6 +25,7 @@ public abstract class PageState
 
     public PageState(PageHandler handler) 
     {
+        System.out.println("PageState created");
         this.handler = handler;
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -5,13 +5,9 @@ import java.util.List;
 
 public interface Dao<T> 
 {
-    Optional<T> get(Long id);
-
-    List<T> getAll();
-
-    void add(T t);
-
-    void update(T t, String[] params);
-
-    void delete(T t);
+    public Dao<T> save(T t);
+    public Dao<T> delete(T t);
+    public Dao<T> update(T t, String[] params);
+    public List<T> getAll();
+    public Optional<T> get(Long id);
 }

@@ -1,4 +1,4 @@
-package jrrt.repositories;
+/*package jrrt.repositories;
 
 import jakarta.persistence.EntityManager;
 
@@ -50,4 +50,4 @@ public class LeagueRepo implements LeagueDao
     {
         return em.createQuery("SELECT l FROM League l", League.class).getResultList();
     }
-}
+}*/

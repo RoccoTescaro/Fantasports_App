@@ -1,9 +1,10 @@
 package jrrt.daosystem;
 
-import java.util.Optional;
-import java.util.List;
+import jrrt.entities.Player;
 
 public interface PlayerDao extends Dao<Player> 
 {
-    Optional<Player> findByUsername(String username);
+    int getVote(Player player);
+
+    int getVote(String name);
 }

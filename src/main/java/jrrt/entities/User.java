@@ -11,11 +11,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@Table
-(
-    name = "users"
-)
-
+@Table(name = "users")
 public class User
 {
     @Id
@@ -36,8 +32,27 @@ public class User
     @OneToMany
     private List<Player> players;
 
-    public void setUsername(String name)
+    //JPA must have a default constructor (not necessarily public), 
+    //Spring web need it public for the login form
+
+    @Override
+    public String toString()
     {
-        this.username = name;
+        return String.format("User[id=%d, username='%s']", id, username);
+    }
+
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    public String getUsername()
+    {
+        return this.username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 }

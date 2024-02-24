@@ -6,6 +6,7 @@ public class PageHandler
 
     public PageHandler() 
     {
+        System.out.println("PageHandler created");
         currentPage = new LoginPageState(this);
     }
 
