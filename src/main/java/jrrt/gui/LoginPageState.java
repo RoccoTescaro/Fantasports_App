@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -179,4 +179,4 @@ public class LoginPageState extends PageState
         if (valid_credentials) handler.setPage(new MainMenuPageState(handler));
         else status_label.setText("Invalid credentials.");
     }
-}
+}*/

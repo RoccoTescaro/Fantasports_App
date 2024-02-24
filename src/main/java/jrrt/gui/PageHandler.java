@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 public class PageHandler 
 {
@@ -15,4 +15,4 @@ public class PageHandler
         currentPage.quit();
         if (page != null) currentPage = page;
     }
-}
+}*/

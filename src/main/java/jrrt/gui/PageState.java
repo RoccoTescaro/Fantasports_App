@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
@@ -67,4 +67,4 @@ public abstract class PageState
         textField.setFont(new Font(FONT_NAME, Font.PLAIN, FONT_SIZE));
         return textField;
     }
-}
+}*/
