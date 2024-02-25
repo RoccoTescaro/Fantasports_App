@@ -1,0 +1,90 @@
+:root 
+{
+    --dracula-background: #282a36; /* Background */
+    --dracula-foreground: #f8f8f2; /* Text */
+    --dracula-accent: #ffb86c; /* Accent */
+    --dracula-card: #44475a; /* Card background */
+    --dracula-input-background: #282a36; /* Input background */
+    --dracula-input-border: #44475a; /* Input border */
+    --dracula-input-text: #f8f8f2; /* Input text */
+    --dracula-button-hover: #6272a4; /* Accent hover */
+    --dracula-button-hover-border: #8be9fd; /* Accent active */
+    --dracula-foreground-secondary: #000000; /* Secondary text */
+}
+
+body 
+{
+    background-color: var(--dracula-background);
+    color: var(--dracula-foreground);
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
+.center-container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form
+{
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--dracula-card);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-control 
+{
+    background-color: var(--dracula-input-background); 
+    border-color: var(--dracula-input-border); 
+    color: var(--dracula-input-text); 
+    border-radius: 5px;
+}
+
+.form-control:focus 
+{
+    background-color: var(--dracula-input-background); 
+    border-color: var(--dracula-accent); 
+    color: var(--dracula-input-text); 
+}
+
+.btn-primary 
+{
+    background-color: var(--dracula-accent);
+    border-color: var(--dracula-accent);
+    color: var(--dracula-foreground-secondary);
+}
+
+.btn-primary:hover 
+{
+    background-color: var(--dracula-button-hover);
+    border-color: var(--dracula-button-hover-border);
+}
+
+.top-bar 
+{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: var(--dracula-card); /* Added background color */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.username 
+{
+    font-weight: bold;
+}
+  
