@@ -16,20 +16,31 @@
             <!-- th:action="@{/login}" send the data to /login (via POST) -->
             <!-- th:object="${user}" binds the form to the user object (the addAttribute of Model) -->
             
-            <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+            <form id="form" th:object="${user}" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label"><b>Username</b></label>
                     <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" th:field="*{username}">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label"><b>Password</b></label>
-                    <input type="password" class="form-control" id="password"> <!-- TODO -->
+                    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" th:field="*{password}">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="mb-3 text-center">
+                    <p th:text="${info}"></p>
+                    <button class="btn btn-primary" onclick="actionForm('/signup')">SignUp</button>
+                    <button class="btn btn-primary" onclick="actionForm('/login')">Login</button>
+                </div>
             </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function actionForm(action)
+        {
+            document.getElementById('form').action = action;
+            document.getElementById('form').submit();
+        }
+    </script>
 </body>
 </html>
 
