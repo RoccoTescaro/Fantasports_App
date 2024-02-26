@@ -18,6 +18,8 @@ body
     color: var(--dracula-foreground);
     min-height: 100vh;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 .center-container 
@@ -32,6 +34,14 @@ body
 {
     display: flex;
     flex-direction: column;
+    background-color: var(--dracula-card);
+    color: var(--dracula-foreground);
+    border-radius: 10px;
+}
+
+.container[role = "main"] 
+{
+    flex-grow: 1;
 }
 
 .login-form
@@ -40,7 +50,7 @@ body
     padding: 20px;
     border-radius: 10px;
     background-color: var(--dracula-card);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .form-control 
@@ -71,16 +81,16 @@ body
     border-color: var(--dracula-button-hover-border);
 }
 
-.top-bar 
+nav
 {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    background-color: var(--dracula-card); /* Added background color */
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
+    background-color: var(--dracula-card) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    color: var(--dracula-foreground) !important;
+}
+
+.navbar-nav .nav-link, .navbar-item, .navbar-brand, .navbar-collapse, .navbar-expand-lg
+{
+    color: var(--dracula-foreground) !important;
 }
 
 .username 
