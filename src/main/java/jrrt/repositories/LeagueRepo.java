@@ -1,4 +1,4 @@
-package jrrt.core.repositories;
+package jrrt.repositories;
 /*package jrrt.repositories;
 
 import jakarta.persistence.EntityManager;

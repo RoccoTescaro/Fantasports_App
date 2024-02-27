@@ -1,3 +1,6 @@
 - [ ] clear code for LoginPageState (remove useless functions, make it uniform)
 - [ ] implement DataAccessObject functions
 - [ ] create repository for user data
+- [ ] complete entites like user
+- [ ] implement Dao
+- [ ] Beauty Html (CSS, bootstrap)
