@@ -1,4 +1,4 @@
-package jrrt.repositories;
+
 /*package jrrt.repositories;
 
 import jakarta.persistence.EntityManager;
@@ -52,3 +52,20 @@ public class LeagueRepo implements LeagueDao
         return em.createQuery("SELECT l FROM League l", League.class).getResultList();
     }
 }*/
+
+package jrrt.repositories;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import jrrt.entities.League;
+
+@Repository
+public interface LeagueRepo extends CrudRepository<League, Long>
+{
+    //@Query("SELECT u FROM User u WHERE u.username = ?1")
+    //public Optional<User> getByName(String name);
+}

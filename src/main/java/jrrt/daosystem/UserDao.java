@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jrrt.entities.User;
+import jrrt.entities.League;
 import jrrt.repositories.UserRepo;
 
 @Service
@@ -57,5 +58,10 @@ public class UserDao implements Dao<User>
     public Optional<User> getByName(String name)
     {
         return user_repo.getByName(name);
+    }
+
+    public List<League> findAttendedLeaguesByName(String name)
+    {
+        return user_repo.findAttendedLeaguesByName(name);
     }
 }

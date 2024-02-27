@@ -1,16 +1,21 @@
 package jrrt.repositories;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import jrrt.entities.League;
 import jrrt.entities.User;
 
 @Repository
 public interface UserRepo extends CrudRepository<User, Long>
 {
-    //@Query("SELECT u FROM User u WHERE u.username = ?1")
-    //public Optional<User> getByName(String name);
+    @Query("SELECT u FROM User u WHERE u.username = ?1")
+    public Optional<User> getByName(String name);
+
+    @Query("SELECT u.attended_leagues FROM User u WHERE u.username = ?1")
+    public List<League> findAttendedLeaguesByName(String name);
 }
