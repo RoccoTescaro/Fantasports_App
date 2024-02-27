@@ -1,0 +1,100 @@
+:root 
+{
+    --dracula-background: #282a36; /* Background */
+    --dracula-foreground: #f8f8f2; /* Text */
+    --dracula-accent: #ffb86c; /* Accent */
+    --dracula-card: #44475a; /* Card background */
+    --dracula-input-background: #282a36; /* Input background */
+    --dracula-input-border: #44475a; /* Input border */
+    --dracula-input-text: #f8f8f2; /* Input text */
+    --dracula-button-hover: #6272a4; /* Accent hover */
+    --dracula-button-hover-border: #8be9fd; /* Accent active */
+    --dracula-foreground-secondary: #000000; /* Secondary text */
+}
+
+body 
+{
+    background-color: var(--dracula-background);
+    color: var(--dracula-foreground);
+    min-height: 100vh;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.center-container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container 
+{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dracula-card);
+    color: var(--dracula-foreground);
+    border-radius: 10px;
+}
+
+.container[role = "main"] 
+{
+    flex-grow: 1;
+}
+
+.login-form
+{
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--dracula-card);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.form-control 
+{
+    background-color: var(--dracula-input-background); 
+    border-color: var(--dracula-input-border); 
+    color: var(--dracula-input-text); 
+    border-radius: 5px;
+}
+
+.form-control:focus 
+{
+    background-color: var(--dracula-input-background); 
+    border-color: var(--dracula-accent); 
+    color: var(--dracula-input-text); 
+}
+
+.btn-primary 
+{
+    background-color: var(--dracula-accent);
+    border-color: var(--dracula-accent);
+    color: var(--dracula-foreground-secondary);
+}
+
+.btn-primary:hover 
+{
+    background-color: var(--dracula-button-hover);
+    border-color: var(--dracula-button-hover-border);
+}
+
+nav
+{
+    background-color: var(--dracula-card) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    color: var(--dracula-foreground) !important;
+}
+
+.navbar-nav .nav-link, .navbar-item, .navbar-brand, .navbar-collapse, .navbar-expand-lg
+{
+    color: var(--dracula-foreground) !important;
+}
+
+.username 
+{
+    font-weight: bold;
+}
+  

@@ -3,17 +3,13 @@ package jrrt.daosystem;
 import java.util.Optional;
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import jrrt.entities.User;
 import jrrt.repositories.UserRepo;
 
-@Controller
+@Service
 public class UserDao implements Dao<User> 
 {   
     private final UserRepo user_repo;
@@ -22,21 +18,6 @@ public class UserDao implements Dao<User>
     public UserDao(UserRepo user_repo)
     {
         this.user_repo = user_repo;
-    }
-    
-    @GetMapping("/login")
-    public String login(Model model) 
-    {
-        model.addAttribute("user", new User());
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute User user, Model model) 
-    {
-        model.addAttribute("user", user);
-        user_repo.save(user);
-        return "result";
     }
 
     @Override
@@ -73,9 +54,8 @@ public class UserDao implements Dao<User>
         return user_repo.findById(id);
     }
 
-    //public Optional<User> getByName(String name)
-    //{
-    //    return user_repo.getByName(name);
-    //}
-
+    public Optional<User> getByName(String name)
+    {
+        return user_repo.getByName(name);
+    }
 }

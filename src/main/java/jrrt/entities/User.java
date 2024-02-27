@@ -19,8 +19,7 @@ public class User
     private Long id;
 
     private String username;
-    //private String email;
-    //private String password;
+    private String password;
 
     // leghe a cui l'utente è iscritto
     @ManyToMany
@@ -40,7 +39,7 @@ public class User
     @Override
     public String toString()
     {
-        return String.format("User[id=%d, username='%s']", id, username);
+        return String.format("User[id=%d, username='%s', password='%s']", id, username, password);
     }
 
     public Long getId()
@@ -56,5 +55,15 @@ public class User
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }
