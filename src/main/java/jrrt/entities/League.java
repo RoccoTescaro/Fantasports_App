@@ -26,8 +26,8 @@ public class League
 
     private String name;
     private int number_participants;
-    private int number_players;
-    private int number_formations;
+    private int number_formation;
+    private String type;
 
     // utenti che partecipano alla lega
     @ManyToMany
@@ -45,5 +45,50 @@ public class League
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public void setNumberParticipants(int number_participants)
+    {
+        this.number_participants = number_participants;
+    }
+
+    public void setNumberFormation(int number_formation)
+    {
+        this.number_formation = number_formation;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public void setLeagueCreator(User league_creator)
+    {
+        this.league_creator = league_creator;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getNumberParticipants()
+    {
+        return this.number_participants;
+    }
+
+    public int getNumberFormation()
+    {
+        return this.number_formation;
+    }
+
+    public String getType()
+    {
+        return this.type;
+    }
+
+    public String getLeagueCreator()
+    {
+        return this.league_creator.getUsername();
     }
 }

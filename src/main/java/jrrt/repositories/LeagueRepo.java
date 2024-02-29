@@ -56,16 +56,24 @@ public class LeagueRepo implements LeagueDao
 package jrrt.repositories;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import jrrt.entities.League;
+import jrrt.entities.Player;
+import jrrt.entities.User;
 
 @Repository
 public interface LeagueRepo extends CrudRepository<League, Long>
 {
-    //@Query("SELECT u FROM User u WHERE u.username = ?1")
-    //public Optional<User> getByName(String name);
+     @Query("SELECT l FROM League l WHERE l.name = ?1")
+    public Optional<League> getByName(String name);
+
+    //@Query("SELECT p FROM Player p JOIN p.leagues l WHERE l.name = ?1")
+    //public List<Player> findPlayersByLeagueName(String leagueName);
+
+
 }

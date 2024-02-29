@@ -7,22 +7,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jrrt.daosystem.UserDao;
-import jrrt.entities.User;
+import jrrt.daosystem.LeagueDao;
+import jrrt.entities.League;
 import java.util.Optional; // Add this import statement
 
 @Controller
-public class LoginPage
+public class CreateLeaguePage
 {
-    private final UserDao user_dao;
+    private final LeagueDao league_dao;
     
     @Autowired
-    public LoginPage(UserDao user_dao) 
+    public CreateLeaguePage(LeagueDao league_dao) 
     {
-        this.user_dao = user_dao;
+        this.league_dao = league_dao;
     }
+    
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String login(Model model) 
     {
         model.addAttribute("user", new User());
@@ -60,8 +61,7 @@ public class LoginPage
         User existingUser = optionalUser.get();
         if (existingUser.getPassword().equals(user.getPassword()))
         {
-            model.addAttribute("user", existingUser);
-            return "main";
+            return "main_page";
         }
         else 
         {
@@ -70,5 +70,6 @@ public class LoginPage
             System.out.println(existingUser);
             return "login_page";
         }
-    }
+    }*/
 }
+

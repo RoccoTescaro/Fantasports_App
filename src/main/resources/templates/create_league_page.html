@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <LINK REL="stylesheet" HREF="style.css" TYPE="text/css" href="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    
+        <title>Create new League</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+    
+        <!-- Bootstrap core CSS -->
+        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="@{/css/style.css}" rel="stylesheet">
+    </head>
+    <body class="bg-light" data-new-gr-c-s-check-loaded="14.1156.0" data-gr-ext-installed="">
+
+        <div class="container">
+          <div class="create_league-form">
+            <h2>Create your new League</h2>
+            <p class="lead">Create your own new leagues according whith your idea of it.</p>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-8 order-md-1">
+              <form id="form" th:object="${league}" method="post">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name">League Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:field="*{name}">
+                  </div>
+                
+                <div class="row">
+                
+                  <div class="col-md-4 mb-3">
+                    <label for="type">Type of League</label>
+                    <select class="custom-select d-block w-100" id="state" aria-describedby="typeHelp" th:field="*{type}">
+                      <option value="">Choose...</option>
+                      <option>Points</option>
+                      <option>Head to Head</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="number_participants">Number of partecipants</label>
+                    <input type="number" class="form-control" id="number_participants"  aria-describedby="number_participantsHelp" th:field="*{number_participants}">
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="number_formation">Number of formation</label>
+                    <input type="number" class="form-control" id="number_formation"  aria-describedby="number_formationHelp" th:field="*{number_formation}">
+                  </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/vendor/holder.min.js"></script>
+        <script>
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          function actionForm(action)
+          {
+              document.getElementById('form').action = action;
+              document.getElementById('form').submit();
+          }
+        </script>
+    </body>
+</html>
