@@ -46,4 +46,20 @@ public class League
     {
         this.name = name;
     }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("League[id=%d, name='%s', number_participants='%d', number_players='%d', number_formations='%d']", 
+                                id, 
+                                name, 
+                                number_participants, 
+                                number_players, 
+                                number_formations);
+    }
 }

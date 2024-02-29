@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -62,9 +62,18 @@
     <div class="container mt-3 mb-3" role="main">
         <div class="my-3 p-3 rounded box-shadow">
             <h6 class="border-bottom border-gray pb-2 mb-0">Joined Leagues</h6>
-            <div class="media text-muted pt-3">
+
+            <th:block th:each="league : ${leagues}">
+                <div class="media text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <strong class="d-block" th:text="${league.name}"> League Name 1 </strong>
+                    <span th:text="${league.description}"> Ria Buho ria buho ria Buho Ria buho Ria Buco ria buco ria Buco Ria buco Rialti Buho rialti buho rialti Buho Rialti buho Rialti Buco rialti buco rialti Buco Rialti buco... </span>
+                    </p>
+                </div>
+            </th:block>
+            <!--<div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark"> League Name 1 </strong> <!-- add type or other info relative to league, should be a link to a league info page-->
+                <strong class="d-block text-gray-dark"> League Name 1 </strong> 
                 Ria Buho ria buho ria Buho Ria buho Ria Buco ria buco ria Buco Ria buco Rialti Buho rialti buho rialti Buho Rialti buho Rialti Buco rialti buco rialti Buco Rialti buco... 
                 </p>
             </div>
@@ -73,7 +82,7 @@
                 <strong class="d-block text-gray-dark">League Name 2</strong>
                 Ria Buho ria buho ria Buho Ria buho Ria Buco ria buco ria Buco Ria buco Rialti Buho rialti buho rialti Buho Rialti buho Rialti Buco rialti buco rialti Buco Rialti buco...
                 </p>
-            </div>
+            </div>-->
             <small class="d-block text-right mt-3">
                 <a href="#">Add League</a> <!-- add a + icon ? maybe -->
             </small>
