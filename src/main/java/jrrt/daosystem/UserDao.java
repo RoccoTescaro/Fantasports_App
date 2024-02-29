@@ -1,7 +1,7 @@
 package jrrt.daosystem;
 
 import java.util.Optional;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +43,9 @@ public class UserDao implements Dao<User>
     }
 
     @Override
-    public List<User> getAll()
+    public Set<User> getAll()
     {
-        List<User> users = (List<User>) user_repo.findAll();
+        Set<User> users = (Set<User>) user_repo.findAll();
         return users;
     }
 
@@ -60,7 +60,7 @@ public class UserDao implements Dao<User>
         return user_repo.getByName(name);
     }
 
-    public List<League> getUserLeagues(String username)
+    public Set<League> getUserLeagues(String username)
     {
         return user_repo.getUserLeagues(username);
     }

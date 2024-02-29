@@ -1,7 +1,7 @@
 package jrrt.daosystem;
 
 import java.util.Optional;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +42,9 @@ public class LeagueDao implements Dao<League>
     }
 
     @Override
-    public List<League> getAll()
+    public Set<League> getAll()
     {
-        List<League> leagues = (List<League>) league_repo.findAll();
+        Set<League> leagues = (Set<League>) league_repo.findAll();
         return leagues;
     }
 
