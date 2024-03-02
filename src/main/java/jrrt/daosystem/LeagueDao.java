@@ -54,10 +54,13 @@ public class LeagueDao implements Dao<League>
         return league_repo.findById(id);
     }
 
-    public Optional<League> getByName (String name)
+    /*public Optional<League> getByName(String name)
     {
         return league_repo.getByName(name);
     }
 
-
+    public List<League> getUserLeagues(String username)
+    {
+        return league_repo.getUserLeagues(username);
+    }*/
 }

@@ -91,4 +91,13 @@ public class League
     {
         return this.league_creator.getUsername();
     }
+    @Override
+    public String toString()
+    {
+        return String.format("League[id=%d, name='%s', number_participants='%d', number_formations='%d']", 
+                                id, 
+                                name, 
+                                number_participants, 
+                                number_formation);
+    }
 }

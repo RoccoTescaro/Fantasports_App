@@ -1,6 +1,7 @@
 package jrrt.entities;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -65,5 +66,15 @@ public class User
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public User addAttendedLeague(League league)
+    {
+        if (this.attended_leagues == null) 
+        {
+            this.attended_leagues = new ArrayList<League>();
+        }
+        this.attended_leagues.add(league);
+        return this;
     }
 }

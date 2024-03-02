@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import jrrt.entities.League;
 import jrrt.entities.User;
+import jrrt.entities.League;
 
 @Repository
 public interface UserRepo extends CrudRepository<User, Long>
@@ -17,5 +18,5 @@ public interface UserRepo extends CrudRepository<User, Long>
     public Optional<User> getByName(String name);
 
     @Query("SELECT u.attended_leagues FROM User u WHERE u.username = ?1")
-    public List<League> findAttendedLeaguesByName(String name);
+    public List<League> getUserLeagues(String username);
 }
