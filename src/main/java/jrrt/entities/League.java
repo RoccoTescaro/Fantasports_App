@@ -1,6 +1,7 @@
 package jrrt.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
@@ -28,19 +29,25 @@ public class League
     private int number_participants;
     private int number_formation;
     private String type;
+    private User league_creator;
 
     // utenti che partecipano alla lega
     @ManyToMany
-    private List<User> league_participants;
+    private Set<User> participants;
 
     // giocatori che partecipano alla lega
     @OneToMany
-    private List<Player> league_players;
+    private Set<Player> players;
 
     // creatore della lega
     @ManyToOne
     @NonNull
-    private User league_creator;
+    private User creator;
+
+    public Long getId()
+    {
+        return this.id;
+    }
 
     public void setName(String name)
     {
@@ -72,25 +79,13 @@ public class League
         return this.name;
     }
 
-    public int getNumberParticipants()
+    public Set<User> getParticipants()
     {
-        return this.number_participants;
+        if (this.participants == null)
+            this.participants = new HashSet<User>();
+        return this.participants;
     }
 
-    public int getNumberFormation()
-    {
-        return this.number_formation;
-    }
-
-    public String getType()
-    {
-        return this.type;
-    }
-
-    public String getLeagueCreator()
-    {
-        return this.league_creator.getUsername();
-    }
     @Override
     public String toString()
     {

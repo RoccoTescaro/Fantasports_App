@@ -1,7 +1,7 @@
 package jrrt.entities;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -24,15 +24,15 @@ public class User
 
     // leghe a cui l'utente è iscritto
     @ManyToMany
-    private List<League> attended_leagues; 
+    private Set<League> attended_leagues; 
 
     // leghe create dall'utente
     @OneToMany
-    private List<League> created_leagues;
+    private Set<League> created_leagues;
 
     // giocatori acquistati dall'utente
     @OneToMany
-    private List<Player> players;
+    private Set<Player> players;
 
     //JPA must have a default constructor (not necessarily public), 
     //Spring web need it public for the login form
@@ -68,13 +68,10 @@ public class User
         this.password = password;
     }
 
-    public User addAttendedLeague(League league)
+    public Set<League> getAttendedLeagues()
     {
-        if (this.attended_leagues == null) 
-        {
-            this.attended_leagues = new ArrayList<League>();
-        }
-        this.attended_leagues.add(league);
-        return this;
+        if (this.attended_leagues == null)
+            this.attended_leagues = new HashSet<League>();
+        return this.attended_leagues;
     }
 }

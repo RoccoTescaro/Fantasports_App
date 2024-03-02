@@ -1,7 +1,7 @@
 package jrrt.gui;
 
 import java.util.Optional; 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jrrt.daosystem.UserDao;
+import jrrt.daosystem.LeagueDao;
 import jrrt.entities.User;
 import jrrt.entities.League;
 
@@ -18,11 +19,13 @@ import jrrt.entities.League;
 public class LoginPage
 {
     private final UserDao user_dao;
+    private final LeagueDao league_dao;
     
     @Autowired
-    public LoginPage(UserDao user_dao) 
+    public LoginPage(UserDao user_dao, LeagueDao league_dao) 
     {
         this.user_dao = user_dao;
+        this.league_dao = league_dao;
     }
 
     @GetMapping("/login")
@@ -64,12 +67,19 @@ public class LoginPage
         if (existingUser.getPassword().equals(user.getPassword()))
         {
             League league = new League(); //just for testing #TODO remove this
-            user.addAttendedLeague(league);
+            league.setName("test league");
+            if (existingUser != null && league != null)
+            {
+                league_dao.save(league);
+                existingUser.getAttendedLeagues().add(league);
+                league.getParticipants().add(existingUser);
+                user_dao.save(existingUser);
+            }
             //league_dao.save(league);
         
-            List<League> leagues = user_dao.getUserLeagues(user.getUsername());
+            Set<League> leagues = existingUser.getAttendedLeagues();
             model.addAttribute("leagues", leagues);
-            System.out.println("leagues: " + leagues);
+            //System.out.println("leagues: " + leagues);
 
             return "main_page";
         }
