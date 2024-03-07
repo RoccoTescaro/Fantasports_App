@@ -22,54 +22,11 @@ public class CreateLeaguePage
         this.league_dao = league_dao;
     }
     
-
-    /*@GetMapping("/login")
-    public String login(Model model) 
+    @GetMapping("/createLeague")
+    public String showAddLeaguePage(Model model) 
     {
-        model.addAttribute("user", new User());
-        return "login_page";
+        // add any attributes to the model you want to use in the view
+        return "create_league_page";
     }
-
-    @PostMapping("/signup")
-    public String signupSubmit(@ModelAttribute User user, Model model) 
-    {
-        model.addAttribute("user", user);        
-        if (!user_dao.getByName(user.getUsername()).isPresent())
-        {
-            user_dao.save(user);
-            model.addAttribute("info", "singup successful, please login");
-            return "login_page";
-        }
-        else 
-        {
-            model.addAttribute("info", "username already taken");
-            return "login_page";
-        }
-    }
-
-    @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute User user, Model model) 
-    {
-        Optional<User> optionalUser = user_dao.getByName(user.getUsername());
-        if (!optionalUser.isPresent())
-        {
-            model.addAttribute("user", user);
-            model.addAttribute("info", "user does not exist, signup first");
-            return "login_page";
-        }
-        
-        User existingUser = optionalUser.get();
-        if (existingUser.getPassword().equals(user.getPassword()))
-        {
-            return "main_page";
-        }
-        else 
-        {
-            model.addAttribute("user", user);
-            model.addAttribute("info", "invalid credentials");
-            System.out.println(existingUser);
-            return "login_page";
-        }
-    }*/
 }
 

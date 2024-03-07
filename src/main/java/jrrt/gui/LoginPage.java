@@ -124,12 +124,4 @@ public class LoginPage
             return "login_page";
         }
     }
-
-    @PostMapping("/creatNewLeague")
-    public String createNewLeague(@ModelAttribute League league, Model model) 
-    {
-        model.addAttribute("league", league);
-        league_dao.save(league);
-        return "create_league_page";
-    }
 }
