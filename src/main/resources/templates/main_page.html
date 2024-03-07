@@ -49,21 +49,24 @@
     </nav>
 
     <div class="container mt-3" role="allerts">
-        <div class="my-3 p-3 rounded box-shadow">
-            <h6 class="border-bottom border-gray pb-2 mb-0">Allerts</h6>
-            <div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                League Name 1 about to start
-                </p>
-            </div>
-        </div>
-    </div>
+      <div class="my-3 p-3 rounded box-shadow">
+          <h6 class="border-bottom border-gray pb-2 mb-0">Allerts</h6>
+          <th:block th:each="league : ${alert_leagues}">
+              <div class="media text-muted pt-3">
+                  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                      <strong class="d-block" th:text="${league.getName()}"> League Name 1 </strong>
+                      League about to start
+                  </p>
+              </div>
+          </th:block>
+      </div>
+  </div>
 
     <div class="container mt-3 mb-3" role="main">
         <div class="my-3 p-3 rounded box-shadow">
             <h6 class="border-bottom border-gray pb-2 mb-0">Joined Leagues</h6>
 
-            <th:block th:each="league : ${leagues}">
+            <th:block th:each="league : ${other_leagues}">
                 <div class="media text-muted pt-3">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                     <strong class="d-block" th:text="${league.getName()}"> League Name 1 </strong>
@@ -71,21 +74,9 @@
                     </p>
                 </div>
             </th:block>
-            <!--<div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark"> League Name 1 </strong> 
-                Ria Buho ria buho ria Buho Ria buho Ria Buco ria buco ria Buco Ria buco Rialti Buho rialti buho rialti Buho Rialti buho Rialti Buco rialti buco rialti Buco Rialti buco... 
-                </p>
-            </div>
-            <div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark">League Name 2</strong>
-                Ria Buho ria buho ria Buho Ria buho Ria Buco ria buco ria Buco Ria buco Rialti Buho rialti buho rialti Buho Rialti buho Rialti Buco rialti buco rialti Buco Rialti buco...
-                </p>
-            </div>-->
+          
             <small class="d-block text-right mt-3">
-                <a href="/league">Add League</a> <!-- add a + icon ? maybe -->
-              
+                <a href="create_league_page.html">Add League</a> <!-- add a + icon ? maybe -->  
             </small>
         </div>
     </div>

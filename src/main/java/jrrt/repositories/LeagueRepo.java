@@ -14,6 +14,6 @@ public interface LeagueRepo extends CrudRepository<League, Long>
     //@Query("SELECT l FROM League l JOIN l.users u WHERE u.username = :username")
     //List<League> getUserLeagues(@Param("username") String username);
     @Query("SELECT l FROM League l WHERE l.name = ?1")
-    public List<League> getByName(String name);
+    public Set<League> getByName(String name);
 }
 

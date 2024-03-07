@@ -1,6 +1,7 @@
 package jrrt.entities;
 
 import java.util.Set;
+import java.time.LocalDate;
 import java.util.HashSet;
 
 import io.micrometer.common.lang.NonNull;
@@ -29,7 +30,8 @@ public class League
     private int number_participants;
     private int number_formation;
     private String type;
-    private User league_creator;
+    private String status;
+    private LocalDate start_date;
 
     // utenti che partecipano alla lega
     @ManyToMany
@@ -69,10 +71,6 @@ public class League
         this.type = type;
     }
 
-    public void setLeagueCreator(User league_creator)
-    {
-        this.league_creator = league_creator;
-    }
 
     public String getName()
     {
@@ -94,5 +92,23 @@ public class League
                                 name, 
                                 number_participants, 
                                 number_formation);
+    }
+
+    public void  setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public String getStatus()
+    {
+        return this.status;
+    }
+
+    public LocalDate getStartDate() {
+        return this.start_date;
+    }
+
+    public void setStartDate(LocalDate start_date) {
+        this.start_date = start_date;
     }
 }
