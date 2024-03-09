@@ -111,4 +111,7 @@ public class League
     public void setStartDate(LocalDate start_date) {
         this.start_date = start_date;
     }
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 }
