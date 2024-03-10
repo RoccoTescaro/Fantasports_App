@@ -104,14 +104,17 @@ public class League
         return this.status;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDate getStartDate() 
+    {
         return this.start_date;
     }
 
-    public void setStartDate(LocalDate start_date) {
+    public void setStartDate(LocalDate start_date) 
+    {
         this.start_date = start_date;
     }
-    public void setCreator(User creator) {
+    public void setCreator(User creator) 
+    {
         this.creator = creator;
     }
 }

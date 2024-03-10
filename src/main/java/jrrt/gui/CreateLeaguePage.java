@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
 import jrrt.entities.League;
@@ -33,27 +31,21 @@ public class CreateLeaguePage
     }
     
     @GetMapping("/createLeague")
-     public String showCreateLeaguePage(@ModelAttribute User user, Model model) {
-                model.addAttribute("league", new League());
-               // model.addAttribute("user", user);
+    public String showCreateLeaguePage(@ModelAttribute User user, Model model, Principal principal) 
+    {
+        System.out.println("User: " + principal.getName());  
+        model.addAttribute("league", new League());
         return "create_league_page";
     }
 
     @PostMapping("/createNewLeague")
-    public String createLeague(@ModelAttribute League league, Principal principal) {
-        Optional<User> userOptional = user_dao.getByName(principal.getName());
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            league.setCreator(user); 
-            league_dao.save(league);
-            
-            return "main_page";//"redirect:/main" But this is not working
-        } else 
-        {
-            return "create_league_page";
-        }
+    public String createLeague(@ModelAttribute League league, @ModelAttribute User user, Model model, Principal principal) 
+    {
+        league.setCreator(user);
+        league_dao.save(league);
+
+        System.out.println("User: " + principal.getName());  
+        return "main_page";        
     }
-
-
 }
 
