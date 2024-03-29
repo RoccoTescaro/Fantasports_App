@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpSession;
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
 import jrrt.entities.User;
@@ -62,9 +63,9 @@ public class LoginPage
             return "login_page";
         }
     }
-
+    /* 
     @PostMapping("/main")
-    public String loginSubmit(@ModelAttribute User user, Model model) 
+    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
     {
         Optional<User> optionalUser = user_dao.getByName(user.getUsername());
         if (!optionalUser.isPresent())
@@ -83,6 +84,7 @@ public class LoginPage
             league_dao.save(futureLeague);
             existingUser.getAttendedLeagues().add(futureLeague);
             futureLeague.getParticipants().add(existingUser);
+            session.setAttribute("user", existingUser);
 
             // Create a league with a start date before today
             League pastLeague = new League();
@@ -99,7 +101,7 @@ public class LoginPage
                 existingUser.getAttendedLeagues().add(league);
                 league.getParticipants().add(existingUser);
                 user_dao.save(existingUser);
-            }*/
+            }-----stop
 
             //league_dao.save(league);
             Set<League> leagues = existingUser.getAttendedLeagues();
@@ -123,5 +125,33 @@ public class LoginPage
             System.out.println(existingUser);
             return "login_page";
         }
+    } */
+
+    @PostMapping("/main")
+    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
+    {
+        
+        Optional<User> optionalUser = user_dao.getByName(user.getUsername());
+        if (!optionalUser.isPresent())
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("info", "user does not exist, signup first");
+            return "login_page";
+        }
+        
+        User existingUser = optionalUser.get();
+        if (existingUser.getPassword().equals(user.getPassword()))
+        {
+            session.setAttribute("user", existingUser);
+            return "redirect:/main";
+        }
+        else 
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("info", "invalid credentials");
+            return "login_page";
+        }
     }
+
+
 }

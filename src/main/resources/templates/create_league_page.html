@@ -10,35 +10,33 @@
     </head>
     <body>
       <nav class="navbar navbar-expand-lg" style="display: flex; justify-content: space-between;">
-        <a class="navbar-brand" style="margin-left: 20px;">Create new League</a> 
+        <a class="navbar-brand" style="margin-left: 20px; font-size: 1.5em; font-weight: bold;" >Create new League</a> 
 
         <div style="margin-right: 20px;">
             <span> Log as: &nbsp;
-                <span class="username" th:text="${user.username}"> <strong></strong></strong></span></div>
+                <strong class="username" th:text="${user.username}"> </strong>
             </span> &nbsp; &nbsp; &nbsp;
             <a href="/main" class="btn btn-primary">Back</a>
         </div>
-
-    </nav>
+      </nav>
     <div class="container mt-3">
       <form th:action="@{/createNewLeague}" method="post">
         <div class="form-group">
-          <label for="leagueName">League Name</label>
-          <input type="text" class="form-control" id="leagueName" name="league_name" required>
+          <label for="leagueName" style="font-weight: bold; font-size: 1.2em;">League Name</label>
+          <input type="text" class="form-control" id="leagueName" name="name" required>
         </div>
 
         <div class="form-group">
-          <label>Type of League</label><br>
+          <label style="font-weight: bold; font-size: 1.2em;">Type of League</label><br>
           <input type="radio" id="points" name="type" value="Points" required>
           <label for="points">Points</label><br>
           <input type="radio" id="headToHead" name="type" value="Head to head" required>
           <label for="headToHead">Head to head</label>
         </div>
 
-        
         <div class="form-group">
-          <label for="number_formation">Numbers of player in the Formation</label>
-          <input type="number" class="form-control" id="number_formation" name="number_formation" required oninput="validatePositiveNumber(this)">
+          <label for="number_Formation" style="font-weight: bold; font-size: 1.2em;">Numbers of player in the Formation</label>
+          <input type="number" class="form-control" id="number_Formation" name="numberFormation" required oninput="validatePositiveNumber(this)">
         </div>  
         <script>
           function validatePositiveNumber(input) {
@@ -52,8 +50,8 @@
         </script>
 
         <div class="form-group">
-          <label for="number_participants">Number of Participants</label>
-          <input type="number" class="form-control" id="number_participants" name="number_participants" required oninput="validateEvenNumber(this)">
+          <label for="number_Participants" style="font-weight: bold; font-size: 1.2em;">Number of Participants</label>
+          <input type="number" class="form-control" id="number_Participants" name="numberParticipants" required oninput="validateEvenNumber(this)">
         </div>
         <script>
           function validateEvenNumber(input) {
@@ -67,8 +65,8 @@
         </script>
 
         <div class="form-group">
-          <label for="start_date">Start Date</label>
-          <input type="date" class="form-control" id="start_date" name="start_date" required>
+          <label for="start_Date" style="font-weight: bold; font-size: 1.2em;">Start Date</label>
+          <input type="date" class="form-control" id="start_Date" name="startDate" required>
         </div>
 
         <script>
