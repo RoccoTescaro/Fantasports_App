@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a725a793-6f80-4fdb-b52f-fc75f163c0c6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/daosystem/LeagueDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/daosystem/LeagueDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/entities/League.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/entities/League.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/entities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/gui/CreateLeaguePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/gui/CreateLeaguePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrrt/repositories/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrrt/repositories/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/create_league_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/create_league_page.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,25 +32,44 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2eJRaizP4ieLrHx63EGyCvykGOT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/39393/Desktop/Fantasports_App",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/39393/Desktop/Fantasports_App&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="fantasports" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="jrrt.core.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -60,10 +86,30 @@
       <option name="presentableId" value="Default" />
       <updated>1711620761856</updated>
       <workItem from="1711620763491" duration="111000" />
+      <workItem from="1712247925125" duration="358000" />
+      <workItem from="1712248298876" duration="555000" />
+      <workItem from="1712327998811" duration="2205000" />
+      <workItem from="1712330229286" duration="288000" />
+      <workItem from="1712579862351" duration="629000" />
+      <workItem from="1712666326263" duration="7411000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.LazyInitializationException" package="org.hibernate" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

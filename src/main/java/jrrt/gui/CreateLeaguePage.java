@@ -53,17 +53,24 @@ public class CreateLeaguePage
     @PostMapping("/createNewLeague")
     public String createLeague(@ModelAttribute League league, @ModelAttribute("user") User user ){
         
-        //Optional<User> userOptional = user_dao.getByName(principal.getName());
-        //if (userOptional.isPresent()) {
         if (user != null) {
-           // User user = userOptional.get();
-            league.setCreator(user); 
 
-            league.addParticipant(user);
-            
+            league.setCreator(user);
             league_dao.save(league);
-            
-            
+
+            User user_tmp = user_dao.getById(user.getId()).get();
+            League league_tmp = league_dao.get(league.getId()).get();
+
+            if ( user_tmp == null || league_tmp == null ) {
+                System.out.println("Error: user or league not found\n");
+            }
+
+            user_tmp.getAttendedLeagues().add(league_tmp);
+            league_tmp.addParticipant(user_tmp);
+
+            user_dao.save(user);
+            league_dao.save(league);
+
             return "redirect:/main";
         } else 
         {
