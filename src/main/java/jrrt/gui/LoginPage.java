@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
@@ -34,20 +36,24 @@ public class LoginPage {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model) 
+    {
         model.addAttribute("user", new User());
         return "login_page";
     }
 
     @PostMapping("/signup")
-    public String signupSubmit(@ModelAttribute User user, Model model) {
-        System.out.println(user);
-        if (!user_dao.getByName(user.getUsername()).isPresent()) {
+    public String signupSubmit(@ModelAttribute User user, Model model) 
+    {
+        if (!user_dao.getByName(user.getUsername()).isPresent()) 
+        {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             user_dao.save(user);
-            model.addAttribute("info", "signup successful, please login");
-            return "login_page";
+            UserDetails userDetails = securityConfig.loadUserByUsername(user.getUsername());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return "redirect:/home";
         } else {
             model.addAttribute("info", "username already taken");
             return "login_page";
