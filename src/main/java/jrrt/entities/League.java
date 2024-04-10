@@ -6,19 +6,22 @@ import java.util.HashSet;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.CascadeType;
 
 @Entity
 @Table
-(
-    name = "leagues"
-)
+(name = "leagues")
 
 public class League
 {
@@ -27,23 +30,28 @@ public class League
     private Long id;
 
     private String name;
-    private int number_participants;
-    private int number_formation;
+    private int numberParticipants;
+    private int numberFormation;
     private String type;
     private String status;
-    private LocalDate start_date;
+    private LocalDate startDate;
 
-    // utenti che partecipano alla lega
+
     @ManyToMany
-    private Set<User> participants;
+    @JoinTable(
+            name = "user_leagues",
+            joinColumns = @JoinColumn(name = "league_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> participants = new HashSet<User>();
 
     // giocatori che partecipano alla lega
-    @OneToMany
+    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Player> players;
 
     // creatore della lega
     @ManyToOne
-    @NonNull
+    @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
     public Long getId()
@@ -58,12 +66,12 @@ public class League
 
     public void setNumberParticipants(int number_participants)
     {
-        this.number_participants = number_participants;
+        this.numberParticipants = number_participants;
     }
 
     public void setNumberFormation(int number_formation)
     {
-        this.number_formation = number_formation;
+        this.numberFormation = number_formation;
     }
 
     public void setType(String type)
@@ -87,11 +95,11 @@ public class League
     @Override
     public String toString()
     {
-        return String.format("League[id=%d, name='%s', number_participants='%d', number_formations='%d']", 
-                                id, 
-                                name, 
-                                number_participants, 
-                                number_formation);
+        return String.format("League[id=%d, name='%s', number_participants='%d', number_formations='%d']",
+                                id,
+                                name,
+                                numberParticipants,
+                                numberFormation);
     }
 
     public void  setStatus(String status)
@@ -116,5 +124,9 @@ public class League
     public void setCreator(User creator) 
     {
         this.creator = creator;
+    }
+
+    public void addParticipant(User user) {
+        this.participants.add(user);
     }
 }

@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+//import jakarta.servlet.http.HttpSession;
+import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
 import jrrt.entities.League;
@@ -59,9 +61,10 @@ public class LoginPage {
             return "login_page";
         }
     }
-
+    /* 
     @PostMapping("/main")
-    public String loginSubmit(@ModelAttribute User user, Model model) {
+    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
+    {
         Optional<User> optionalUser = user_dao.getByName(user.getUsername());
         if (!optionalUser.isPresent()) {
             model.addAttribute("info", "user does not exist, signup first");
@@ -69,9 +72,32 @@ public class LoginPage {
         }
 
         User existingUser = optionalUser.get();
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (encoder.matches(user.getPassword(), existingUser.getPassword())) {
+        if (existingUser.getPassword().equals(user.getPassword()))
+        {
+            League futureLeague = new League();
+            futureLeague.setName("Future League");
+            futureLeague.setStartDate(LocalDate.now().plusDays(3));
+            league_dao.save(futureLeague);
+            existingUser.getAttendedLeagues().add(futureLeague);
+            futureLeague.getParticipants().add(existingUser);
+            session.setAttribute("user", existingUser);
+
+            // Create a league with a start date before today
+            League pastLeague = new League();
+            pastLeague.setName("Past League");
+            pastLeague.setStartDate(LocalDate.now().minusDays(1));
+            league_dao.save(pastLeague);
+            existingUser.getAttendedLeagues().add(pastLeague);
+            pastLeague.getParticipants().add(existingUser);
+
             user_dao.save(existingUser);
+            /*if (existingUser != null && league != null)
+            {
+                league_dao.save(league);
+                existingUser.getAttendedLeagues().add(league);
+                league.getParticipants().add(existingUser);
+                user_dao.save(existingUser);
+            }-----stop
 
             Set<League> leagues = existingUser.getAttendedLeagues();
             LocalDate today = LocalDate.now();
@@ -90,5 +116,33 @@ public class LoginPage {
             System.out.println(existingUser);
             return "login_page";
         }
+    } */
+
+    @PostMapping("/main")
+    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
+    {
+        
+        Optional<User> optionalUser = user_dao.getByName(user.getUsername());
+        if (!optionalUser.isPresent())
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("info", "user does not exist, signup first");
+            return "login_page";
+        }
+        
+        User existingUser = optionalUser.get();
+        if (existingUser.getPassword().equals(user.getPassword()))
+        {
+            session.setAttribute("user", existingUser);
+            return "redirect:/main";
+        }
+        else 
+        {
+            model.addAttribute("user", user);
+            model.addAttribute("info", "invalid credentials");
+            return "login_page";
+        }
     }
+
+
 }

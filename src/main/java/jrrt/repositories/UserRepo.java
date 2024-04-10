@@ -19,4 +19,9 @@ public interface UserRepo extends CrudRepository<User, Long>
 
     @Query("SELECT u.attended_leagues FROM User u WHERE u.username = ?1")
     public Set<League> getUserLeagues(String username);
+
+    //find by id
+    @Query("SELECT u FROM User u WHERE u.id = ?1")
+    public Optional<User> getById(Long id);
+
 }

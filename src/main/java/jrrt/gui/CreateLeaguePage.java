@@ -1,5 +1,7 @@
 package jrrt.gui;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
@@ -15,9 +18,15 @@ import jrrt.entities.User;
 
 import java.security.Principal;
 import java.util.Optional; // Add this import statement
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.SessionAttribute; // Add this import statement
 
 
 @Controller
+@SessionAttributes("user")
 public class CreateLeaguePage
 {
     private final LeagueDao league_dao;
@@ -31,21 +40,42 @@ public class CreateLeaguePage
     }
     
     @GetMapping("/createLeague")
-    public String showCreateLeaguePage(@ModelAttribute User user, Model model, Principal principal) 
-    {
-        System.out.println("User: " + principal.getName());  
+    public String showCreateLeaguePage(Model model, @SessionAttribute("user") User user) {
+       // User user = (User) session.getAttribute("user");
+        if (user == null) {
+            System.out.println("User is null");
+        }
         model.addAttribute("league", new League());
+        model.addAttribute("user", user);
         return "create_league_page";
     }
 
     @PostMapping("/createNewLeague")
-    public String createLeague(@ModelAttribute League league, @ModelAttribute User user, Model model, Principal principal) 
-    {
-        league.setCreator(user);
-        league_dao.save(league);
+    public String createLeague(@ModelAttribute League league, @ModelAttribute("user") User user ){
+        
+        if (user != null) {
 
-        System.out.println("User: " + principal.getName());  
-        return "main_page";        
+            league.setCreator(user);
+            league_dao.save(league);
+
+            User user_tmp = user_dao.getById(user.getId()).get();
+            League league_tmp = league_dao.get(league.getId()).get();
+
+            if ( user_tmp == null || league_tmp == null ) {
+                System.out.println("Error: user or league not found\n");
+            }
+
+            user_tmp.getAttendedLeagues().add(league_tmp);
+            league_tmp.addParticipant(user_tmp);
+
+            user_dao.save(user);
+            league_dao.save(league);
+
+            return "redirect:/main";
+        } else 
+        {
+            return "create_league_page";
+        }
     }
 }
 

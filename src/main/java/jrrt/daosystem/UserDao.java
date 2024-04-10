@@ -65,4 +65,12 @@ public class UserDao implements Dao<User>
     {
         return user_repo.getUserLeagues(username);
     }
+
+    //find by id
+    public Optional<User> getById(Long id)
+    {
+        return user_repo.findById(id);
+    }
+
+
 }
