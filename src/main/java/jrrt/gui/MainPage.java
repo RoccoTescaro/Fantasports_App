@@ -43,18 +43,22 @@ public class MainPage
     public String mainPage(Model model, HttpSession session) 
     {
         User existingUser = (User) session.getAttribute("user");
-        if (existingUser != null) 
+        if (existingUser == null) 
+            return "login_page"; //should send an error message
+
+        Optional<User> user_opt = user_dao.getById(existingUser.getId());
+        
+        if (user_opt.isPresent()) 
         {
-            Optional<User> userOptional = user_dao.getById(existingUser.getId());
-            if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                model.addAttribute("user", user);
-                model.addAttribute("alert_leagues", user.getAlertLeagues());
-                model.addAttribute("other_leagues", user.getOtherLeagues());
-                //fix this relational problem user attend leagues
-            }
-            return "main_page";
+            
+            User user = user_opt.get();
+            model.addAttribute("user", user);
+            model.addAttribute("alert_leagues", user.getAlertLeagues());
+            model.addAttribute("other_leagues", user.getOtherLeagues());
+          
+            //fix this relational problem user attend leagues
         }
-        return "login_page";
+
+        return "main_page";
     }
 }

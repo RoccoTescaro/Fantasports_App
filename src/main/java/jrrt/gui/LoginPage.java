@@ -6,9 +6,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-//import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
+
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
@@ -47,16 +43,15 @@ public class LoginPage {
     @PostMapping("/signup")
     public String signupSubmit(@ModelAttribute User user, Model model) 
     {
-        if (!user_dao.getByName(user.getUsername()).isPresent()) 
+        model.addAttribute("user", user);        
+        if (!user_dao.getByName(user.getUsername()).isPresent())
         {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
             user_dao.save(user);
-            UserDetails userDetails = securityConfig.loadUserByUsername(user.getUsername());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return "redirect:/home";
-        } else {
+            model.addAttribute("info", "singup successful, please login");
+            return "login_page";
+        }
+        else 
+        {
             model.addAttribute("info", "username already taken");
             return "login_page";
         }

@@ -22,13 +22,13 @@ public class Player
 
     // The league the player belongs to
     @ManyToOne
-    @JoinColumn(name = "league_id")
+    @JoinColumn(name = "players_leagues")
     private League league;
 
     // Users who have purchased the player
     @ManyToMany
     @JoinTable(
-            name = "user_players",
+            name = "players_users",
             joinColumns = @JoinColumn(name = "player_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )

@@ -4,20 +4,7 @@ import java.util.Set;
 import java.time.LocalDate;
 import java.util.HashSet;
 
-import io.micrometer.common.lang.NonNull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 
 @Entity
 @Table
@@ -37,13 +24,13 @@ public class League
     private LocalDate startDate;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_leagues",
+    @ManyToMany //(mappedBy = "attended_leagues")
+    /*@JoinTable(
+            name = "participants",
             joinColumns = @JoinColumn(name = "league_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> participants = new HashSet<User>();
+    )*/
+    private Set<User> participants;
 
     // giocatori che partecipano alla lega
     @OneToMany(mappedBy = "league", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -114,12 +101,12 @@ public class League
 
     public LocalDate getStartDate() 
     {
-        return this.start_date;
+        return this.startDate;
     }
 
     public void setStartDate(LocalDate start_date) 
     {
-        this.start_date = start_date;
+        this.startDate = start_date;
     }
     public void setCreator(User creator) 
     {
@@ -127,6 +114,6 @@ public class League
     }
 
     public void addParticipant(User user) {
-        this.participants.add(user);
+        getParticipants().add(user);
     }
 }

@@ -51,31 +51,35 @@ public class CreateLeaguePage
     }
 
     @PostMapping("/createNewLeague")
-    public String createLeague(@ModelAttribute League league, @ModelAttribute("user") User user ){
-        
-        if (user != null) {
+    public String createLeague(@ModelAttribute League league, @ModelAttribute("user") User user )
+    {
+        if (user == null) return "create_league_page";
 
-            league.setCreator(user);
-            league_dao.save(league);
+        league.setCreator(user);
+        league_dao.save(league);
 
-            User user_tmp = user_dao.getById(user.getId()).get();
-            League league_tmp = league_dao.get(league.getId()).get();
+        User user_tmp = user_dao.getById(user.getId()).get();
+        League league_tmp = league_dao.get(league.getId()).get();
 
-            if ( user_tmp == null || league_tmp == null ) {
-                System.out.println("Error: user or league not found\n");
-            }
+        if ( user_tmp == null || league_tmp == null )
+            System.out.println("Error: user or league not found\n");
 
-            user_tmp.getAttendedLeagues().add(league_tmp);
-            league_tmp.addParticipant(user_tmp);
+        user_tmp.createLeague(league_tmp);
+        league_tmp.setCreator(user_tmp);
+        league_tmp.addParticipant(user_tmp);
 
-            user_dao.save(user);
-            league_dao.save(league);
+        System.out.println("league participants: \n");
+        for (User u : league_tmp.getParticipants())
+            System.out.println(u.getUsername() + "\n");
 
-            return "redirect:/main";
-        } else 
-        {
-            return "create_league_page";
-        }
+        System.out.println("user attended leagues: \n");
+        for (League l : user_tmp.getAttendedLeagues())
+            System.out.println(l.getName() + "\n");
+
+        user_dao.save(user);
+        league_dao.save(league);
+
+        return "redirect:/main";
     }
 }
 
