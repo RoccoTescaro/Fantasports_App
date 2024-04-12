@@ -72,5 +72,4 @@ public class UserDao implements Dao<User>
         return user_repo.findById(id);
     }
 
-
 }

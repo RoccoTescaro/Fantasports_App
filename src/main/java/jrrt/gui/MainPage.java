@@ -79,5 +79,34 @@ public class MainPage
         }
     }
 
+    @PostMapping("/joinLeague")
+    public String joinLeague(@RequestParam("leagueId") Long leagueId, HttpSession session, Model model) {
+        // Get the user from the session
+        User user = (User) session.getAttribute("user");
+
+        // Fetch the league using the provided ID
+        Optional<League> leagueOpt = league_dao.get(leagueId);
+
+        if (leagueOpt.isPresent()) {
+            League league = leagueOpt.get();
+
+            // Check if the league is full
+            if (league.getParticipants().size() >= league.getNumberParticipants()) {
+                model.addAttribute("error", "The league is full.");
+                return "main_page";
+            }
+
+            // Add the user to the league
+            league.addParticipant(user);
+            league_dao.save(league);
+
+            model.addAttribute("message", "You have successfully joined the league.");
+        } else {
+            model.addAttribute("error", "The league does not exist.");
+        }
+
+        return "main_page";
+    }//fix this, gives error
+
 }
 

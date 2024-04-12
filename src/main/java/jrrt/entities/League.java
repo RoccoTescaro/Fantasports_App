@@ -116,4 +116,8 @@ public class League
     public void addParticipant(User user) {
         getParticipants().add(user);
     }
+
+    public int getNumberParticipants() {
+        return this.numberParticipants;
+    }
 }

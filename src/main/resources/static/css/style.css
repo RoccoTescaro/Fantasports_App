@@ -108,3 +108,12 @@ a.league-link
     color: var(--dracula-foreground) !important;
     font-weight: bold !important;
 }
+
+th
+{
+   color: white;
+}
+
+.table th {
+    color: white;
+}

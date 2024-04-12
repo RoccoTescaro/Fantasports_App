@@ -23,6 +23,10 @@
         </ul>
     </div>
 
+    <div class="mx-auto">
+        <span class="navbar-text" style="font-weight: bold; color: white;" th:text="${league.getName()}"></span>
+    </div>
+
     <div style="margin-right: 20px;">
             <span> Log as: &nbsp;
                 <span class="username" th:text="${user.username}"> <strong></strong></strong></span>
@@ -33,14 +37,23 @@
 
 <div class="container mt-3" role="league">
     <div class="my-3 p-3 rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">League Details</h6>
-
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark" th:text="${league.getName()}">League Name</strong>
-                <!-- Add more league details here -->
-            </p>
-        </div>
+        <h6 class="border-bottom border-gray pb-2 mb-0">League Ranking</h6>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="participant, stat : ${participants}">
+                <th scope="row" th:text="${stat.index + 1}"></th>
+                <td th:text="${participant.username}"></td>
+                <!--<td th:text="${participant.points}"></td>  Assuming points field exists in User class -->
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
