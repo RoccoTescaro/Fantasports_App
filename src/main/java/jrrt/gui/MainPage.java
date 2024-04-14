@@ -9,10 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,4 +58,26 @@ public class MainPage
 
         return "main_page";
     }
+
+    @GetMapping("/league/{id}")
+    public String showLeaguePage(@PathVariable("id") Long id, Model model, HttpSession session) {
+        Optional<League> league_opt = league_dao.get(id);
+        if (league_opt.isPresent()) {
+            League league = league_opt.get();
+            model.addAttribute("league", league);
+
+            User user = (User) session.getAttribute("user");
+            if (user != null) {
+                model.addAttribute("user", user);
+            } else {
+                return "main_page"; // or wherever you want to redirect if the user isn't logged in
+            }
+
+            return "league_page";
+        } else {
+            return "main_page"; // or wherever you want to redirect if the league is not found
+        }
+    }
+
 }
+

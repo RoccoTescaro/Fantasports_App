@@ -101,3 +101,10 @@ nav
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: brightness(0) invert(1) !important;
 }
+
+a.league-link
+{
+    text-decoration: none !important;
+    color: var(--dracula-foreground) !important;
+    font-weight: bold !important;
+}
