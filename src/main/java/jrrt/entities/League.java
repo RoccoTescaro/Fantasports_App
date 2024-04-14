@@ -24,13 +24,13 @@ public class League
     private LocalDate startDate;
 
 
-    @ManyToMany //(mappedBy = "attended_leagues")
-    /*@JoinTable(
-            name = "participants",
-            joinColumns = @JoinColumn(name = "league_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )*/
-    private Set<User> participants;
+    @ManyToMany
+    @JoinTable(
+            name = "leagues_participants",
+            joinColumns = @JoinColumn(name = "league_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    private Set<User> participants = new HashSet<>();
 
     // giocatori che partecipano alla lega
     @OneToMany(mappedBy = "league", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -38,7 +38,7 @@ public class League
 
     // creatore della lega
     @ManyToOne
-    @JoinColumn(name = "creator_id", nullable = false)
+    @JoinColumn(name = "leagues_creators", nullable = false)
     private User creator;
 
     public Long getId()
@@ -74,8 +74,6 @@ public class League
 
     public Set<User> getParticipants()
     {
-        if (this.participants == null)
-            this.participants = new HashSet<User>();
         return this.participants;
     }
 

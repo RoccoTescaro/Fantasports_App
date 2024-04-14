@@ -20,11 +20,11 @@ public class User
     private String password;
 
     // leghe a cui l'utente è iscritto
-    @ManyToMany (mappedBy = "participants")
-    private Set<League> attended_leagues;
+    @ManyToMany(mappedBy = "participants")
+    private Set<League> attended_leagues = new HashSet<>();
 
     // leghe create dall'utente
-    @OneToMany (mappedBy = "creator")
+    @OneToMany(mappedBy = "creator")
     private Set<League> created_leagues;
 
     // giocatori acquistati dall'utente
@@ -71,6 +71,13 @@ public class User
         if (this.attended_leagues == null)
             this.attended_leagues = new HashSet<League>();
         return this.attended_leagues;
+    }
+
+    public Set<League> getCreatedLeagues()
+    {
+        if (this.created_leagues == null)
+            this.created_leagues = new HashSet<League>();
+        return this.created_leagues;
     }
 
     public void setAttendedLeagues(Set<League> leagues)

@@ -64,9 +64,15 @@ public class CreateLeaguePage
         if ( user_tmp == null || league_tmp == null )
             System.out.println("Error: user or league not found\n");
 
-        user_tmp.createLeague(league_tmp);
         league_tmp.setCreator(user_tmp);
-        league_tmp.addParticipant(user_tmp);
+        //user_tmp.getCreatedLeagues().add(league_tmp);
+        user_tmp.getAttendedLeagues().add(league_tmp);
+
+        league_dao.save(league);
+        user_dao.save(user);
+
+        league = league_dao.get(league.getId()).get();
+        user = user_dao.getById(user.getId()).get();
 
         System.out.println("league participants: \n");
         for (User u : league_tmp.getParticipants())
@@ -75,9 +81,6 @@ public class CreateLeaguePage
         System.out.println("user attended leagues: \n");
         for (League l : user_tmp.getAttendedLeagues())
             System.out.println(l.getName() + "\n");
-
-        user_dao.save(user);
-        league_dao.save(league);
 
         return "redirect:/main";
     }
