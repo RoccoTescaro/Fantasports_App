@@ -47,5 +47,77 @@ public class League
         return this.id;
     }
 
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getNParticipants()
+    {
+        return this.nParticipants;
+    }
+
+    public int getNFormation()
+    {
+        return this.nFormation;
+    }
+
+    public String getType()
+    {
+        return this.type;
+    }
+
+    public String getStatus()
+    {
+        return this.status;
+    }
+
+    public LocalDate getStartDate()
+    {
+        return this.startDate;
+    }
+
+    public League setName(String name)
+    {
+        this.name = name;
+        return this;
+    }
+
+    public League setNParticipants(int nParticipants)
+    {
+        this.nParticipants = nParticipants;
+        return this;
+    }
+
+    public League setNFormation(int nFormation)
+    {
+        this.nFormation = nFormation;
+        return this;
+    }
+
+    public League setType(String type)
+    {
+        this.type = type;
+        return this;
+    }
+
+    public League setStatus(String status)
+    {
+        this.status = status;
+        return this;
+    }
+
+    public League setStartDate(LocalDate startDate)
+    {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public League setCreator(User creator)
+    {
+        this.creator = creator;
+        return this;
+    }
+
     //...
 }
