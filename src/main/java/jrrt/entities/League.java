@@ -1,15 +1,13 @@
 package jrrt.entities;
 
-import java.util.Set;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.HashSet;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table
-(name = "leagues")
-
+@Table(name = "leagues")
 public class League
 {
     @Id
@@ -17,81 +15,56 @@ public class League
     private Long id;
 
     private String name;
-    private int numberParticipants;
-    private int numberFormation;
+    private int nParticipants;
+    private int nFormation;
     private String type;
     private String status;
     private LocalDate startDate;
 
-
-    @ManyToMany //(mappedBy = "attended_leagues")
-    /*@JoinTable(
-            name = "participants",
-            joinColumns = @JoinColumn(name = "league_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )*/
-    private Set<User> participants;
-
-    // giocatori che partecipano alla lega
-    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Player> players;
-
-    // creatore della lega
     @ManyToOne
-    @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
+
+    @OneToMany(mappedBy = "league")
+    private Set<Team> teams = new HashSet<>();
+
+    @Override
+    public String toString()
+    {
+        return String.format("League[id=%d, name='%s', nParticipants='%d', nFormation='%d', type='%s', status='%s', startDate='%s', creator='%s']", 
+                                id, 
+                                name, 
+                                nParticipants, 
+                                nFormation, 
+                                type, 
+                                status, 
+                                startDate, 
+                                creator
+                            );
+    }
 
     public Long getId()
     {
         return this.id;
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public void setNumberParticipants(int number_participants)
-    {
-        this.numberParticipants = number_participants;
-    }
-
-    public void setNumberFormation(int number_formation)
-    {
-        this.numberFormation = number_formation;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-
     public String getName()
     {
         return this.name;
     }
 
-    public Set<User> getParticipants()
+    public int getNParticipants()
     {
-        if (this.participants == null)
-            this.participants = new HashSet<User>();
-        return this.participants;
+        return this.nParticipants;
     }
 
-    @Override
-    public String toString()
+    public int getNFormation()
     {
-        return String.format("League[id=%d, name='%s', number_participants='%d', number_formations='%d']",
-                                id,
-                                name,
-                                numberParticipants,
-                                numberFormation);
+        return this.nFormation;
     }
 
-    public void  setStatus(String status)
+    public String getType()
     {
-        this.status = status;
+        return this.type;
     }
 
     public String getStatus()
@@ -99,25 +72,52 @@ public class League
         return this.status;
     }
 
-    public LocalDate getStartDate() 
+    public LocalDate getStartDate()
     {
         return this.startDate;
     }
 
-    public void setStartDate(LocalDate start_date) 
+    public League setName(String name)
     {
-        this.startDate = start_date;
+        this.name = name;
+        return this;
     }
-    public void setCreator(User creator) 
+
+    public League setNParticipants(int nParticipants)
+    {
+        this.nParticipants = nParticipants;
+        return this;
+    }
+
+    public League setNFormation(int nFormation)
+    {
+        this.nFormation = nFormation;
+        return this;
+    }
+
+    public League setType(String type)
+    {
+        this.type = type;
+        return this;
+    }
+
+    public League setStatus(String status)
+    {
+        this.status = status;
+        return this;
+    }
+
+    public League setStartDate(LocalDate startDate)
+    {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public League setCreator(User creator)
     {
         this.creator = creator;
+        return this;
     }
 
-    public void addParticipant(User user) {
-        getParticipants().add(user);
-    }
-
-    public int getNumberParticipants() {
-        return this.numberParticipants;
-    }
+    //...
 }

@@ -1,17 +1,12 @@
 package jrrt.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
 
-
 @Entity
-@Table
-(
-    name = "players"
-)
-
+@Table(name = "players")
 public class Player
 {
     @Id
@@ -19,23 +14,21 @@ public class Player
     private Long id;
 
     private String name;
+    private String position;
 
-    // The league the player belongs to
-    @ManyToOne
-    @JoinColumn(name = "players_leagues")
-    private League league;
+    /*@ManyToMany(mappedBy = "players")
+    Set<Team> teams = new HashSet<>();*/
 
-    // Users who have purchased the player
-    @ManyToMany
-    @JoinTable(
-            name = "players_users",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> users;
-   
-    public void setName(String name)
+    @Override
+    public String toString()
     {
-        this.name = name;
+        return String.format("Player[id=%d, name='%s', position='%s']", id, name, position);
     }
+
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    //...
 }

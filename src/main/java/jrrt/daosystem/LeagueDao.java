@@ -12,56 +12,52 @@ import jrrt.repositories.LeagueRepo;
 @Service
 public class LeagueDao implements Dao<League> 
 {
-    private final LeagueRepo league_repo;
+    private final LeagueRepo leagueRepo;
 
     @Autowired
-    public LeagueDao(LeagueRepo league_repo)
+    public LeagueDao(LeagueRepo leagueRepo)
     {
-        this.league_repo = league_repo;
+        this.leagueRepo = leagueRepo;
     }
 
     @Override
     public LeagueDao save(League league)
     {
-        league_repo.save(league);
+        System.out.println("LeagueDao.save(" + league + ")"); //DEBUG
+        leagueRepo.save(league);
         return this;
     }
 
     @Override
     public LeagueDao delete(League league)
     {
-        league_repo.delete(league);
+        System.out.println("LeagueDao.delete(" + league + ")"); //DEBUG
+        leagueRepo.delete(league);
         return this;
     }
 
     @Override
     public LeagueDao update(League league, String[] params)
     {
-        //league_repo.update(league, params);
+        //leagueRepo.update(league, params);
         return this;
     }
 
     @Override
     public Set<League> getAll()
     {
-        Set<League> leagues = (Set<League>) league_repo.findAll();
+        Set<League> leagues = (Set<League>) leagueRepo.findAll();
         return leagues;
     }
 
     @Override
     public Optional<League> get(Long id)
     {
-        return league_repo.findById(id);
+        return leagueRepo.findById(id);
     }
 
-    /*public Optional<League> getByName(String name)
+    public Set<League> getUserAttendedLeagues(Long id)
     {
-        return league_repo.getByName(name);
+        return (Set<League>) leagueRepo.getUserAttendedLeagues(id);
     }
-
-    public List<League> getUserLeagues(String username)
-    {
-        return league_repo.getUserLeagues(username);
-    }*/
-
 }

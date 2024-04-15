@@ -23,121 +23,64 @@ import jrrt.entities.League;
 import jrrt.entities.User;
 
 @Controller
-public class LoginPage {
-    private final UserDao user_dao;
-    private final LeagueDao league_dao;
+public class LoginPage 
+{
+    private final UserDao userDao;
+    private final HttpSession session;
 
     @Autowired
-    public LoginPage(UserDao user_dao, LeagueDao league_dao) {
-        this.user_dao = user_dao;
-        this.league_dao = league_dao;
+    public LoginPage(UserDao userDao, HttpSession session) 
+    {
+        this.userDao = userDao;
+        this.session = session;
     }
 
-    @GetMapping("/login")
-    public String login(Model model) 
+    @GetMapping("/")
+    public String loginPage(Model model) 
     {
         model.addAttribute("user", new User());
-        return "login_page";
+        return "loginPage";
     }
 
     @PostMapping("/signup")
-    public String signupSubmit(@ModelAttribute User user, Model model) 
+    public String signup(@ModelAttribute User user, Model model) 
     {
-        model.addAttribute("user", user);        
-        if (!user_dao.getByName(user.getUsername()).isPresent())
+        if (!userDao.getByName(user.getUsername()).isPresent())
         {
-            user_dao.save(user);
+            userDao.save(user);
             model.addAttribute("info", "singup successful, please login");
-            return "login_page";
+            return "loginPage"; //dont use redirect, otherwise the model will be lost
         }
         else 
         {
             model.addAttribute("info", "username already taken");
-            return "login_page";
+            return "loginPage"; //dont use redirect, otherwise the model will be lost
         }
     }
-    /* 
-    @PostMapping("/main")
-    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
+    
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user, Model model) 
     {
-        Optional<User> optionalUser = user_dao.getByName(user.getUsername());
-        if (!optionalUser.isPresent()) {
-            model.addAttribute("info", "user does not exist, signup first");
-            return "login_page";
-        }
-
-        User existingUser = optionalUser.get();
-        if (existingUser.getPassword().equals(user.getPassword()))
-        {
-            League futureLeague = new League();
-            futureLeague.setName("Future League");
-            futureLeague.setStartDate(LocalDate.now().plusDays(3));
-            league_dao.save(futureLeague);
-            existingUser.getAttendedLeagues().add(futureLeague);
-            futureLeague.getParticipants().add(existingUser);
-            session.setAttribute("user", existingUser);
-
-            // Create a league with a start date before today
-            League pastLeague = new League();
-            pastLeague.setName("Past League");
-            pastLeague.setStartDate(LocalDate.now().minusDays(1));
-            league_dao.save(pastLeague);
-            existingUser.getAttendedLeagues().add(pastLeague);
-            pastLeague.getParticipants().add(existingUser);
-
-            user_dao.save(existingUser);
-            /*if (existingUser != null && league != null)
-            {
-                league_dao.save(league);
-                existingUser.getAttendedLeagues().add(league);
-                league.getParticipants().add(existingUser);
-                user_dao.save(existingUser);
-            }-----stop
-
-            Set<League> leagues = existingUser.getAttendedLeagues();
-            LocalDate today = LocalDate.now();
-
-            //#TODO - fix this with the correct system time
-            //remove from database finished leagues
-            Set<League> alert_leagues = leagues.stream().filter(l -> l.getStartDate() != null && !l.getStartDate().isAfter(today)).collect(Collectors.toSet());
-            Set<League> other_leagues = leagues.stream().filter(l -> l.getStartDate() != null && l.getStartDate().isAfter(today)).collect(Collectors.toSet());
-
-            model.addAttribute("alert_leagues", alert_leagues);
-            model.addAttribute("other_leagues", other_leagues);
-
-            return "main_page";
-        } else {
-            model.addAttribute("info", "invalid credentials");
-            System.out.println(existingUser);
-            return "login_page";
-        }
-    } */
-
-    @PostMapping("/main")
-    public String loginSubmit(@ModelAttribute User user, Model model, HttpSession session) 
-    {
-        
-        Optional<User> optionalUser = user_dao.getByName(user.getUsername());
-        if (!optionalUser.isPresent())
+        Optional<User> optUser = userDao.getByName(user.getUsername());
+        if (!optUser.isPresent())
         {
             model.addAttribute("user", user);
             model.addAttribute("info", "user does not exist, signup first");
-            return "login_page";
+            return "loginPage"; //dont use redirect, otherwise the model will be lost
         }
         
-        User existingUser = optionalUser.get();
-        if (existingUser.getPassword().equals(user.getPassword()))
+        User actUser = optUser.get();
+        if (actUser.getPassword().equals(user.getPassword()))
         {
-            session.setAttribute("user", existingUser);
+            session.setAttribute("user", actUser);
             return "redirect:/main";
         }
         else 
         {
             model.addAttribute("user", user);
             model.addAttribute("info", "invalid credentials");
-            return "login_page";
+            return "loginPage"; //dont use redirect, otherwise the model will be lost
         }
     }
-
 
 }
