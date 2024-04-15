@@ -1,4 +1,4 @@
-package jrrt.gui;
+/*package jrrt.gui;
 
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.UserDao;
@@ -56,4 +56,4 @@ public class LeaguePage {
         Optional<League> league_tmp = league_dao.get(id);
         return league_tmp.orElse(null);
     }
-}
+}*/

@@ -1,65 +1,73 @@
 package jrrt.gui;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set; 
-import java.util.stream.Collectors;
 import java.util.Optional;
+import java.util.Set;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
-import jrrt.daosystem.UserDao;
+
 import jrrt.entities.User;
-import jrrt.daosystem.LeagueDao;
 import jrrt.entities.League;
+import jrrt.daosystem.UserDao;
+import jrrt.daosystem.LeagueDao;
 
 
 @Controller
 public class MainPage
 {
-    private final UserDao user_dao;
-    private final LeagueDao league_dao;
+    private final UserDao userDao;
+    private final LeagueDao leagueDao;
+    private final HttpSession session;
 
     
     @Autowired
-    public MainPage(UserDao user_dao, LeagueDao league_dao) 
+    public MainPage(UserDao userDao, LeagueDao leagueDao, HttpSession session) 
     {
-        this.user_dao = user_dao;
-        this.league_dao = league_dao;
-        
+        this.userDao = userDao;
+        this.leagueDao = leagueDao;
+        this.session = session;
     }
 
     @GetMapping("/main")
-    public String mainPage(Model model, HttpSession session) 
+    public String mainPage(Model model) 
     {
-        User existingUser = (User) session.getAttribute("user");
-        if (existingUser == null) 
-            return "login_page"; //should send an error message
+        User actUser = (User) session.getAttribute("user");
+        if (actUser == null)
+            return "redirect:/"; //should send an error message
+        Optional<User> optUser = userDao.get(actUser.getId());
+        if (!optUser.isPresent())
+            return "redirect:/"; //should send an error message
 
-        Optional<User> user_opt = user_dao.getById(existingUser.getId());
+        User user = optUser.get();
+        model.addAttribute("user", user);
+        session.setAttribute("user", user);
+
+        Set<League> leagues = leagueDao.getUserAttendedLeagues(user.getId());
+        System.out.println("leagues: " + leagues);
         
-        if (user_opt.isPresent()) 
-        {
-            
-            User user = user_opt.get();
-            model.addAttribute("user", user);
-            model.addAttribute("alert_leagues", user.getAlertLeagues());
-            model.addAttribute("other_leagues", user.getOtherLeagues());
-          
-            //fix this relational problem user attend leagues
-        }
+        //model.addAttribute("alert_leagues", user.getAlertLeagues());
+        //model.addAttribute("other_leagues", user.getOtherLeagues());
 
-        return "main_page";
+        return "mainPage";
     }
 
-    @GetMapping("/league/{id}")
+    @GetMapping("/newLeague")
+    public String newLeague(Model model) 
+    {
+        User user = (User) session.getAttribute("user");
+        if (user == null) 
+            return "redirect:/"; //should send an error message
+            
+        model.addAttribute("user", user);
+        model.addAttribute("league", new League());
+        return "createNewLeaguePage";
+    }
+
+    /*@GetMapping("/league/{id}")
     public String showLeaguePage(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<League> league_opt = league_dao.get(id);
         if (league_opt.isPresent()) {
@@ -78,6 +86,6 @@ public class MainPage
             return "main_page"; // or wherever you want to redirect if the league is not found
         }
     }
+*/
 
 }
-

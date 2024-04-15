@@ -14,25 +14,27 @@ import jrrt.entities.League;
 @Service
 public class UserDao implements Dao<User> 
 {   
-    private final UserRepo user_repo;
+    private final UserRepo userRepo;
     
     @Autowired
-    public UserDao(UserRepo user_repo)
+    public UserDao(UserRepo userRepo)
     {
-        this.user_repo = user_repo;
+        this.userRepo = userRepo;
     }
 
     @Override
     public UserDao save(User user)
     {
-        user_repo.save(user);
+        System.out.println("UserDao.save(" + user + ")"); //DEBUG
+        userRepo.save(user);
         return this;
     }
 
     @Override
     public UserDao delete(User user)
     {
-        user_repo.delete(user);
+        System.out.println("UserDao.delete(" + user + ")"); //DEBUG
+        userRepo.delete(user);
         return this;
     }
 
@@ -46,31 +48,18 @@ public class UserDao implements Dao<User>
     @Override
     public Set<User> getAll()
     {
-        Set<User> users = (Set<User>) user_repo.findAll();
+        Set<User> users = (Set<User>) userRepo.findAll();
         return users;
     }
 
     @Override
     public Optional<User> get(Long id)
     {
-        return user_repo.findById(id);
+        return userRepo.findById(id);
     }
 
     public Optional<User> getByName(String name)
     {
-        return user_repo.getByName(name);
+        return userRepo.getByName(name);
     }
-
-    public Set<League> getUserLeagues(String username)
-    {
-        return user_repo.getUserLeagues(username);
-    }
-
-    //find by id
-    public Optional<User> getById(Long id)
-    {
-        return user_repo.findById(id);
-    }
-
-
 }
