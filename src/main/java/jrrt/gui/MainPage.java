@@ -47,8 +47,10 @@ public class MainPage
         session.setAttribute("user", user);
 
         Set<League> leagues = leagueDao.getUserAttendedLeagues(user.getId());
-        System.out.println("leagues: " + leagues);
+        //System.out.println("leagues: " + leagues);
         
+        model.addAttribute("leagues", leagues);
+
         //model.addAttribute("alert_leagues", user.getAlertLeagues());
         //model.addAttribute("other_leagues", user.getOtherLeagues());
 

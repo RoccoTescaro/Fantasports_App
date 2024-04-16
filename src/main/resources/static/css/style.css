@@ -93,7 +93,7 @@ nav
     color: var(--dracula-foreground) !important;
 }
 
-.username 
+#username 
 {
     font-weight: bold;
 }
@@ -107,4 +107,19 @@ a.league-link
     text-decoration: none !important;
     color: var(--dracula-foreground) !important;
     font-weight: bold !important;
+}
+
+.card-mod
+{
+    background-color: #5c5f6b;
+    color: var(--dracula-foreground);
+    margin-top: 3px;
+    margin-bottom: 3px;
+    height: 80px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 40px;
+    border-bottom: var(--dracula-foreground) 1px solid;
+    border-right: var(--dracula-foreground) 1px solid;
 }
