@@ -56,8 +56,18 @@ public class LeagueDao implements Dao<League>
         return leagueRepo.findById(id);
     }
 
+    public Set<League> getUserCreatedLeagues(Long id)
+    {
+        return leagueRepo.getUserCreatedLeagues(id);
+    }
+
     public Set<League> getUserAttendedLeagues(Long id)
     {
-        return (Set<League>) leagueRepo.getUserAttendedLeagues(id);
+        return leagueRepo.getUserAttendedLeagues(id);
+    }
+
+    public Set<League> getByName(String name)
+    {
+        return leagueRepo.getByName(name);
     }
 }

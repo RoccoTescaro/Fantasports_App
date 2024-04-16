@@ -1,5 +1,7 @@
 package jrrt.gui;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -38,6 +40,11 @@ public class CreateNewLeaguePage
         User user = (User) session.getAttribute("user");
         if (user == null)
             return "redirect:/"; //should send an error message
+
+        Set<League> leaguesWithSameName = leagueDao.getByName(league.getName());
+        for (League l : leaguesWithSameName)
+            if (l.getCreator().getId() == user.getId())
+                return "redirect:/main"; //should send to modify league page
 
         //should check for leagues with the same name
         league.setCreator(user);

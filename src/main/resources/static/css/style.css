@@ -123,3 +123,7 @@ a.league-link
     border-bottom: var(--dracula-foreground) 1px solid;
     border-right: var(--dracula-foreground) 1px solid;
 }
+
+#creator-name {
+    color: black;
+}
