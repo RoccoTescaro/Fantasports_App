@@ -29,7 +29,8 @@ public class MainPage {
 
 
     @Autowired
-    public MainPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session) {
+    public MainPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session) 
+    {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
         this.session = session;
@@ -37,7 +38,8 @@ public class MainPage {
     }
 
     @GetMapping("/main")
-    public String mainPage(Model model) {
+    public String mainPage(Model model) 
+    {
         User actUser = (User) session.getAttribute("user");
         if (actUser == null)
             return "redirect:/"; //should send an error message
@@ -61,7 +63,8 @@ public class MainPage {
     }
 
     @GetMapping("/newLeague")
-    public String newLeague(Model model) {
+    public String newLeague(Model model)
+    {
         User user = (User) session.getAttribute("user");
         if (user == null)
             return "redirect:/"; //should send an error message
@@ -73,11 +76,9 @@ public class MainPage {
 
 
     @PostMapping("/joinLeague")
-    public String joinLeague(@RequestParam("leagueId") Long leagueId, Model model) {
-        // Get the user from the session
+    public String joinLeague(@RequestParam("leagueId") Long leagueId, Model model) 
+    {
         User user = (User) session.getAttribute("user");
-
-        // Fetch the league using the provided ID
         Optional<League> leagueOpt = leagueDao.get(leagueId);
 
         if (!leagueOpt.isPresent())
@@ -99,7 +100,6 @@ public class MainPage {
         teamDao.save(team);
 
         return "redirect:/main";
-
     }
 }
 

@@ -45,8 +45,31 @@ public class LeagueDetailsPage
         
         League league = leagueOpt.get();
         model.addAttribute("league", league);
-        
+        session.setAttribute("league", league); //session must save the current league shown so that modify button can actually see it
+    
+        model.addAttribute("modifyButton", false);
+        if(league.getCreator().getId() == user.getId())
+            model.addAttribute("modifyButton", true);
+
         return "leagueDetailsPage";
+    }
+
+    @GetMapping("/modifyLeague")
+    public String modifyLeague(Model model)
+    {
+        User user = (User) session.getAttribute("user");
+        if (user == null) 
+            return "redirect:/"; //should send an error message
+            
+        model.addAttribute("user", user);
+
+        League league = (League) session.getAttribute("league");
+        if (league == null)
+            return "redirect:/main"; //should send an error message
+
+        model.addAttribute("league", league);
+
+        return "modifyLeaguePage";
     }
 
 }

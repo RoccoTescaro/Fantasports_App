@@ -40,6 +40,10 @@
                 <strong class="d-block text-gray-dark" th:text="${league.name}">League Name</strong>
                 <!-- Add more league details here -->
             </p>
+
+            <div th:if="${modifyButton}">
+                <a href="/modifyLeague" class="btn btn-primary"> Modify </a>
+            </div>
         </div>
     </div>
 </div>

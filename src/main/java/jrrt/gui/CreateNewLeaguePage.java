@@ -44,7 +44,7 @@ public class CreateNewLeaguePage
         Set<League> leaguesWithSameName = leagueDao.getByName(league.getName());
         for (League l : leaguesWithSameName)
             if (l.getCreator().getId() == user.getId())
-                return "redirect:/main"; //should send to modify league page
+                return "redirect:/modifyLeague"; //should send to modify league page
 
         //should check for leagues with the same name
         league.setCreator(user);
