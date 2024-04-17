@@ -3,6 +3,7 @@ package jrrt.gui;
 import java.util.Optional;
 import java.util.Set;
 
+import jrrt.entities.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,27 +15,29 @@ import jrrt.entities.User;
 import jrrt.entities.League;
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
+import jrrt.daosystem.TeamDao;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class MainPage
-{
+public class MainPage {
     private final UserDao userDao;
     private final LeagueDao leagueDao;
     private final HttpSession session;
+    private final TeamDao teamDao;
 
-    
+
     @Autowired
-    public MainPage(UserDao userDao, LeagueDao leagueDao, HttpSession session) 
-    {
+    public MainPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session) {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
         this.session = session;
+        this.teamDao = teamDao;
     }
 
     @GetMapping("/main")
-    public String mainPage(Model model) 
-    {
+    public String mainPage(Model model) {
         User actUser = (User) session.getAttribute("user");
         if (actUser == null)
             return "redirect:/"; //should send an error message
@@ -48,7 +51,7 @@ public class MainPage
 
         Set<League> leagues = leagueDao.getUserAttendedLeagues(user.getId());
         //System.out.println("leagues: " + leagues);
-        
+
         model.addAttribute("leagues", leagues);
 
         //model.addAttribute("alert_leagues", user.getAlertLeagues());
@@ -58,16 +61,48 @@ public class MainPage
     }
 
     @GetMapping("/newLeague")
-    public String newLeague(Model model) 
-    {
+    public String newLeague(Model model) {
         User user = (User) session.getAttribute("user");
-        if (user == null) 
+        if (user == null)
             return "redirect:/"; //should send an error message
-            
+
         model.addAttribute("user", user);
         model.addAttribute("league", new League());
         return "createNewLeaguePage";
     }
+
+
+    @PostMapping("/joinLeague")
+    public String joinLeague(@RequestParam("leagueId") Long leagueId, Model model) {
+        // Get the user from the session
+        User user = (User) session.getAttribute("user");
+
+        // Fetch the league using the provided ID
+        Optional<League> leagueOpt = leagueDao.get(leagueId);
+
+        if (!leagueOpt.isPresent())
+            return "redirect:/main"; //should send an error message
+
+        League league = leagueOpt.get();
+        if (leagueDao.getTeams(league.getId()).size() >= league.getNParticipants())
+            return "redirect:/main";
+
+        Set<Team> teams = leagueDao.getTeams(league.getId());
+        for (Team t : teams)
+            if (t.getOwner().getId() == user.getId() )
+                return "redirect:/main";
+
+        Team team = new Team();
+        team.setOwner(user);
+        team.setLeague(league);
+        leagueDao.save(league);
+        teamDao.save(team);
+
+        return "redirect:/main";
+
+    }
+}
+
 
     /*@GetMapping("/league/{id}")
     public String showLeaguePage(@PathVariable("id") Long id, Model model, HttpSession session) {
@@ -88,7 +123,6 @@ public class MainPage
             return "main_page"; // or wherever you want to redirect if the league is not found
         }
     }
-*/
 
     @PostMapping("/joinLeague")
     public String joinLeague(@RequestParam("leagueId") Long leagueId, HttpSession session, Model model) {
@@ -118,5 +152,7 @@ public class MainPage
 
         return "main_page";
     }//fix this, gives error
+    */
 
-}
+
+

@@ -34,6 +34,11 @@ public class Team
         return this.id;
     }
 
+    public User getOwner()
+    {
+        return this.owner;
+    }
+
     public Team setOwner(User user)
     {
         this.owner = user;
@@ -45,6 +50,7 @@ public class Team
         this.league = league;
         return this;
     }
+
 
     //...
 }

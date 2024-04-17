@@ -124,5 +124,5 @@ a.league-link
 }
 
 #creator-name {
-    color: black;
+    color: var(--dracula-background);
 }
