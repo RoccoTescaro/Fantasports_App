@@ -81,12 +81,15 @@ public class MainPage {
         User user = (User) session.getAttribute("user");
         Optional<League> leagueOpt = leagueDao.get(leagueId);
 
-        if (!leagueOpt.isPresent())
+        if (!leagueOpt.isPresent()) {
+            model.addAttribute("error", "The league does not exist.");
             return "redirect:/main"; //should send an error message
-
+        }
         League league = leagueOpt.get();
-        if (leagueDao.getTeams(league.getId()).size() >= league.getNParticipants())
+        if (leagueDao.getTeams(league.getId()).size() >= league.getNParticipants()) {
+            model.addAttribute("error", "The league is already full.");
             return "redirect:/main";
+        }
 
         Set<Team> teams = leagueDao.getTeams(league.getId());
         for (Team t : teams)
