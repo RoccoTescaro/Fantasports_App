@@ -3,6 +3,7 @@ package jrrt.daosystem;
 import java.util.Optional;
 import java.util.Set;
 
+import jrrt.entities.Team;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -69,5 +70,11 @@ public class LeagueDao implements Dao<League>
     public Set<League> getByName(String name)
     {
         return leagueRepo.getByName(name);
+    }
+
+
+    public Set<Team> getTeams(Long id)
+    {
+        return leagueRepo.getTeamsByLeagueId(id);
     }
 }

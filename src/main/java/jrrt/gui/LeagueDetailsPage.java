@@ -65,7 +65,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @SessionAttributes({"user", "league"})
@@ -91,6 +93,15 @@ public class LeaguePage {
             model.addAttribute("league", league);
 
             User user = (User) session.getAttribute("user");
+
+            // Fetch the participants and their respective points or rankings
+            Set<User> participants = league.getParticipants(); // Assuming getParticipants() method exists in League class
+            // Print each participant's name
+            for (User participant : participants) {
+                System.out.println(participant.getUsername()); // Fix this line beacuse participants is empty
+            }
+            model.addAttribute("participants", participants);
+
             if (user != null) {
                 model.addAttribute("user", user);
             } else {

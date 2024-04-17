@@ -93,7 +93,7 @@ nav
     color: var(--dracula-foreground) !important;
 }
 
-#username 
+.username 
 {
     font-weight: bold;
 }
@@ -123,8 +123,9 @@ a.league-link
     border-right: var(--dracula-foreground) 1px solid;
 }
 
-#creator-name {
-    color: black;
+#creator-name 
+{
+    color: var(--dracula-background);
 }
 
 .card-mod:hover, .link-card:hover
