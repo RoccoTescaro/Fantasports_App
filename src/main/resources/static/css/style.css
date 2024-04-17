@@ -126,3 +126,10 @@ a.league-link
 #creator-name {
     color: black;
 }
+
+.card-mod:hover, .link-card:hover
+{
+    background-color: var(--dracula-accent);
+    color: inherit;
+    border-bottom-right-radius: 40px;
+}

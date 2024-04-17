@@ -1,3 +1,57 @@
+package jrrt.gui;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import jakarta.servlet.http.HttpSession;
+
+import jrrt.daosystem.UserDao;
+import jrrt.daosystem.LeagueDao;
+import jrrt.entities.League;
+import jrrt.entities.User;
+
+@Controller
+public class LeagueDetailsPage
+{
+    private final UserDao userDao;
+    private final LeagueDao leagueDao;
+    private final HttpSession session;
+
+    @Autowired
+    public LeagueDetailsPage(UserDao userDao, LeagueDao leagueDao, HttpSession session)
+    {
+        this.userDao = userDao;
+        this.leagueDao = leagueDao;
+        this.session = session;
+    }
+
+    @GetMapping("/leagueDetails/{id}")
+    public String leagueDetails(@PathVariable Long id, Model model)
+    {
+        User user = (User) session.getAttribute("user");
+        if (user == null) 
+            return "redirect:/"; //should send an error message
+            
+        model.addAttribute("user", user);
+
+        Optional<League> leagueOpt = leagueDao.get(id);
+        if (!leagueOpt.isPresent()) 
+            return "redirect:/main"; //should send an error
+        
+        League league = leagueOpt.get();
+        model.addAttribute("league", league);
+        
+        return "leagueDetailsPage";
+    }
+
+}
+
+
 /*package jrrt.gui;
 
 import jrrt.daosystem.LeagueDao;

@@ -56,7 +56,7 @@
             
             <th:block th:each="league : ${leagues}">
                 <div class="card mb-3 card-mod">
-                    <div class="card-body">
+                    <a th:href="@{/leagueDetails/{id}(id=${league.id})}" class="card-body text-decoration-none link-card">
                         <div class="row">
                             <div class="col-11">
                                 <span class="mb-0" th:text="${league.name}"><b></b></span> <!-- League name -->  <!--th:href="@{/league/{id}(id=${league.id})}"-->
@@ -68,7 +68,7 @@
                         <div class="row">
                             <small id="creator-name" th:text="${league.creator.username}"></small> <!-- Creator name -->
                         </div>
-                    </div>
+                    </a>
                 </div>
             </th:block>
 
