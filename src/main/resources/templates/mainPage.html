@@ -28,7 +28,7 @@
         
         <div style="margin-right: 20px;">
             <span> Log as: &nbsp;
-                <span class="username" th:text="${user.username}"> <strong></strong></strong></span>
+                <span id="username" th:text="${user.username}"> <strong></strong></strong></span>
             </span> &nbsp; &nbsp; &nbsp;
             <a href="/" class="btn btn-primary">Sign Out</a>
         </div> 
@@ -53,16 +53,24 @@
     <div class="container mt-3 mb-3" role="main">
         <div class="my-3 p-3 rounded box-shadow">
             <h6 class="border-bottom border-gray pb-2 mb-0">Joined Leagues</h6>
-
-            <!--    
-                <th:block th:each="league : ${other_leagues}">
-                    <div class="media text-muted pt-3">
-                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <a class="league-link" th:href="@{/league/{id}(id=${league.id})}" th:text="${league.getName()}"> League Name 1 </a>
-                        </p>
+            
+            <th:block th:each="league : ${leagues}">
+                <div class="card mb-3 card-mod">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-11">
+                                <span class="mb-0" th:text="${league.name}"><b></b></span> <!-- League name -->  <!--th:href="@{/league/{id}(id=${league.id})}"-->
+                            </div>
+                            <div class="col-auto text-md-right">
+                                <span th:text="${league.startDate}"></span> <!-- Date -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <small id="creator-name" th:text="${league.creator.username}"></small> <!-- Creator name -->
+                        </div>
                     </div>
-                </th:block>
-            -->
+                </div>
+            </th:block>
 
             <small class="d-block text-right mt-3">
               <a href="/newLeague" class="btn btn-primary"><i class="fa fa-plus"></i> Add League</a>

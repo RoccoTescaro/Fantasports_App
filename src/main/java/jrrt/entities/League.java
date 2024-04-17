@@ -77,6 +77,11 @@ public class League
         return this.startDate;
     }
 
+    public User getCreator()
+    {
+        return this.creator;
+    }
+
     public League setName(String name)
     {
         this.name = name;

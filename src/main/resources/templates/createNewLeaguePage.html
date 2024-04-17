@@ -27,73 +27,63 @@
         
         <div style="margin-right: 20px;">
             <span> Log as: &nbsp;
-                <strong class="username" th:text="${user.username}"> </strong>
+                <strong id="username" th:text="${user.username}"> </strong>
             </span> &nbsp; &nbsp; &nbsp;
             <a href="/main" class="btn btn-primary">Back</a>
         </div>
       </nav>
 
-
-      <!-- form to create a new league -->
-      <div class="container mt-3">
+      <div class="container mt-3 pt-1 pb-2">
+        <h1>Create New League</h1>
         <form id="form" action="/createNewLeague" th:object="${league}" method="post" >
-          <div class="mb-3">
-            <label for="username" class="form-label"><b>League Name</b></label>
-            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:field="*{name}" required>
+          <div class="form-group row mb-3">
+            <label for="leagueName" class="col-sm-2 col-form-label">League Name (required)</label>
+            <div class="col-sm-10">
+              <input type="text" maxlength="30" class="form-control" id="leagueName" aria-describedby="nameHelp" th:field="*{name}" required>
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="type" class="form-label"><b>Type of League</b></label><br>
-            <input type="radio" id="points" name="type" value="Points" th:field="*{type}" required>
-            <label for="points">Points</label><br>
-            <input type="radio" id="headToHead" name="type" value="Head to head" th:field="*{type}" required>
-            <label for="headToHead">Head to head</label>
+          <div class="form-group row mb-3">
+            <label for="leagueType" class="col-sm-2 col-form-label">Type of League</label>
+            <div class="col-sm-10">    
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="leagueType" id="leagueTypePoints" value="points"  th:field="*{type}">
+                <label class="form-check-label" for="leagueTypePoints">Points System</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="leagueType" id="leagueTypeHeadToHead" value="headtohead"  th:field="*{type}">
+                <label class="form-check-label" for="leagueTypeHeadToHead">Head-to-Head</label>
+              </div>
+            </div>            
+          </div>  
+          <div class="form-group row mb-3">
+            <label for="numPlayers" class="col-sm-2 col-form-label">Number of Players for Formation</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="numPlayers" name="numPlayers" min="1" th:field="*{nFormation}">
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="numberFormation" class="form-label"><b>Numbers of player in the Formation</b></label>
-            <input type="number" class="form-control" id="nFormation" aria-describedby="numberFormationHelp" th:field="*{nFormation}" oninput="validatePositiveNumber(this)"  required>
+          <div class="form-group row mb-3">
+            <label for="numParticipants" class="col-sm-2 col-form-label">Number of Participants (only even number)</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="numParticipants" name="numParticipants" min="2" step="2" th:field="*{nParticipants}">
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="numberParticipants" class="form-label"><b>Number of Participants</b></label>
-            <input type="number" class="form-control" id="nParticipants" aria-describedby="numberParticipantsHelp" th:field="*{nParticipants}" oninput="validateEvenNumber(this)" required>
+          <div class="form-group row mb-3">
+            <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="startDate" name="startDate" th:field="*{startDate}" required>
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="startDate" class="form-label"><b>Start Date</b></label>
-            <input type="date" class="form-control" id="startDate" aria-describedby="startDateHelp" th:field="*{startDate}" required>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">Create League</button>
         </form>
       </div>
-
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bItqctjMBxnboZMLnTTBcsjA3CxCJuIhqDVw6mDSj1EbQgQ8PTrtHMNsTyoHsGjOn" crossorigin="anonymous"></script>
       <script>
-        function validatePositiveNumber(input) 
-        {
-          var value = input.value;
-          if (value <= 0)
-            input.setCustomValidity('Please enter an positive number.');
-          else
-            input.setCustomValidity('');  
-        }
-
-        function validateEvenNumber(input) 
-        {
-          var value = input.value;
-          if (value % 2 !== 0)
-            input.setCustomValidity('Please enter an even number.');
-          else
-            input.setCustomValidity('');  
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => 
-        {
-          let today = new Date().toISOString().substr(0, 10);
-          document.querySelector("#start_Date").setAttribute('min', today);
-        });
-
+        //set the default value
+        document.getElementById("leagueName").value = document.getElementById("username").textContent + "'s League";
+        document.getElementById("leagueTypePoints").checked = true;
+        document.getElementById("numPlayers").value = 11;
+        document.getElementById("numParticipants").value = 2;
+        document.getElementById("startDate").value = new Date().toISOString().split('T')[0];
       </script>
   </body>
 </html>
