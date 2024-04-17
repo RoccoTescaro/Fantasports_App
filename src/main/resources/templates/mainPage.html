@@ -58,13 +58,15 @@
                 <div class="card mb-3 card-mod">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-11">
                                 <span class="mb-0" th:text="${league.name}"><b></b></span> <!-- League name -->  <!--th:href="@{/league/{id}(id=${league.id})}"-->
-                                <small id="creator-name" th:text="${league.creator.username}"></small> <!-- Creator name -->
                             </div>
-                            <div class="col-md-1 text-md-right">
+                            <div class="col-auto text-md-right">
                                 <span th:text="${league.startDate}"></span> <!-- Date -->
                             </div>
+                        </div>
+                        <div class="row">
+                            <small id="creator-name" th:text="${league.creator.username}"></small> <!-- Creator name -->
                         </div>
                     </div>
                 </div>
