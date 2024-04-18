@@ -10,8 +10,7 @@ import jrrt.entities.League;
 import jrrt.entities.Team;
 
 @Repository
-public interface LeagueRepo extends CrudRepository<League, Long>
-{
+public interface LeagueRepo extends CrudRepository<League, Long> {
     @Query("SELECT l FROM League l WHERE l.creator.id = ?1")
     public Set<League> getUserCreatedLeagues(Long id);
 
@@ -23,5 +22,6 @@ public interface LeagueRepo extends CrudRepository<League, Long>
 
     @Query("SELECT t FROM Team t WHERE t.league.id = ?1")
     public Set<Team> getTeamsByLeagueId(Long id);
+
 }
 

@@ -1,7 +1,10 @@
 package jrrt.gui;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import jrrt.entities.Team;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +55,15 @@ public class MainPage {
         session.setAttribute("user", user);
 
         Set<League> leagues = leagueDao.getUserAttendedLeagues(user.getId());
-        //System.out.println("leagues: " + leagues);
+        List<League> sortedLeagues = leagues.stream().sorted((l1, l2) -> l1.getStartDate().compareTo(l2.getStartDate())).collect(Collectors.toList());
 
-        model.addAttribute("leagues", leagues);
+        //LocalDate twoDaysFromNow = LocalDate.now().plusDays(2);
 
-        //model.addAttribute("alert_leagues", user.getAlertLeagues());
-        //model.addAttribute("other_leagues", user.getOtherLeagues());
+        //Set<League> leagues = attendedLeagues.stream().filter(league -> !league.getStartDate().equals(twoDaysFromNow) && !league.getStartDate().isBefore(twoDaysFromNow)).collect(Collectors.toSet());
+        model.addAttribute("leagues", sortedLeagues);
+
+        //Set<League> alertLeagues = attendedLeagues.stream().filter(league -> league.getStartDate().equals(twoDaysFromNow) || league.getStartDate().isBefore(twoDaysFromNow)).collect(Collectors.toSet());
+        //model.addAttribute("alertLeagues", alertLeagues);
 
         return "mainPage";
     }
@@ -93,9 +99,10 @@ public class MainPage {
 
         Set<Team> teams = leagueDao.getTeams(league.getId());
         for (Team t : teams)
-            if (t.getOwner().getId() == user.getId() )
+            if (t.getOwner().getId() == user.getId() ) {
+                model.addAttribute("error", "You are already in this league.");
                 return "redirect:/main";
-
+            }
         Team team = new Team();
         team.setOwner(user);
         team.setLeague(league);
