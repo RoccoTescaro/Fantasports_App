@@ -27,7 +27,7 @@
             <span> Log as: &nbsp;
                 <span class="username" th:text="${user.username}"> <strong></strong></strong></span>
             </span> &nbsp; &nbsp; &nbsp;
-        <a href="/main" class="btn btn-primary">Sign Out</a>
+        <a href="/" class="btn btn-primary">Sign Out</a>
     </div>
 </nav>
 
@@ -44,6 +44,25 @@
             <div th:if="${modifyButton}">
                 <a href="/modifyLeague" class="btn btn-primary"> Modify </a>
             </div>
+        </div>
+
+        <div th:if="${ranking}" class="media pt-3">
+            <th:block th:each="team, i : ${teams}">
+                <div class="card mb-3 card-mod">
+                    <div class="card-body text-decoration-none link-card">
+                        <div class="row">
+                            <div class="col">
+                                <span class="mb-0"><b th:text="${i.count}"></b>| <span th:text="${team.name}"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
         </div>
     </div>
 </div>

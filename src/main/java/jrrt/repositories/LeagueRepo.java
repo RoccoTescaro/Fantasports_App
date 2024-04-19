@@ -12,9 +12,6 @@ import jrrt.entities.Team;
 @Repository
 public interface LeagueRepo extends CrudRepository<League, Long>
 {
-    @Query("SELECT l FROM League l WHERE l.creator.id = ?1")
-    public Set<League> getUserCreatedLeagues(Long id);
-
     @Query("SELECT l FROM League l JOIN l.teams t WHERE t.owner.id = ?1")
     public Set<League> getUserAttendedLeagues(Long id);
 
@@ -22,6 +19,6 @@ public interface LeagueRepo extends CrudRepository<League, Long>
     public Set<League> getByName(String name);
 
     @Query("SELECT t FROM Team t WHERE t.league.id = ?1")
-    public Set<Team> getTeamsByLeagueId(Long id);
+    public Set<Team> getTeams(Long id);
 }
 

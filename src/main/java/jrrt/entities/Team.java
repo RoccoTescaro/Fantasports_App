@@ -13,6 +13,7 @@ public class Team
     private Long id;
 
     private String name;
+    private int points;
 
     @ManyToOne
     private User owner;
@@ -37,6 +38,16 @@ public class Team
     public User getOwner()
     {
         return this.owner;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getPoints()
+    {
+        return this.points;
     }
 
     public Team setOwner(User user)

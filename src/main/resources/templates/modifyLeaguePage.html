@@ -29,7 +29,7 @@
             <span> Log as: &nbsp;
                 <strong id="username" th:text="${user.username}"> </strong>
             </span> &nbsp; &nbsp; &nbsp;
-            <a href="/main" class="btn btn-primary">Sing Out</a>
+            <a href="/" class="btn btn-primary">Sing Out</a>
         </div>
       </nav>
 
@@ -48,6 +48,22 @@
               <input type="date" class="form-control" id="startDate" name="startDate" th:field="*{startDate}" required>
             </div>
           </div>
+
+          <th:block th:each="team : ${teams}">
+                <div class="card mb-3 card-mod">
+                    <div class="card-body text-decoration-none link-card">
+                        <div class="row">
+                            <div class="col">
+                                <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
+                            </div>
+                            <div class="col-sm-1">
+                              <a th:href="@{/removeTeam/{id}(id=${team.id})}" class="btn btn-danger btn-sm">X</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+
           <button type="submit" class="btn btn-primary">Modify League</button>
         </form>
       </div>

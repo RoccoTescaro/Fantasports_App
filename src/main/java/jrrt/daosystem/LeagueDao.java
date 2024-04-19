@@ -57,11 +57,6 @@ public class LeagueDao implements Dao<League>
         return leagueRepo.findById(id);
     }
 
-    public Set<League> getUserCreatedLeagues(Long id)
-    {
-        return leagueRepo.getUserCreatedLeagues(id);
-    }
-
     public Set<League> getUserAttendedLeagues(Long id)
     {
         return leagueRepo.getUserAttendedLeagues(id);
@@ -72,9 +67,8 @@ public class LeagueDao implements Dao<League>
         return leagueRepo.getByName(name);
     }
 
-
     public Set<Team> getTeams(Long id)
     {
-        return leagueRepo.getTeamsByLeagueId(id);
+        return leagueRepo.getTeams(id);
     }
 }
