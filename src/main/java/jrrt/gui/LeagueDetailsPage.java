@@ -1,6 +1,11 @@
 package jrrt.gui;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +17,25 @@ import jakarta.servlet.http.HttpSession;
 
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
+import jrrt.daosystem.TeamDao;
 import jrrt.entities.League;
 import jrrt.entities.User;
+import jrrt.entities.Team;
 
 @Controller
 public class LeagueDetailsPage
 {
     private final UserDao userDao;
     private final LeagueDao leagueDao;
+    private final TeamDao teamDao;
     private final HttpSession session;
 
     @Autowired
-    public LeagueDetailsPage(UserDao userDao, LeagueDao leagueDao, HttpSession session)
+    public LeagueDetailsPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session)
     {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
+        this.teamDao = teamDao;
         this.session = session;
     }
 
@@ -51,6 +60,17 @@ public class LeagueDetailsPage
         if(league.getCreator().getId() == user.getId())
             model.addAttribute("modifyButton", true);
 
+        LocalDate date = LocalDate.now();
+        model.addAttribute("ranking", false);
+        if(!league.getStartDate().isAfter(date))
+        {
+            //show ranking
+            model.addAttribute("ranking", true);
+            Set<Team> teams = leagueDao.getTeams(league.getId());
+            List<Team> sortedTeams = teams.stream().sorted((t1, t2) -> t2.getPoints() - t1.getPoints()).collect(Collectors.toList());
+            model.addAttribute("teams", sortedTeams);
+        }
+
         return "leagueDetailsPage";
     }
 
@@ -68,8 +88,33 @@ public class LeagueDetailsPage
             return "redirect:/main"; //should send an error message
 
         model.addAttribute("league", league);
+        Set<Team> teams = leagueDao.getTeams(league.getId());
+        model.addAttribute("teams", teams);
 
         return "modifyLeaguePage";
+    }
+
+    @GetMapping("/removeTeam/{id}")
+    public String removeTeam(@PathVariable Long id, Model model)
+    {
+        Optional<Team> teamOpt = teamDao.get(id);
+        if (!teamOpt.isPresent()) 
+            return "redirect:/main"; //should send an error message
+        
+        Team team = teamOpt.get();
+        teamDao.delete(team);
+        
+        League league = (League) session.getAttribute("league");
+        if (league == null)
+            return "redirect:/main"; //should send an error message
+
+        if (leagueDao.getTeams(league.getId()).isEmpty())
+        {
+            leagueDao.delete(league);
+            return "redirect:/main";
+        }
+
+        return "redirect:/modifyLeague";
     }
 
 }
