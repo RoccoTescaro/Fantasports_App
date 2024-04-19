@@ -102,12 +102,33 @@ public class LeagueDetailsPage
             return "redirect:/main"; //should send an error message
         
         Team team = teamOpt.get();
-        teamDao.delete(team);
-        
         League league = (League) session.getAttribute("league");
         if (league == null)
             return "redirect:/main"; //should send an error message
 
+        if (team.getOwner().getId() == ((User) session.getAttribute("user")).getId())
+        {
+            Set<Team> teams = leagueDao.getTeams(league.getId());
+            User newCreator = null;
+            for (Team t : teams)
+            {
+                if (t.getId() != team.getId())
+                {
+                    newCreator = t.getOwner();
+                    break;
+                }
+            }
+            if (newCreator != null)
+                league.setCreator(newCreator);
+            leagueDao.save(league);
+            teamDao.delete(team);
+            if (leagueDao.getTeams(league.getId()).isEmpty())
+                leagueDao.delete(league);
+            return "redirect:/main";
+        }
+
+        teamDao.delete(team);
+        
         if (leagueDao.getTeams(league.getId()).isEmpty())
         {
             leagueDao.delete(league);
