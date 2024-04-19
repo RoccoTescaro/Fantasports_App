@@ -2,6 +2,8 @@ package jrrt.gui;
 
 import java.util.Set;
 
+import jrrt.daosystem.PlayerDao;
+import jrrt.entities.Player;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -23,15 +25,17 @@ public class CreateNewLeaguePage
     private final UserDao userDao;
     private final LeagueDao leagueDao;
     private final TeamDao teamDao;
+    private final PlayerDao playerDao;
     private final HttpSession session;
 
     @Autowired
-    public CreateNewLeaguePage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session)
+    public CreateNewLeaguePage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao,PlayerDao playerDao, HttpSession session)
     {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
-        this.teamDao = teamDao;       
-        this.session = session; 
+        this.teamDao = teamDao;
+        this.playerDao = playerDao;
+        this.session = session;
     }
 
     @PostMapping("/createNewLeague")
@@ -52,7 +56,18 @@ public class CreateNewLeaguePage
         Team team = new Team();
         team.setOwner(user);
         team.setLeague(league);
+
+        //test player added to team
+        Player player = new Player();
+        player.setName("Player1");
+        player.setVote(7);
+        player.setTeam(team);
+        team.addPlayer(player);
+        playerDao.save(player);
+
+
         teamDao.save(team);
+
         //userDao.save(user); //check if needed for persistance
         return "redirect:/main";
     }

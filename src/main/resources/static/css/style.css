@@ -128,9 +128,21 @@ a.league-link
     color: var(--dracula-background);
 }
 
+#vote
+{
+    color: var(--dracula-background);
+}
+
 .card-mod:hover, .link-card:hover
 {
     background-color: var(--dracula-accent);
     color: inherit;
     border-bottom-right-radius: 40px;
+}
+
+.d-block
+{
+
+    color: var(--dracula-foreground);
+    display: block;
 }

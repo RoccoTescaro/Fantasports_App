@@ -32,20 +32,46 @@
 </nav>
 
 <div class="container mt-3">
+    <div th:if="${modifyButton}">
+        <a href="/modifyLeague" class="btn btn-primary"> Modify </a>
+    </div>
     <div class="my-3 p-3 rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">League Details</h6>
-
-        <div class="media pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <strong class="d-block text-gray-dark" th:text="${league.name}">League Name</strong>
-                <!-- Add more league details here -->
-            </p>
-
-            <div th:if="${modifyButton}">
-                <a href="/modifyLeague" class="btn btn-primary"> Modify </a>
+        <div class="row">
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                    <strong class="d-block text-gray-dark" th:text="${league.name}">League Name</strong>
+                </p>
+            </div>
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                    <strong class="d-block text-gray-dark" th:text="${league.nParticipants}">Number of Participants</strong>
+                </p>
+            </div>
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                    <strong class="d-block text-gray-dark" th:text="${league.nFormation}">Number of Formations</strong>
+                </p>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                    <strong class="d-block text-gray-dark" th:text="${league.type}">Type</strong>
+                </p>
+            </div>
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125 ">
+                    <strong class="d-block text-gray-dark" th:text="${league.status}">Status</strong>
+                </p>
+            </div>
+            <div class="col">
+                <p class="media-body pb-3 mb-0 small lh-125">
+                    <strong class="d-block text-gray-dark" th:text="${league.startDate}">Start Date</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+        <h6 class="border-bottom border-gray pb-2 mb-0">Ranking</h6>
         <div th:if="${ranking}" class="media pt-3">
             <th:block th:each="team, i : ${teams}">
                 <div class="card mb-3 card-mod">
@@ -58,6 +84,29 @@
                         <div class="row">
                             <div class="col">
                                 <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="my-3 p-3 rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">My Players</h6>
+        <div class="media pt-3">
+            <th:block th:each="player : ${players}">
+                <div class="card mb-3 card-mod">
+                    <div class="card-body text-decoration-none link-card">
+                        <div class="row">
+                            <div class="col">
+                                <span class="mb-0"> <span th:text="${player.name}"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <small id="vote" th:text="${player.vote}"></small> <!-- Creator name -->
                             </div>
                         </div>
                     </div>

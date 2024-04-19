@@ -15,9 +15,10 @@ public class Player
 
     private String name;
     private String position;
+    private int vote;
 
-    /*@ManyToMany(mappedBy = "players")
-    Set<Team> teams = new HashSet<>();*/
+    @ManyToMany(mappedBy = "players")
+    Set<Team> teams = new HashSet<>();
 
     @Override
     public String toString()
@@ -30,5 +31,38 @@ public class Player
         return this.id;
     }
 
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public Set<Team> getTeams()
+    {
+        return this.teams;
+    }
+
+    public int getVote()
+    {
+        return this.vote;
+    }
+
+    public Player setName(String name)
+    {
+        this.name = name;
+        return this;
+    }
+
+    public Player setTeam(Team team)
+    {
+        this.teams.add(team);
+        team.getPlayers().add(this);
+        return this;
+    }
+
+    public Player setVote(int vote)
+    {
+        this.vote = vote;
+        return this;
+    }
     //...
 }
