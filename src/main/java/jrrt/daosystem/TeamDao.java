@@ -3,6 +3,7 @@ package jrrt.daosystem;
 import java.util.Optional;
 import java.util.Set;
 
+import jrrt.entities.Player;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,5 +54,15 @@ public class TeamDao implements Dao<Team>
     public Optional<Team> get(Long id)
     {
         return teamRepo.findById(id);
+    }
+
+    public Set<Player> getPlayers(Long Id)
+    {
+        return teamRepo.getPlayers(Id);
+    }
+
+    public Team getByUserId(Long userId)
+    {
+        return teamRepo.getByUserId(userId);
     }
 }

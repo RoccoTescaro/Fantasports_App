@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import java.time.LocalDate;
 
+import jrrt.entities.Player;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -70,6 +71,16 @@ public class LeagueDetailsPage
             List<Team> sortedTeams = teams.stream().sorted((t1, t2) -> t2.getPoints() - t1.getPoints()).collect(Collectors.toList());
             model.addAttribute("teams", sortedTeams);
         }
+
+        Team team = teamDao.getByUserId(user.getId());
+        System.out.println(team.getId());
+        Set<Player> players = teamDao.getPlayers(team.getId());
+        //print each name of the players
+        for (Player player : players)
+            System.out.println(player.getName());
+
+        model.addAttribute("players", players);
+
 
         return "leagueDetailsPage";
     }

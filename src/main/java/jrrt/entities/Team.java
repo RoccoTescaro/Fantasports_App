@@ -1,5 +1,6 @@
 package jrrt.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -64,6 +65,11 @@ public class Team
         return this.points;
     }
 
+    public Set<Player> getPlayers()
+    {
+        return this.players;
+    }
+
     public Team setOwner(User user)
     {
         this.owner = user;
@@ -76,6 +82,12 @@ public class Team
         return this;
     }
 
+    public Team addPlayer(Player player)
+    {
+        this.players.add(player);
+        player.getTeams().add(this);
+        return this;
+    }
 
     //...
 }
