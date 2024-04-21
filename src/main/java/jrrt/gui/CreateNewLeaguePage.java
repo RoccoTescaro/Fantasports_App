@@ -59,16 +59,6 @@ public class CreateNewLeaguePage
         Team team = new Team();
         team.setOwner(user);
         team.setLeague(league);
-
-        //test player added to team
-        Player player = new Player();
-        player.setName("Player1");
-        player.setVote(7);
-        player.setTeam(team);
-        team.addPlayer(player);
-        playerDao.save(player);
-
-
         teamDao.save(team);
 
         //userDao.save(user); //check if needed for persistance

@@ -65,11 +65,6 @@ public class Team
         return this.points;
     }
 
-    public Set<Player> getPlayers()
-    {
-        return this.players;
-    }
-
     public Team setOwner(User user)
     {
         this.owner = user;
@@ -79,13 +74,6 @@ public class Team
     public Team setLeague(League league)
     {
         this.league = league;
-        return this;
-    }
-
-    public Team addPlayer(Player player)
-    {
-        this.players.add(player);
-        player.getTeams().add(this);
         return this;
     }
 
