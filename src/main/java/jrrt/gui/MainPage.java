@@ -2,6 +2,7 @@ package jrrt.gui;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.HashSet;
 
 import jrrt.entities.Team;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import jakarta.servlet.http.HttpSession;
 
 import jrrt.entities.User;
 import jrrt.entities.League;
+import jrrt.entities.Player;
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.TeamDao;
+import jrrt.daosystem.PlayerDao;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,17 +27,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainPage {
     private final UserDao userDao;
     private final LeagueDao leagueDao;
-    private final HttpSession session;
     private final TeamDao teamDao;
+    private final PlayerDao playerDao;
+    private final HttpSession session;
 
 
     @Autowired
-    public MainPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session) 
+    public MainPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, PlayerDao playerDao, HttpSession session) 
     {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
-        this.session = session;
         this.teamDao = teamDao;
+        this.playerDao = playerDao;
+        this.session = session;
     }
 
     @GetMapping("/main")
@@ -69,8 +74,26 @@ public class MainPage {
         if (user == null)
             return "redirect:/"; //should send an error message
 
+        League league = (League) session.getAttribute("league");
+
+        Set<Player> players = new HashSet<>();
+        if (league == null)
+        {
+            league = new League();
+            league.setCreator(user);
+            leagueDao.save(league);
+            session.setAttribute("league", league);
+        }
+
+        //players must be fetched by playerDao and not leagueDao 
+        //becouse league has not been saved yet with the players updated
+        players = playerDao.getPlayersOfLeague(league.getId());
+
+        System.out.println("players: " + players);
+    
         model.addAttribute("user", user);
-        model.addAttribute("league", new League());
+        model.addAttribute("league", league);
+        model.addAttribute("players", players);
         return "createNewLeaguePage";
     }
 

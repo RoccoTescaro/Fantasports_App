@@ -134,3 +134,10 @@ a.league-link
     color: inherit;
     border-bottom-right-radius: 40px;
 }
+
+.scrollable-area
+{
+    background-color: var(--dracula-background);
+    max-height: 400px;
+    overflow-y: auto;
+}

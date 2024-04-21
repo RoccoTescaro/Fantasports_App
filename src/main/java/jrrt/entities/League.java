@@ -27,6 +27,14 @@ public class League
     @OneToMany(mappedBy = "league")
     private Set<Team> teams = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+        name = "completePool",
+        joinColumns = @JoinColumn(name = "league_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    private Set<Player> completePool = new HashSet<>();
+
     @Override
     public String toString()
     {
@@ -121,6 +129,18 @@ public class League
     public League setCreator(User creator)
     {
         this.creator = creator;
+        return this;
+    }
+
+    public League addPlayer(Player player)
+    {
+        this.completePool.add(player);
+        return this;
+    }
+
+    public League cleanPlayers()
+    {
+        this.completePool.clear();
         return this;
     }
 

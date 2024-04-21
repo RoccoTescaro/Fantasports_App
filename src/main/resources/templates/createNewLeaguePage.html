@@ -75,8 +75,31 @@
           </div>
           <div class="form-group row mb-3">
             <label for="leaguePlayerPool" class="col-sm-2 col-form-label">Player Pool</label>
-            
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="playerName" name="playerName">
+            </div>
+            <div class="col-sm-2">
+              <input type="button" class="btn btn-primary" onclick="addPlayer()" value="Add Player"></input>
+            </div>
           </div>
+
+          <div class="scrollable-area overflow-scroll mb-3 pl-3 pr-3">  
+            <th:block th:each="player : ${players}">
+              <div class="card card-mod mt-2 mb-2 mr-4 ml-4">
+                <div class="card-body text-decoration-none link-card">
+                  <div class="row">
+                    <div class="col">
+                      <small id="creator-name" th:text="${player.name}"></small> <!-- Creator name -->
+                    </div>
+                    <div class="col-sm-1">
+                      <a class="btn btn-danger btn-sm">X</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </th:block>
+          </div>
+
           <button type="submit" class="btn btn-primary">Create League</button>
         </form>
       </div>
@@ -88,6 +111,19 @@
         document.getElementById("numPlayers").value = 11;
         document.getElementById("numParticipants").value = 2;
         document.getElementById("startDate").value = new Date().toISOString().split('T')[0];
+        document.getElementById("playerName").value = "Player Name";
+
+        async function addPlayer() 
+        {
+          var playerName = document.getElementById("playerName").value;
+          console.log(playerName);
+          await fetch('/addPlayer/' + playerName, {
+            method: 'POST'
+          });
+
+          location.reload();
+        }
+
       </script>
   </body>
 </html>

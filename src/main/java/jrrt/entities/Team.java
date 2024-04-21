@@ -1,6 +1,7 @@
 package jrrt.entities;
 
 import java.util.Set;
+import java.util.HashSet;
 
 import jakarta.persistence.*;
 
@@ -21,8 +22,21 @@ public class Team
     @ManyToOne
     private League league;
 
-    /*@ManyToMany(mappedBy = "teams")
-    Set<Player> players;*/
+    @ManyToMany
+    @JoinTable(
+        name = "pool",
+        joinColumns = @JoinColumn(name = "team_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    Set<Player> pool = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "formation",
+        joinColumns = @JoinColumn(name = "team_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    Set<Player> formation = new HashSet<>();
 
     @Override
     public String toString()
