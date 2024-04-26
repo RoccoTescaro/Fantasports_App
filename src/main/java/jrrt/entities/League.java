@@ -85,6 +85,11 @@ public class League
         return this.startDate;
     }
 
+    public Set<Player> getCompletePool()
+    {
+        return this.completePool;
+    }
+
     public User getCreator()
     {
         return this.creator;
@@ -137,13 +142,6 @@ public class League
         this.completePool.add(player);
         return this;
     }
-
-    public League cleanPlayers()
-    {
-        this.completePool.clear();
-        return this;
-    }
-
 
     //...
 }

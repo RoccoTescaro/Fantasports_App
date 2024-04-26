@@ -49,19 +49,28 @@ public class CreateNewLeaguePage
             return "redirect:/"; //should send an error message
 
         Set<League> leaguesWithSameName = leagueDao.getByName(league.getName());
+        League currentLeague = (League) session.getAttribute("league");
         for (League l : leaguesWithSameName)
-            if (l.getCreator().getId() == user.getId())
+            if (l.getCreator().getId() == user.getId() && currentLeague.getId() != l.getId())
                 return "redirect:/modifyLeague"; //should send to modify league page
 
-        //should check for leagues with the same name
-        league.setCreator(user);
-        leagueDao.save(league);
+        currentLeague.setName(league.getName());
+        currentLeague.setType(league.getType());
+        currentLeague.setNParticipants(league.getNParticipants());
+        currentLeague.setNFormation(league.getNFormation());
+        currentLeague.setStartDate(league.getStartDate());
+
+        for (Player p : currentLeague.getCompletePool())
+            playerDao.save(p);
+
+        leagueDao.save(currentLeague);
+        session.removeAttribute("league");
+        
         Team team = new Team();
         team.setOwner(user);
-        team.setLeague(league);
+        team.setLeague(currentLeague);
         teamDao.save(team);
 
-        //userDao.save(user); //check if needed for persistance
         return "redirect:/main";
     }
 
@@ -72,20 +81,15 @@ public class CreateNewLeaguePage
         if (user == null)
             return "redirect:/"; //should send an error message
 
-        System.out.println("addPlayerToLeaguePool: " + playerName);
         League league = (League) session.getAttribute("league");
         if (league == null)
-            return "redirect:/"; //should send an error message
+            return "redirect:/main"; //should send an error message
 
-        //check if player already exists and if he is in the league
+        //#TODO check if player already exists and if he is in the league
         Player player = new Player();
         player.setName(playerName);
         player.addLeague(league);
-        playerDao.save(player);
-
-        league.cleanPlayers();
         league.addPlayer(player);
-        leagueDao.save(league);
 
         return "redirect:/newLeague";
     }

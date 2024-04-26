@@ -1,6 +1,8 @@
 package jrrt.gui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -86,17 +88,18 @@ public class MainPage {
         if (league == null)
         {
             league = new League();
+            //set default values
             league.setCreator(user);
-            leagueDao.save(league);
+            league.setName(user.getUsername() + "'s league");
+            league.setType("points");
+            league.setNParticipants(6);
+            league.setNFormation(11);
             session.setAttribute("league", league);
         }
 
-        //players must be fetched by playerDao and not leagueDao 
-        //becouse league has not been saved yet with the players updated
-        players = playerDao.getPlayersOfLeague(league.getId());
+        //get playares of the league locally
+        players = league.getCompletePool();
 
-        System.out.println("players: " + players);
-    
         model.addAttribute("user", user);
         model.addAttribute("league", league);
         model.addAttribute("players", players);
@@ -110,19 +113,23 @@ public class MainPage {
         User user = (User) session.getAttribute("user");
         Optional<League> leagueOpt = leagueDao.get(leagueId);
 
-        if (!leagueOpt.isPresent()) {
+        if (!leagueOpt.isPresent()) 
+        {
             model.addAttribute("error", "The league does not exist.");
             return "redirect:/main"; //should send an error message
         }
+        
         League league = leagueOpt.get();
-        if (leagueDao.getTeams(league.getId()).size() >= league.getNParticipants()) {
+        if (leagueDao.getTeams(league.getId()).size() >= league.getNParticipants()) 
+        {
             model.addAttribute("error", "The league is already full.");
             return "redirect:/main";
         }
 
         Set<Team> teams = leagueDao.getTeams(league.getId());
         for (Team t : teams)
-            if (t.getOwner().getId() == user.getId() ) {
+            if (t.getOwner().getId() == user.getId() ) 
+            {
                 model.addAttribute("error", "You are already in this league.");
                 return "redirect:/main";
             }
