@@ -72,14 +72,15 @@ public class LeagueDetailsPage
             model.addAttribute("teams", sortedTeams);
         }
 
-        Team team = teamDao.getByUserId(user.getId());
-        System.out.println(team.getId());
-        Set<Player> players = teamDao.getPlayers(team.getId());
+        //TODO fix get user team return a set of teams
+        //Team team = teamDao.getByUserId(user.getId());
+        //System.out.println(team.getId());
+        //Set<Player> players = teamDao.getPlayers(team.getId());
         //print each name of the players
-        for (Player player : players)
-            System.out.println(player.getName());
+        //for (Player player : players)
+        //    System.out.println(player.getName());
 
-        model.addAttribute("players", players);
+        //model.addAttribute("players", players);
 
 
         return "leagueDetailsPage";

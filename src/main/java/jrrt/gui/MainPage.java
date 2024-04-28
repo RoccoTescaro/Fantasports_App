@@ -50,6 +50,10 @@ public class MainPage {
     @GetMapping("/main")
     public String mainPage(Model model) 
     {
+
+        //!important
+        session.removeAttribute("league");
+
         User actUser = (User) session.getAttribute("user");
         if (actUser == null)
             return "redirect:/"; //should send an error message
@@ -98,7 +102,7 @@ public class MainPage {
         }
 
         //get playares of the league locally
-        players = league.getCompletePool();
+        players = league.getPool();
 
         model.addAttribute("user", user);
         model.addAttribute("league", league);

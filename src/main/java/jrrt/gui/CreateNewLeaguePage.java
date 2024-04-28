@@ -60,7 +60,9 @@ public class CreateNewLeaguePage
         currentLeague.setNFormation(league.getNFormation());
         currentLeague.setStartDate(league.getStartDate());
 
-        for (Player p : currentLeague.getCompletePool())
+
+        Set<Player> players = currentLeague.getPool();
+        for (Player p : players)
             playerDao.save(p);
 
         leagueDao.save(currentLeague);

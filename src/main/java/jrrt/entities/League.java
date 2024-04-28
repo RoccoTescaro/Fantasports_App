@@ -27,7 +27,7 @@ public class League
     @OneToMany(mappedBy = "league")
     private Set<Team> teams = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany //(fetch = FetchType.EAGER)
     @JoinTable(
         name = "completePool",
         joinColumns = @JoinColumn(name = "league_id"),
@@ -85,7 +85,7 @@ public class League
         return this.startDate;
     }
 
-    public Set<Player> getCompletePool()
+    public Set<Player> getPool()
     {
         return this.completePool;
     }
