@@ -49,15 +49,23 @@
             </div>
           </div>
 
-          <th:block th:each="team : ${teams}">
+            <th:block th:each="team : ${teams}">
                 <div class="card mb-3 card-mod">
                     <div class="card-body text-decoration-none link-card">
                         <div class="row">
                             <div class="col">
                                 <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
                             </div>
+
+                            <div class="col-sm-2"><!-- Button trigger modal -->
+                                <a th:href="@{/addPlayer/{userId}/{teamId}(userId=${team.owner.id}, teamId=${team.id})}" class="btn btn-primary">
+                                    Add Player
+                                </a>
+                            </div>
+
+
                             <div class="col-sm-1">
-                              <a th:href="@{/removeTeam/{id}(id=${team.id})}" class="btn btn-danger btn-sm">X</a>
+                                <a th:href="@{/removeTeam/{id}(id=${team.id})}" class="btn btn-danger btn-sm">X</a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +75,13 @@
           <button type="submit" class="btn btn-primary">Modify League</button>
         </form>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bItqctjMBxnboZMLnTTBcsjA3CxCJuIhqDVw6mDSj1EbQgQ8PTrtHMNsTyoHsGjOn" crossorigin="anonymous"></script>
-  </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bItqctjMBxnboZMLnTTBcsjA3CxCJuIhqDVw6mDSj1EbQgQ8PTrtHMNsTyoHsGjOn" crossorigin="anonymous"></script>
+        <script>document.addEventListener('DOMContentLoaded', (event) => {
+            var modals = document.querySelectorAll('.modal');
+            modals.forEach(function (modal) {
+                new bootstrap.Modal(modal);
+            });
+        });</script>
+    </body>
 </html>
 

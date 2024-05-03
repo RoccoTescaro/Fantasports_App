@@ -65,6 +65,16 @@ public class Team
         return this.points;
     }
 
+    public Set<Player> getPool()
+    {
+        return this.pool;
+    }
+
+    public League getLeague()
+    {
+        return this.league;
+    }
+
     public Team setOwner(User user)
     {
         this.owner = user;
@@ -76,6 +86,7 @@ public class Team
         this.league = league;
         return this;
     }
+
 
     //...
 }

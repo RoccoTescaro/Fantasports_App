@@ -1,5 +1,6 @@
 package jrrt.gui;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.List;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.http.HttpSession;
 
+import jrrt.daosystem.PlayerDao;
 import jrrt.daosystem.UserDao;
 import jrrt.daosystem.LeagueDao;
 import jrrt.daosystem.TeamDao;
 import jrrt.entities.League;
 import jrrt.entities.User;
 import jrrt.entities.Team;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LeagueDetailsPage
@@ -29,14 +33,16 @@ public class LeagueDetailsPage
     private final UserDao userDao;
     private final LeagueDao leagueDao;
     private final TeamDao teamDao;
+    private final PlayerDao playerDao;
     private final HttpSession session;
 
     @Autowired
-    public LeagueDetailsPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, HttpSession session)
+    public LeagueDetailsPage(UserDao userDao, LeagueDao leagueDao, TeamDao teamDao, PlayerDao playerDao, HttpSession session)
     {
         this.userDao = userDao;
         this.leagueDao = leagueDao;
         this.teamDao = teamDao;
+        this.playerDao = playerDao;
         this.session = session;
     }
 
@@ -72,16 +78,18 @@ public class LeagueDetailsPage
             model.addAttribute("teams", sortedTeams);
         }
 
-        //TODO fix get user team return a set of teams
-        //Team team = teamDao.getByUserId(user.getId());
-        //System.out.println(team.getId());
-        //Set<Player> players = teamDao.getPlayers(team.getId());
-        //print each name of the players
-        //for (Player player : players)
-        //    System.out.println(player.getName());
-
-        //model.addAttribute("players", players);
-
+        //Rocco guardare qui se ti va bene
+        Set<Player> userPlayers = new HashSet<>();
+        Set<Team> leagueTeams = leagueDao.getTeams(league.getId());
+        for (Team t : leagueTeams)
+        {
+            if (t.getOwner().getId().equals(user.getId()) )
+            {
+                Set<Player> teamPlayers = t.getPool();
+                userPlayers.addAll(teamPlayers);
+            }
+        }
+        model.addAttribute("userPlayers", userPlayers);
 
         return "leagueDetailsPage";
     }
@@ -149,6 +157,54 @@ public class LeagueDetailsPage
 
         return "redirect:/modifyLeague";
     }
+
+    @GetMapping("/addPlayer/{userId}/{teamId}")
+    public String addPlayer(@PathVariable Long userId,@PathVariable Long teamId, Model model)
+    {
+        Optional<User> userOpt = userDao.get(userId);
+        if (!userOpt.isPresent())
+            return "redirect:/main";
+
+        User user = userOpt.get();
+        model.addAttribute("user", user);
+
+        Optional<Team> teamOpt = teamDao.get(teamId);
+        if (!teamOpt.isPresent())
+            return "redirect:/main";
+
+        Team team = teamOpt.get();
+        model.addAttribute("team", team);
+
+        League league = (League) session.getAttribute("league");
+        if (league == null)
+            return "redirect:/main";
+
+        Set<Player> players = leagueDao.getPlayers(league.getId());
+        model.addAttribute("players", players);
+
+        return "addPlayersPage";
+    }
+
+    @PostMapping("/addPlayersToTeam/{teamId}")
+    public String addPlayersToTeam(@PathVariable Long teamId, @RequestParam("playerIds") List<Long> playerIds)
+    {
+        Optional<Team> teamOpt = teamDao.get(teamId);
+        if (!teamOpt.isPresent()) {
+            return "redirect:/main";
+        }
+        Team team = teamOpt.get();
+        for (Long playerId : playerIds) {
+            Optional<Player> playerOpt = playerDao.get(playerId);
+            if (playerOpt.isPresent()) {
+                Player player = playerOpt.get();
+                team.getPool().add(player);
+                teamDao.save(team);
+            }
+        }
+
+        return "redirect:/leagueDetails/" + team.getLeague().getId();
+    }
+// TO FIX save in the pool
 
 }
 
