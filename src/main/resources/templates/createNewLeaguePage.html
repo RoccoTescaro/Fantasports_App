@@ -83,6 +83,11 @@
             </div>
           </div>
 
+          <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+            <p th:text="${errorMessage}"></p>
+          </div>
+          <!-- Currently doesn t print the errorMessage -->
+
           <div class="scrollable-area overflow-scroll mb-3 pl-3 pr-3">  
             <th:block th:each="player : ${players}">
               <div class="card card-mod mt-2 mb-2 mr-4 ml-4">
@@ -99,6 +104,7 @@
               </div>
             </th:block>
           </div>
+
 
           <button type="submit" class="btn btn-primary">Create League</button>
         </form>

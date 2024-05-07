@@ -75,6 +75,11 @@ public class Team
         return this.league;
     }
 
+    public Set<Player> getFormation()
+    {
+        return this.formation;
+    }
+
     public Team setOwner(User user)
     {
         this.owner = user;

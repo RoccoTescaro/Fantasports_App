@@ -91,6 +91,21 @@ public class LeagueDetailsPage
         }
         model.addAttribute("userPlayers", userPlayers);
 
+        // Retrieve the team associated with the user and league
+        Team team = null;
+        for (Team t : leagueTeams) {
+            if (t.getOwner().getId().equals(user.getId())) {
+                team = t;
+                break;
+            }
+        }
+
+        // Add the team to the model
+        if (team != null) {
+            model.addAttribute("team", team);
+            model.addAttribute("formation", team.getFormation());
+        }
+
         return "leagueDetailsPage";
     }
 
@@ -205,6 +220,37 @@ public class LeagueDetailsPage
         return "redirect:/leagueDetails/" + team.getLeague().getId();
     }
 // TO FIX save in the pool
+    @PostMapping("/addPlayersToFormation/{teamId}")
+    public String addPlayersToFormation(@PathVariable Long teamId, @RequestParam("playerIds") List<Long> playerIds, Model model)
+    {
+
+        Optional<Team> teamOpt = teamDao.get(teamId);
+        if (!teamOpt.isPresent()) {
+            return "redirect:/main";
+        }
+        Team team = teamOpt.get();
+
+        // Check if the number of playerIds is the same as NFormation of the league
+        if (playerIds.size() != team.getLeague().getNFormation() ) {
+            model.addAttribute("errorMessage", "The number of players must be the same as the NFormation of the league.");
+            return "redirect:/leagueDetails/" + team.getLeague().getId();
+        }
+
+        // Clear the existing formation
+        team.getFormation().clear();
+
+        for (Long playerId : playerIds) {
+            Optional<Player> playerOpt = playerDao.get(playerId);
+            if (playerOpt.isPresent()) {
+                Player player = playerOpt.get();
+                team.getFormation().add(player);
+                teamDao.save(team);
+            }
+        }
+
+        return "redirect:/leagueDetails/" + team.getLeague().getId();
+    }
+
 
 }
 

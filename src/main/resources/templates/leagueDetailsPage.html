@@ -92,6 +92,7 @@
         </div>
     </div>
 </div>
+
 <div class="container mt-3">
     <div class="my-3 p-3 rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">My Players</h6>
@@ -115,6 +116,69 @@
         </div>
     </div>
 </div>
+
+<div class="container mt-3">
+    <div class="my-3 p-3 rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">My Formation</h6>
+        <div class="media pt-3">
+            <th:block th:each="player : ${formation}">
+                <div class="card mb-3 card-mod">
+                    <div class="card-body text-decoration-none link-card">
+                        <div class="row">
+                            <div class="col">
+                                <span th:text="${player.name}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <form id="formation-form" th:action="@{/addPlayersToFormation/{teamId}(teamId=${team.id})}" method="post">
+        <div class="my-3 p-3 rounded box-shadow ">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Set Formation</h6>
+            <div class="media pt-3">
+                <th:block th:each="player : ${userPlayers}">
+                    <div class="card mb-3 card-mod">
+                        <div class="card-body text-decoration-none link-card">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="checkbox" id="playerId" name="playerIds" th:value="${player.id}">
+                                    <label for="playerId"><span th:text="${player.name}"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Add Selected Players to Formation</button>
+    </form>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Fix Print error message -->
+</div>
+
+<script>
+    window.onload = function() {
+        var checkboxes = document.querySelectorAll("input[type='checkbox']");
+        var submitButton = document.querySelector("button[type='submit']");
+
+        function checkSelection() {
+            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            submitButton.disabled = !checkedOne;
+        }
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', checkSelection);
+        }
+
+        // Call checkSelection at startup in case some boxes are already checked
+        checkSelection();
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

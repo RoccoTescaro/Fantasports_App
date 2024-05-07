@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -87,11 +88,20 @@ public class CreateNewLeaguePage
         if (league == null)
             return "redirect:/main"; //should send an error message
 
-        //#TODO check if player already exists and if he is in the league
+        Set<Player> pool = league.getPool();
+
+        for (Player p : pool) {
+            if (p.getName().equals(playerName)) {
+                model.addAttribute("errorMessage", "The player already exists, change the name");
+                return "redirect:/newLeague"; //should send an error message
+            }
+        }
+
         Player player = new Player();
         player.setName(playerName);
         player.addLeague(league);
         league.addPlayer(player);
+        playerDao.save(player);
 
         return "redirect:/newLeague";
     }
