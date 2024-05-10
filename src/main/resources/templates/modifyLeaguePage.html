@@ -33,7 +33,8 @@
         </div>
       </nav>
 
-      <div class="container mt-3 pt-1 pb-2">
+
+    <div class="container mt-3 pt-1 pb-2">
         <h1>Modify League</h1>
         <form id="form" action="/main" th:object="${league}" method="post" >
           <div class="form-group row mb-3">
@@ -48,33 +49,70 @@
               <input type="date" class="form-control" id="startDate" name="startDate" th:field="*{startDate}" required>
             </div>
           </div>
+        <button type="submit" class="btn btn-primary">Modify League</button>
+        </form>
+    </div>
 
-            <th:block th:each="team : ${teams}">
-                <div class="card mb-3 card-mod">
-                    <div class="card-body text-decoration-none link-card">
-                        <div class="row">
-                            <div class="col">
-                                <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
-                            </div>
-
-                            <div class="col-sm-2"><!-- Button trigger modal -->
-                                <a th:href="@{/addPlayer/{userId}/{teamId}(userId=${team.owner.id}, teamId=${team.id})}" class="btn btn-primary">
-                                    Add Player
-                                </a>
-                            </div>
-
-
-                            <div class="col-sm-1">
-                                <a th:href="@{/removeTeam/{id}(id=${team.id})}" class="btn btn-danger btn-sm">X</a>
-                            </div>
+    <div class="container mt-3 pt-1 pb-2">
+        <h1>Teams & Players</h1>
+        <th:block th:each="team : ${teams}">
+            <div class="card mb-3 card-mod">
+                <div class="card-body text-decoration-none link-card">
+                    <div class="row">
+                        <div class="col">
+                            <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
+                        </div>
+                        <div class="col-sm-2"><!-- Button trigger modal -->
+                            <a th:href="@{/addPlayer/{userId}/{teamId}(userId=${team.owner.id}, teamId=${team.id})}" class="btn btn-primary">
+                                Add Player
+                            </a>
+                        </div>
+                        <div class="col-sm-1">
+                            <a th:href="@{/removeTeam/{id}(id=${team.id})}" class="btn btn-danger btn-sm">X</a>
                         </div>
                     </div>
                 </div>
-            </th:block>
+            </div>
+        </th:block>
+    </div>
 
-          <button type="submit" class="btn btn-primary">Modify League</button>
+    <div class="container mt-3 pt-1 pb-2">
+        <h1>Set Votes for Players</h1>
+            <form th:action="@{/setVote}" method="post" id="voteForm">
+                 <th:block th:each="player : ${players}">
+                    <div class="card mb-3 card-mod">
+                        <div class="card-body text-decoration-none link-card">
+                             <div class="row">
+                                 <div class="col">
+                                    <span th:text="${player.name}"></span>
+                                 </div>
+                             <div class="col-sm-2">
+                                 <input type="number" class="form-control form-vote" th:id="'vote' + ${player.id}" th:name="'vote' + ${player.id}" min="-10" max="20" required>
+                             </div>
+                             </div>
+                        </div>
+                    </div>
+              </th:block>
+            <button type="submit" class="btn btn-primary">Set All Votes</button>
+            </form>
+    </div>
+
+    <div class="container mt-3 pt-1 pb-2">
+    <h1>Evaluate this Day</h1>
+        <form action="/EvaluateDay" method="post">
+            <div class="form-group row mb-3">
+                <label for="newStartDate" class="col-sm-2 col-form-label">Set Next Day Date</label>
+                    <div class="col-sm-10">
+                    <input type="date" class="form-control" id="newStartDate" name="newStartDate" required>
+                    </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Evaluate</button>
         </form>
-      </div>
+    </div>
+
+        <!-- Bootstrap JS -->
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-bItqctjMBxnboZMLnTTBcsjA3CxCJuIhqDVw6mDSj1EbQgQ8PTrtHMNsTyoHsGjOn" crossorigin="anonymous"></script>
         <script>document.addEventListener('DOMContentLoaded', (event) => {
             var modals = document.querySelectorAll('.modal');
@@ -82,6 +120,27 @@
                 new bootstrap.Modal(modal);
             });
         });</script>
+
+      <script>
+          window.onload = function() {
+              var form = document.getElementById('voteForm');
+              var inputs = form.querySelectorAll("input[type='number']");
+              var submitButton = form.querySelector("button[type='submit']");
+
+              function checkVotes() {
+                  var allFilled = Array.prototype.slice.call(inputs).every(x => x.value !== "");
+                  submitButton.disabled = !allFilled;
+              }
+
+              for (var i = 0; i < inputs.length; i++) {
+                  inputs[i].addEventListener('input', checkVotes);
+              }
+
+              // Call checkVotes at startup in case some boxes are already filled
+              checkVotes();
+          }
+      </script>
+
     </body>
 </html>
 

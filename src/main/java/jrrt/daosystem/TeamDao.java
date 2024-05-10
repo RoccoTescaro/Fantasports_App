@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import jrrt.entities.Team;
 import jrrt.repositories.TeamRepo;
+import jrrt.entities.League;
+import jrrt.entities.User;
 
 @Service
 public class TeamDao implements Dao<Team> 
@@ -65,4 +67,15 @@ public class TeamDao implements Dao<Team>
     {
         return teamRepo.getByUserId(userId);
     }
+
+    public Team getTeamByOwnerAndLeague(User owner, League league)
+    {
+        return teamRepo.getTeamByOwnerAndLeague(owner, league);
+    }
+
+    public Set<Player> getPoolByTeamId(Long teamId)
+    {
+        return teamRepo.getPoolByTeamId(teamId);
+    }
+
 }

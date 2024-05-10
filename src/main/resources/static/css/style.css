@@ -146,3 +146,8 @@ a.league-link
     max-height: 400px;
     overflow-y: auto;
 }
+
+.form-vote
+{
+    width: 75px;
+}

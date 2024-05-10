@@ -2,7 +2,9 @@ package jrrt.repositories;
 
 import java.util.Set;
 
+import jrrt.entities.League;
 import jrrt.entities.Player;
+import jrrt.entities.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +22,12 @@ public interface TeamRepo extends CrudRepository<Team, Long>
     //get the team by user id
     @Query("SELECT t FROM Team t WHERE t.owner.id = ?1")
     public Team getByUserId(Long userId);
+
+    @Query("SELECT t FROM Team t WHERE t.owner = ?1 AND t.league = ?2")
+    Team getTeamByOwnerAndLeague(User owner, League league);
+
+    @Query("SELECT p FROM Player p JOIN p.teams t WHERE t.id = ?1")
+    Set<Player> getPoolByTeamId(Long teamId);
 
 }
 

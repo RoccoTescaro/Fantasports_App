@@ -71,25 +71,27 @@
             </div>
         </div>
     </div>
-        <h6 class="border-bottom border-gray pb-2 mb-0">Ranking</h6>
-        <div th:if="${ranking}" class="media pt-3">
-            <th:block th:each="team, i : ${teams}">
-                <div class="card mb-3 card-mod">
-                    <div class="card-body text-decoration-none link-card">
-                        <div class="row">
-                            <div class="col">
-                                <span class="mb-0"><b th:text="${i.count}"></b>| <span th:text="${team.name}"></span></span>
-                            </div>
+    <h6 class="border-bottom border-gray pb-2 mb-0">Ranking</h6>
+    <div th:if="${ranking}" class="media pt-3">
+        <th:block th:each="team, i : ${teams}">
+            <div class="card mb-3 card-mod">
+                <div class="card-body text-decoration-none link-card">
+                    <div class="row">
+                        <div class="col">
+                            <span class="mb-0"><b th:text="${i.count}"></b>| <span th:text="${team.name}"></span></span>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
-                            </div>
+                        <div class="col text-end">
+                            <small id="team-points">Points: <span th:text="${team.points}"></span></small> <!-- Team points -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <small id="creator-name" th:text="${team.owner.username}"></small> <!-- Creator name -->
                         </div>
                     </div>
                 </div>
-            </th:block>
-        </div>
+            </div>
+        </th:block>
     </div>
 </div>
 

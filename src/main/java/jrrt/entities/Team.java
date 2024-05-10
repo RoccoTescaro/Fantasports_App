@@ -92,6 +92,11 @@ public class Team
         return this;
     }
 
+    public void setPoints(int points)
+    {
+        this.points = points;
+    }
+
 
     //...
 }

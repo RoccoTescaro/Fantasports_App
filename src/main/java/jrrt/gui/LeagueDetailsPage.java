@@ -1,13 +1,11 @@
 package jrrt.gui;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import java.time.LocalDate;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jrrt.entities.Player;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,44 +65,23 @@ public class LeagueDetailsPage
         if(league.getCreator().getId() == user.getId())
             model.addAttribute("modifyButton", true);
 
-        LocalDate date = LocalDate.now();
-        model.addAttribute("ranking", false);
-        if(!league.getStartDate().isAfter(date))
-        {
-            //show ranking
-            model.addAttribute("ranking", true);
-            Set<Team> teams = leagueDao.getTeams(league.getId());
-            List<Team> sortedTeams = teams.stream().sorted((t1, t2) -> t2.getPoints() - t1.getPoints()).collect(Collectors.toList());
-            model.addAttribute("teams", sortedTeams);
-        }
 
-        //Rocco guardare qui se ti va bene
-        Set<Player> userPlayers = new HashSet<>();
-        Set<Team> leagueTeams = leagueDao.getTeams(league.getId());
-        for (Team t : leagueTeams)
-        {
-            if (t.getOwner().getId().equals(user.getId()) )
-            {
-                Set<Player> teamPlayers = t.getPool();
-                userPlayers.addAll(teamPlayers);
-            }
-        }
-        model.addAttribute("userPlayers", userPlayers);
+        model.addAttribute("ranking", true);
+        Set<Team> teams = leagueDao.getTeams(league.getId());
+        List<Team> sortedTeams = teams.stream().sorted((t1, t2) -> t2.getPoints() - t1.getPoints()).collect(Collectors.toList());
+        model.addAttribute("teams", sortedTeams);
 
-        // Retrieve the team associated with the user and league
-        Team team = null;
-        for (Team t : leagueTeams) {
-            if (t.getOwner().getId().equals(user.getId())) {
-                team = t;
-                break;
-            }
-        }
 
-        // Add the team to the model
+
+        Team team = teamDao.getTeamByOwnerAndLeague(user, league);
         if (team != null) {
             model.addAttribute("team", team);
             model.addAttribute("formation", team.getFormation());
         }
+
+
+        Set<Player> userPlayers = teamDao.getPoolByTeamId(team.getId());
+        model.addAttribute("userPlayers", userPlayers);
 
         return "leagueDetailsPage";
     }
@@ -125,6 +102,9 @@ public class LeagueDetailsPage
         model.addAttribute("league", league);
         Set<Team> teams = leagueDao.getTeams(league.getId());
         model.addAttribute("teams", teams);
+
+        Set<Player> players = leagueDao.getPlayers(league.getId());
+        model.addAttribute("players", players);
 
         return "modifyLeaguePage";
     }
@@ -208,6 +188,8 @@ public class LeagueDetailsPage
             return "redirect:/main";
         }
         Team team = teamOpt.get();
+        team.getPool().clear();
+
         for (Long playerId : playerIds) {
             Optional<Player> playerOpt = playerDao.get(playerId);
             if (playerOpt.isPresent()) {
@@ -217,7 +199,7 @@ public class LeagueDetailsPage
             }
         }
 
-        return "redirect:/leagueDetails/" + team.getLeague().getId();
+        return "redirect:/modifyLeague";
     }
 // TO FIX save in the pool
     @PostMapping("/addPlayersToFormation/{teamId}")
@@ -230,9 +212,11 @@ public class LeagueDetailsPage
         }
         Team team = teamOpt.get();
 
+        LocalDate currentDate = LocalDate.now();
+
         // Check if the number of playerIds is the same as NFormation of the league
-        if (playerIds.size() != team.getLeague().getNFormation() ) {
-            model.addAttribute("errorMessage", "The number of players must be the same as the NFormation of the league.");
+        if (playerIds.size() != team.getLeague().getNFormation() || currentDate.isAfter(team.getLeague().getStartDate())) {
+            model.addAttribute("errorMessage", "The number of players must be the same as the NFormation of the league or you can't change the formation after the league has started.");
             return "redirect:/leagueDetails/" + team.getLeague().getId();
         }
 
@@ -251,7 +235,74 @@ public class LeagueDetailsPage
         return "redirect:/leagueDetails/" + team.getLeague().getId();
     }
 
+    @PostMapping("/setVote")
+    public String setVote(HttpServletRequest request)
+    {
+        Enumeration<String> parameterNames = request.getParameterNames();
 
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            if (paramName.startsWith("vote")) {
+                Long playerId = Long.parseLong(paramName.substring(4));
+                int vote = Integer.parseInt(request.getParameter(paramName));
+
+                Optional<Player> playerOpt = playerDao.get(playerId);
+                if (playerOpt.isPresent()) {
+                    Player player = playerOpt.get();
+                    player.setVote(vote);
+                    playerDao.save(player);
+                }
+            }
+        }
+
+        return "redirect:/modifyLeague";
+
+
+    }
+
+    @PostMapping("/EvaluateDay")
+    public String evaluateDay(@RequestParam("newStartDate") LocalDate newStartDate, Model model, HttpSession session)
+    {
+        League league = (League) session.getAttribute("league");
+        if (league == null) {
+            return "redirect:/main"; //should send an error message
+        }
+
+        // Check if the new start date is after the current start date of the league
+        if (!newStartDate.isAfter(league.getStartDate())) {
+            model.addAttribute("errorMessage", "The new start date must be after the current start date.");
+            return "redirect:/modifyLeague";
+        }
+
+        // Retrieve all the players in the league
+        //Set<Player> players = leagueDao.getPlayers(league.getId());
+
+        // Check if all players have a vote and are verified
+        /*for (Player player : players) {
+            if (player.getVote().isEmpty()){
+                model.addAttribute("errorMessage", "All players must have a vote and be verified before evaluating the day.");
+                return "redirect:/modifyLeague";
+            }
+        }*/
+
+        // For each team in the league, sum all the votes of the players in the team and set this sum to the points attribute of the team
+        Set<Team> teams = leagueDao.getTeams(league.getId());
+
+        for (Team team : teams) {
+            int points = team.getPoints();
+            for (Player player : team.getFormation()) {
+                points += player.getVote();
+            }
+            team.setPoints(points);
+            teamDao.save(team);
+        }
+
+        // Update the start date of the league and save the league
+        league.setStartDate(newStartDate);
+        leagueDao.save(league);
+
+        return "redirect:/modifyLeague";
+    }
 }
 
 
