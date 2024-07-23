@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  23 JUL 2024 17:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.5.31)  23 JUL 2024 17:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -42,12 +42,6 @@ Package: tocbasic 2023/07/07 v3.41 KOMA-Script package (handling toc-files)
 Package tocbasic Info: omitting babel extension for `toc'
 (tocbasic)             because of feature `nobabel' available
 (tocbasic)             for `toc' on input line 135.
-Class scrbook Info: You've used standard option `oneside'.
-(scrbook)           This is correct!
-(scrbook)           Internally I'm using `twoside=false'.
-(scrbook)           If you'd like to set the option with \KOMAoptions,
-(scrbook)           you'd have to use `twoside=false' there
-(scrbook)           instead of `oneside', too.
 Class scrbook Info: You've used standard option `openright'.
 (scrbook)           This is correct!
 (scrbook)           Internally I'm using `open=right'.
@@ -82,12 +76,6 @@ File: scrsize12pt.clo 2023/07/07 v3.41 KOMA-Script font size class option (12pt
 Package: typearea 2023/07/07 v3.41 KOMA-Script package (type area)
 \ta@bcor=\skip50
 \ta@div=\count188
-Package typearea Info: You've used standard option `oneside'.
-(typearea)             This is correct!
-(typearea)             Internally I'm using `twoside=false'.
-(typearea)             If you'd like to set the option with \KOMAoptions,
-(typearea)             you'd have to use `twoside=false' there
-(typearea)             instead of `oneside', too.
 Package typearea Info: You've used standard option `a4paper'.
 (typearea)             This is correct!
 (typearea)             Internally I'm using `paper=a4'.
@@ -104,8 +92,8 @@ Package typearea Info: These are the values describing the layout:
 (typearea)             \paperwidth      = 597.50793pt
 (typearea)              \textwidth      = 437.46118pt
 (typearea)              DIV departure   = -3%
-(typearea)              \evensidemargin = 14.86656pt
-(typearea)              \oddsidemargin  = 14.86656pt
+(typearea)              \evensidemargin = 24.9436pt
+(typearea)              \oddsidemargin  = -9.43683pt
 (typearea)             \paperheight     = 845.04694pt
 (typearea)              \textheight     = 548.5pt
 (typearea)              \topmargin      = -1.84941pt
@@ -583,8 +571,8 @@ Package typearea Info: These are the values describing the layout:
 (typearea)             BCOR = 14.22636pt
 (typearea)             \paperwidth      = 597.50793pt
 (typearea)              \textwidth      = 336.0pt
-(typearea)              \evensidemargin = 65.59715pt
-(typearea)              \oddsidemargin  = 65.59715pt
+(typearea)              \evensidemargin = 92.58438pt
+(typearea)              \oddsidemargin  = 24.38356pt
 (typearea)             \paperheight     = 845.04694pt
 (typearea)              \textheight     = 660.5pt
 (typearea)              \topmargin      = -40.58768pt
@@ -928,10 +916,6 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count341
 \l__pdf_internal_box=\box71
 )
-
-LaTeX Warning: Unused global option(s):
-    [centering].
-
 (build/software_engineering.aux)
 \openout1 = `software_engineering.aux'.
 
@@ -1065,10 +1049,8 @@ File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* hratio: 1:1
-* vratio: 1:1
 * bindingoffset: 28.45274pt
-* modes: 
+* modes: twoside 
 * h-part:(L,W,R)=(99.58464pt, 384.1122pt, 85.35829pt)
 * v-part:(T,H,B)=(113.81102pt, 611.73424pt, 119.50159pt)
 * \paperwidth=597.50787pt
@@ -1076,7 +1058,7 @@ File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
 * \textwidth=384.1122pt
 * \textheight=611.73424pt
 * \oddsidemargin=55.7674pt
-* \evensidemargin=27.31465pt
+* \evensidemargin=13.0883pt
 * \topmargin=2.79103pt
 * \headheight=17.0pt
 * \headsep=21.75pt
@@ -1090,8 +1072,8 @@ File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
+* \@twosidetrue
+* \@mparswitchtrue
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
@@ -1169,206 +1151,200 @@ Chapter 1.
 
 
 
-]
-Package microtype Info: Character `029' is missing
-(microtype)             in font `T1/pplj/m/sc/10.95'.
-(microtype)             Ignoring protrusion settings for this character.
- [4]
+] [4]
 Overfull \hbox (24.6005pt too wide) in paragraph at lines 149--152
 \T1/pplj/m/n/12 (-20) dell'applicazione, senza quindi ne-ces-sità di in-vito da
  parte dell'amministratore.
  []
 
 Chapter 2.
-[5]
-<images/useCaseDia.png, id=144, 1026.83624pt x 930.47626pt>
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/pplj/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+[5] [6
+
+
+]
+<images/useCaseDia.png, id=150, 1026.83624pt x 930.47626pt>
 File: images/useCaseDia.png Graphic file (type png)
 <use images/useCaseDia.png>
 Package pdftex.def Info: images/useCaseDia.png  used on input line 162.
 (pdftex.def)             Requested size: 307.29092pt x 278.44933pt.
- [6
-
-
- <./images/useCaseDia.png>] [7] [8] [9]
-<images/createLeague.png, id=169, 1995.70593pt x 1113.40968pt>
+ [7 <./images/useCaseDia.png>] [8] [9] [10]
+<images/createLeague.png, id=175, 1995.70593pt x 1113.40968pt>
 File: images/createLeague.png Graphic file (type png)
 <use images/createLeague.png>
 Package pdftex.def Info: images/createLeague.png  used on input line 284.
 (pdftex.def)             Requested size: 384.1122pt x 214.28531pt.
- [10]
-<images/joinLeague.png, id=175, 657.95813pt x 241.65282pt>
+ [11]
+<images/joinLeague.png, id=182, 657.95813pt x 241.65282pt>
 File: images/joinLeague.png Graphic file (type png)
 <use images/joinLeague.png>
 Package pdftex.def Info: images/joinLeague.png  used on input line 293.
 (pdftex.def)             Requested size: 384.1122pt x 141.07687pt.
-<images/addPlayer.png, id=176, 2009.25656pt x 711.4078pt>
+<images/addPlayer.png, id=183, 2009.25656pt x 711.4078pt>
 File: images/addPlayer.png Graphic file (type png)
 <use images/addPlayer.png>
 Package pdftex.def Info: images/addPlayer.png  used on input line 302.
 (pdftex.def)             Requested size: 384.1122pt x 135.99388pt.
- [11 <./images/createLeague.png> <./images/joinLeague.png>]
-<images/setVotes.png, id=186, 1997.96437pt x 580.41844pt>
+ [12 <./images/createLeague.png> <./images/joinLeague.png>]
+<images/setVotes.png, id=192, 1997.96437pt x 580.41844pt>
 File: images/setVotes.png Graphic file (type png)
 <use images/setVotes.png>
 Package pdftex.def Info: images/setVotes.png  used on input line 311.
 (pdftex.def)             Requested size: 384.1122pt x 111.58255pt.
-<images/evaluateDay.png, id=187, 1990.43625pt x 235.63031pt>
+<images/evaluateDay.png, id=193, 1990.43625pt x 235.63031pt>
 File: images/evaluateDay.png Graphic file (type png)
 <use images/evaluateDay.png>
 Package pdftex.def Info: images/evaluateDay.png  used on input line 320.
 (pdftex.def)             Requested size: 384.1122pt x 45.47133pt.
-<images/setFormation.png, id=188, 1993.4475pt x 636.87938pt>
+<images/setFormation.png, id=194, 1993.4475pt x 636.87938pt>
 File: images/setFormation.png Graphic file (type png)
 <use images/setFormation.png>
 Package pdftex.def Info: images/setFormation.png  used on input line 329.
 (pdftex.def)             Requested size: 384.1122pt x 122.7187pt.
- [12 <./images/addPlayer.png> <./images/setVotes.png> <./images/evaluateDay.png
+ [13 <./images/addPlayer.png> <./images/setVotes.png> <./images/evaluateDay.png
 >]
-<images/detailLeague.png, id=199, 1992.69469pt x 651.93562pt>
+<images/detailLeague.png, id=205, 1992.69469pt x 651.93562pt>
 File: images/detailLeague.png Graphic file (type png)
 <use images/detailLeague.png>
 Package pdftex.def Info: images/detailLeague.png  used on input line 338.
 (pdftex.def)             Requested size: 384.1122pt x 125.65964pt.
-<images/classDia.png, id=200, 811.53188pt x 1105.88156pt>
+<images/classDia.png, id=206, 811.53188pt x 1105.88156pt>
 File: images/classDia.png Graphic file (type png)
 <use images/classDia.png>
 Package pdftex.def Info: images/classDia.png  used on input line 348.
 (pdftex.def)             Requested size: 384.1122pt x 523.44302pt.
- [13 <./images/setFormation.png> <./images/detailLeague.png>] [14 <./images/cla
+ [14 <./images/setFormation.png> <./images/detailLeague.png>] [15 <./images/cla
 ssDia.png>]
-<images/daoDiagram.png, id=215, 1668.9853pt x 749.80125pt>
+<images/daoDiagram.png, id=221, 1668.9853pt x 749.80125pt>
 File: images/daoDiagram.png Graphic file (type png)
 <use images/daoDiagram.png>
-Package pdftex.def Info: images/daoDiagram.png  used on input line 372.
+Package pdftex.def Info: images/daoDiagram.png  used on input line 371.
 (pdftex.def)             Requested size: 384.1122pt x 172.56506pt.
- [15 <./images/daoDiagram.png>]
-<images/erDia.png, id=222, 1043.39813pt x 505.89pt>
+ [16] [17 <./images/daoDiagram.png>]
+Overfull \hbox (18.44054pt too wide) in paragraph at lines 392--393
+[]\T1/pplj/m/n/12 (-20) Come per il Dao, Spring-Boot (starter-web) for-nisce gi
+à un'implementazione
+ []
+
+<images/erDia.png, id=233, 1043.39813pt x 505.89pt>
 File: images/erDia.png Graphic file (type png)
 <use images/erDia.png>
-Package pdftex.def Info: images/erDia.png  used on input line 396.
+Package pdftex.def Info: images/erDia.png  used on input line 412.
 (pdftex.def)             Requested size: 384.1122pt x 186.2346pt.
-
 Chapter 3.
-[16 <./images/erDia.png>]
-<images/codeStruct.png, id=229, 442.65375pt x 912.40875pt>
+[18 <./images/erDia.png>]
+<images/codeStruct.png, id=240, 442.65375pt x 912.40875pt>
 File: images/codeStruct.png Graphic file (type png)
 <use images/codeStruct.png>
-Package pdftex.def Info: images/codeStruct.png  used on input line 408.
+Package pdftex.def Info: images/codeStruct.png  used on input line 424.
 (pdftex.def)             Requested size: 170.71652pt x 351.88406pt.
- [17
+ [19
 
 
- <./images/codeStruct.png>] [18]
-Overfull \hbox (29.79396pt too wide) in paragraph at lines 465--466
+ <./images/codeStruct.png>] [20]
+Overfull \hbox (29.79396pt too wide) in paragraph at lines 481--482
 \T1/pplj/m/n/12 (-20) Il pack-age gui (Graph-i-cal User In-ter-face) si oc-cupa
  della ges-tione dell'interfaccia
  []
 
-[19] [20]
-Overfull \hbox (5.6025pt too wide) in paragraph at lines 484--485
+[21] [22]
+Overfull \hbox (5.6025pt too wide) in paragraph at lines 500--501
 []\T1/pplj/m/n/12 (-20) newLeague: Questo metodo gestisce le richi-este GET a "
 /newLeague".
  []
 
-[21]
-Overfull \hbox (1.51775pt too wide) in paragraph at lines 498--499
+[23]
+Overfull \hbox (1.51775pt too wide) in paragraph at lines 514--515
 []\T1/pplj/m/n/12 (-20) leagueDetails: Questo metodo gestisce le richi-este GET
  a "/leagueDe-
  []
 
 
-Overfull \hbox (36.08095pt too wide) in paragraph at lines 500--501
+Overfull \hbox (36.08095pt too wide) in paragraph at lines 516--517
 []\T1/pplj/m/n/12 (-20) removeTeam: Questo metodo gestisce le richi-este GET a 
 "/re-moveTeam/id".
  []
 
-[22] [23]
-Overfull \hbox (9.65416pt too wide) in paragraph at lines 523--524
+[24] [25]
+Overfull \hbox (9.65416pt too wide) in paragraph at lines 539--540
 []\T1/pplj/m/n/12 (-20) `save(Team team)`: salva, at-traverso la repos-i-tory `
 Team-Repo`, l'oggetto
  []
 
-[24] [25]
-Overfull \hbox (12.20467pt too wide) in paragraph at lines 548--549
+[26] [27]
+Overfull \hbox (12.20467pt too wide) in paragraph at lines 564--565
 []\T1/pplj/m/n/12 (-20) `delete(League league)`: can-cella, at-traverso la repo
 s-i-tory `Lea-gueRepo`,
  []
 
 
-Overfull \hbox (0.81827pt too wide) in paragraph at lines 554--555
+Overfull \hbox (0.81827pt too wide) in paragraph at lines 570--571
 []\T1/pplj/m/n/12 (-20) `getUserAttendedLeagues(Long id)`: resti-tu-isce un in-
 sieme di oggetti
  []
 
-[26]
+[28]
 Chapter 4.
-[27] [28
+[29] [30
 
 
-]
-<images/userTest.png, id=283, 266.49562pt x 82.80937pt>
+] [31]
+<images/userTest.png, id=298, 266.49562pt x 82.80937pt>
 File: images/userTest.png Graphic file (type png)
 <use images/userTest.png>
-Package pdftex.def Info: images/userTest.png  used on input line 583.
+Package pdftex.def Info: images/userTest.png  used on input line 599.
 (pdftex.def)             Requested size: 170.71652pt x 53.04834pt.
 
-Overfull \hbox (5.68922pt too wide) in paragraph at lines 594--595
+Overfull \hbox (5.68922pt too wide) in paragraph at lines 610--611
 []\T1/pplj/m/n/12 (-20) testGetTeamByOwnerAndLeague(): Questo test ver-i-fica c
 he il metodo
  []
 
-[29 <./images/userTest.png>]
-<images/teamTest.png, id=291, 253.69781pt x 102.3825pt>
+[32 <./images/userTest.png>]
+<images/teamTest.png, id=305, 253.69781pt x 102.3825pt>
 File: images/teamTest.png Graphic file (type png)
 <use images/teamTest.png>
-Package pdftex.def Info: images/teamTest.png  used on input line 598.
+Package pdftex.def Info: images/teamTest.png  used on input line 614.
 (pdftex.def)             Requested size: 170.71652pt x 68.89586pt.
- [30 <./images/teamTest.png>]
-<images/playerTest.png, id=298, 248.42813pt x 70.76437pt>
+ [33 <./images/teamTest.png>]
+<images/playerTest.png, id=312, 248.42813pt x 70.76437pt>
 File: images/playerTest.png Graphic file (type png)
 <use images/playerTest.png>
-Package pdftex.def Info: images/playerTest.png  used on input line 608.
+Package pdftex.def Info: images/playerTest.png  used on input line 624.
 (pdftex.def)             Requested size: 170.71652pt x 48.62878pt.
-<images/leagueTest.png, id=299, 251.43938pt x 76.03406pt>
+<images/leagueTest.png, id=313, 251.43938pt x 76.03406pt>
 File: images/leagueTest.png Graphic file (type png)
 <use images/leagueTest.png>
-Package pdftex.def Info: images/leagueTest.png  used on input line 618.
+Package pdftex.def Info: images/leagueTest.png  used on input line 634.
 (pdftex.def)             Requested size: 170.71652pt x 51.62357pt.
- [31 <./images/playerTest.png>] [32 <./images/leagueTest.png>] (build/software_
-engineering.aux
-
-Package mparhack Warning: Marginpars may have changed.
-(mparhack)                Rerun to get them right.
-
-)
+ [34 <./images/playerTest.png>] [35 <./images/leagueTest.png>] (build/software_
+engineering.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `software_engineering.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27557 strings out of 474116
- 550700 string characters out of 5750249
+ 27577 strings out of 474116
+ 550971 string characters out of 5750249
  1944187 words of memory out of 5000000
- 49070 multiletter control sequences out of 15000+600000
- 645247 words of font info for 374 fonts, out of 8000000 for 9000
+ 49076 multiletter control sequences out of 15000+600000
+ 645613 words of font info for 382 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,22n,125p,10915b,1203s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,23n,125p,10915b,1203s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/euler/eurb10.pfb></usr/sha
 re/texmf-dist/fonts/type1/public/fpl/fplbj8a.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/fpl/fplrc8a.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/upl
 b8a.pfb></usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/
 texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on build/software_engineering.pdf (34 pages, 1168115 bytes).
+Output written on build/software_engineering.pdf (37 pages, 1171805 bytes).
 PDF statistics:
- 500 PDF objects out of 1000 (max. 8388607)
- 413 compressed objects within 5 object streams
- 100 named destinations out of 1000 (max. 500000)
- 94654 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 521 PDF objects out of 1000 (max. 8388607)
+ 431 compressed objects within 5 object streams
+ 104 named destinations out of 1000 (max. 500000)
+ 94662 words of extra memory for PDF output out of 106986 (max. 10000000)
 

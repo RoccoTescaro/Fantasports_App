@@ -355,13 +355,12 @@ Ecco alcuni Mockups che sono veri e propri screenshot della GUI realizzata a que
 Il codice contiene all'interno tali packages:
 \begin{itemize}
     \item entities: rappresenta le varie entità all'interno del software. Contine tutte le classi tramite le quali vengono rappresentati tutti gli oggetti nel software. All'interno delle classi sono definiti gli attributi delle varie entità.
-    \item gui: . Contiene le classi che si occupano di modificare i dati, comunicando esclusivamente con dei servizi per poter accedere al database senza farl direttamente. In questo package sono presenti, dunque, tutti i controller per i modelli mappati nel Database.
- 
-    \item dao:
-
-    \item repositories:
+    \item gui: contiene le classi che si occupano di modificare i dati, comunicando esclusivamente con dei servizi per poter accedere al database senza farl direttamente. In questo package sono presenti, dunque, tutti i controller per i modelli mappati nel Database.
+    \item dao: contiene le interfacce che definiscono i metodi per accedere ai dati. Poiché il DAO è un pattern architetturale, è possibile creare diverse implementazioni di queste interfacce per accedere a diversi tipi di database.
+    \item repositories: contiene le classi che implementano le interfacce DAO. Queste classi sono responsabili di accedere ai dati e di eseguire le operazioni CRUD (Create, Read, Update, Delete) sui dati e query personalizzate.
 
 \end{itemize}
+E' importante puntualizzare che le classi nella repository \textbf{dao} non sono strettamente necessarie per il funzionamento del software, SpringBoot fornisce già un'astrazione per l'accesso al database che è poi stata effettivamente sfruttata nel package \textbf{repositories}. Tuttavia, l'implementazione del DAO pattern è stata effettuata per una maggiore chiarezza e separazione delle responsabilità all'interno del software, per dimostrare una padronanza del pattern e per facilitare eventuali modifiche future.
 
 \section{DAO Pattern}
 Abbiamo utilizzato il Design Pattern DAO in modo che il client non possa intergire direttamente con il Database.
@@ -375,7 +374,6 @@ Abbiamo utilizzato il Design Pattern DAO in modo che il client non possa intergi
 \end{figure}
 
 
-
 Il pattern architetturale DAO (Data Access Object) viene utilizzato per gestire la persistenza dei dati registrati in un database. La persistenza si riferisce alla capacità di un dato di "sopravvivere" all'esecuzione di un programma, ovvero di continuare a esistere e rimanere coerente anche dopo la fine del programma stesso. Questo pattern ha lo scopo di separare la logica di accesso ai dati dal resto dell'applicazione. È progettato per isolare il codice che si occupa dell'accesso e della manipolazione dei dati da quello che implementa la logica di business del nostro software. La classe DAO definisce e offre metodi CRUD (Create, Read, Update, Delete) per i dati presenti nel database.
 
 Le classi che sfruttano il DAO e che sono presenti nel DB sono le seguenti:
@@ -386,6 +384,24 @@ Le classi che sfruttano il DAO e che sono presenti nel DB sono le seguenti:
     \item League;
     \item Player.
     
+\end{itemize}
+
+\section{MVC Pattern}
+Sebbene, al contrario del pattern DAO, il pattern MVC non sia stato implementato in modo esplicito, è possibile identificare le varie componenti del pattern all'interno del progetto. Il pattern Model-View-Controller (MVC) è un pattern architetturale che separa i dati (Model), l'interfaccia utente (View) e la logica di controllo (Controller) di un'applicazione. Questo pattern permette di separare le responsabilità all'interno del software, facilitando la manutenzione e l'estensione del codice. 
+
+Come per il Dao, SpringBoot (starter-web) fornisce già un'implementazione del pattern MVC, che in questo caso non è stato ri-implementato, specificando ulteriormente la separazione fra le varie componenti. 
+
+Nel caso del progetto corrente (ma, essendo un impiego comune, anche in altri progetti), il \textbf{Model} coincide con le classi presenti nel package entities, vale a dire i dati del database; la \textbf{View} è rappresentata dalle pagine HTML che vengono visualizzate dall'utente; il \textbf{Controller} è rappresentato dalle classi presenti nel package gui, che si occupano di gestire le richieste dell'utente e di aggiornare il modello di dati (sfruttando il pattern DAO) in base alle azioni dell'utente.
+
+Le classi che sfruttano il MVC sono le seguenti:
+
+\begin{itemize}
+
+    \item LoginPage;
+    \item MainPage;
+    \item CreateNewLeaguePage;
+    \item LeagueDetailsPage.
+
 \end{itemize}
 
 \section{Entity Relationship Diagram}
