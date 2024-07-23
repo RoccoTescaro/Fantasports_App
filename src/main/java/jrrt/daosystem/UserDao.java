@@ -1,5 +1,6 @@
 package jrrt.daosystem;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,7 +49,10 @@ public class UserDao implements Dao<User>
     @Override
     public Set<User> getAll()
     {
-        Set<User> users = (Set<User>) userRepo.findAll();
+        Set<User> users = new HashSet<User>();
+        for (User user : userRepo.findAll())
+            users.add(user);
+
         return users;
     }
 

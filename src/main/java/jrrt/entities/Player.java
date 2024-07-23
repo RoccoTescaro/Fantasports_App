@@ -14,7 +14,6 @@ public class Player
     private Long id;
 
     private String name;
-    private String position;
     private int vote;
 
     @ManyToMany(mappedBy = "completePool")
@@ -29,7 +28,7 @@ public class Player
     @Override
     public String toString()
     {
-        return String.format("Player[id=%d, name='%s', position='%s']", id, name, position);
+        return String.format("Player[id=%d, name='%s']", id, name);
     }
 
     public Long getId()

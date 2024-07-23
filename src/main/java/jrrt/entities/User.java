@@ -22,6 +22,7 @@ public class User
     @OneToMany(mappedBy = "creator")
     private Set<League> createdLeagues = new HashSet<>();
 
+
     @Override
     public String toString()
     {

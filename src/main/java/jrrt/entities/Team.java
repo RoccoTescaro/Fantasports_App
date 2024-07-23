@@ -97,6 +97,12 @@ public class Team
         this.points = points;
     }
 
+    public Team setName(String name)
+    {
+        this.name = name;
+        return this;
+    }
+
 
     //...
 }

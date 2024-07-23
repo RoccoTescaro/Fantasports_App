@@ -34,7 +34,6 @@ public class LoginPage
         this.userDao = userDao;
         this.session = session;
     }
-
     @GetMapping("/")
     public String loginPage(Model model) 
     {
