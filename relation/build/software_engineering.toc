@@ -1,0 +1,48 @@
+\babel@toc {english}{}\relax 
+\vspace {-\cftbeforepartskip }
+\contentsline {chapter}{\numberline {1}{Introduzione}}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}{Obiettivi del progetto}}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}{Elementi del progetto}}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}{Estendibilità del progetto}}{5}{section.1.3}%
+\contentsline {chapter}{\numberline {2}{Analisi dei requisiti}}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}{Use Case Diagram}}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}{Use Case Templates}}{7}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}{Casi d’uso principali di uno User}}{7}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}{Casi d’uso principali di un Creator}}{9}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}{Mockups}}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}{Create league}}{11}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}{Join league}}{11}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}{Add Players to a team}}{12}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}{Set Players votes}}{12}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}{Evaluate current Day}}{12}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}{Set team Formation}}{13}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}{League details}}{13}{subsection.2.3.7}%
+\contentsline {section}{\numberline {2.4}{Class Diagram}}{14}{section.2.4}%
+\contentsline {section}{\numberline {2.5}{DAO Pattern}}{15}{section.2.5}%
+\contentsline {section}{\numberline {2.6}{Entity Relationship Diagram}}{16}{section.2.6}%
+\contentsline {chapter}{\numberline {3}{Implementazioni delle classi}}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}{entities}}{18}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}{User}}{18}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}{Team}}{18}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}{Player}}{19}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}{League}}{19}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}{gui}}{20}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}{LoginPage}}{20}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}{MainPage}}{20}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}{CreateNewLeaguePage}}{21}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}{LeagueDetailsPage}}{22}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}{daosystem}}{23}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}{UserDao}}{23}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}{TeamDao}}{24}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}{PlayerDao}}{25}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}{LeagueDao}}{26}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}{repositories}}{26}{section.3.4}%
+\contentsline {section}{\numberline {3.5}{resurces}}{27}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}{static}}{27}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}{templates}}{27}{subsection.3.5.2}%
+\contentsline {chapter}{\numberline {4}{Test (JUnit) }}{28}{chapter.4}%
+\contentsline {section}{\numberline {4.1}{UserTest}}{28}{section.4.1}%
+\contentsline {section}{\numberline {4.2}{TeamTest}}{29}{section.4.2}%
+\contentsline {section}{\numberline {4.3}{PlayerTest}}{30}{section.4.3}%
+\contentsline {section}{\numberline {4.4}{LeagueTest}}{31}{section.4.4}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
